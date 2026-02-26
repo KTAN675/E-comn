@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../base_auth_controller.dart';
 
-class LoginController extends BaseAuthController {
+class SignupController extends BaseAuthController {
 
   @override
   void onAuthSuccess() {

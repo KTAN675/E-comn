@@ -7,8 +7,18 @@ class AppImages {
   static const onboarding2 = 'assets/images/onboarding/onboard2.png';
   static const onboarding3 = 'assets/images/onboarding/onboard3.png';
 
-  // Auth
+  // Logo
   static const logo = 'assets/images/auth/logo.png';
+
+
+  // icons
+  static const google = 'assets/images/icons/google.png';
+  static const apple = 'assets/images/icons/apple.png';
+  static const facebook = 'assets/images/icons/facebook.png';
+  static const locationIllustration = 'assets/images/icons/locationIllustration.png';
+
+
+
 
   // Dashboard
   static const banner = 'assets/images/dashboard/banner.png';

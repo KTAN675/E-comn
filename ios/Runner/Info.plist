@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>This app needs location access to show nearby services.</string>
 	<key>CFBundleDisplayName</key>
 	<string>E Comm</string>
 	<key>CFBundleExecutable</key>

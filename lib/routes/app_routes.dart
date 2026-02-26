@@ -8,4 +8,7 @@ abstract class AppRoutes {
   static const cart = '/cart';
   static const checkout = '/checkout';
   static const profile = '/profile';
+  static const signup = '/signup';
+  static const locationPermission = '/location-permission';
+
 }

@@ -4,11 +4,10 @@ import '../../../routes/app_routes.dart';
 import '../widgets/auth_form.dart';
 import '../widgets/auth_header.dart';
 import '../widgets/social_login_row.dart';
-import 'login_controller.dart';
+import 'sign_up_controller.dart';
 
-
-class LoginView extends GetView<LoginController> {
-  const LoginView({super.key});
+class SignupView extends GetView<SignupController> {
+  const SignupView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +34,14 @@ class LoginView extends GetView<LoginController> {
 
                         const SizedBox(height: 30),
 
-                        const AuthHeader(title: "Login"),
+                        const AuthHeader(title: "Sign Up"),
 
                         const SizedBox(height: 32),
 
                         AuthForm(
-                          controller: Get.find<LoginController>(),
-                          buttonText: "Log in",
+                          controller:
+                          Get.find<SignupController>(),
+                          buttonText: "Create Account",
                         ),
 
                         const Spacer(),
@@ -59,9 +59,9 @@ class LoginView extends GetView<LoginController> {
                         Center(
                           child: GestureDetector(
                             onTap: () =>
-                                Get.offAllNamed(AppRoutes.signup),
+                                Get.offAllNamed(AppRoutes.login),
                             child: const Text(
-                              "Don’t have an account? Sign up",
+                              "Already have an account? Log in",
                             ),
                           ),
                         ),
