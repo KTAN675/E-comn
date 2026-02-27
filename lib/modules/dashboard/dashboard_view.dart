@@ -1,8 +1,11 @@
+import 'package:e_comm/modules/dashboard/widgets/inspirational_section.dart';
+import 'package:e_comm/modules/dashboard/widgets/product_section.dart';
 import 'package:e_comm/modules/dashboard/widgets/search_bar.dart';
 import 'package:e_comm/modules/dashboard/widgets/vendor_section.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constant/app_colors.dart';
+import '../../utils/custom_tab_switcher.dart';
 import 'dashboard_controller.dart';
 import 'widgets/header_section.dart';
 import 'widgets/banner_section.dart';
@@ -41,6 +44,7 @@ class DashboardView extends GetView<DashboardController> {
                         isGrocery: controller.isGrocery,
                         onToggle: controller.toggleTheme,
                       );
+
                     },
                   ),
                   /// 🔹 Search
@@ -80,6 +84,48 @@ class DashboardView extends GetView<DashboardController> {
                   ),
 
                   const SizedBox(height: 20),
+
+              GetBuilder<DashboardController>(
+                builder: (controller) {
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: [
+
+                        ProductsSection(
+                          title: "Flash Sale 🔥",
+                          products: controller.flashProducts,
+                          backgroundColor: AppColors.lightAccent,
+                        ),
+
+                        ProductsSection(
+                          title: "Today’s Specials",
+                          products: controller.todaysSpecials,
+                        ),
+
+                        InspirationSection(
+                          items: controller.inspirations,
+                        ),
+
+                        const SizedBox(height: 20,),
+
+                        CommonTabSwitcher(
+                          tabs: const [
+                            "Today's Choices",
+                            "Limited Discount!",
+                            "Cheapest!"
+                          ],
+                          selectedIndex: controller.selectedTabIndex,
+                          onTabChanged: controller.changeTab,
+                        ),
+
+                      ],
+                    ),
+                  );
+                },
+
+              ),
+                  const SizedBox(height: 20),
+
                 ],
               ),
             );

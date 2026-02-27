@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import '../../constant/app_colors.dart';
+import '../../data/models/product/inspriation_model.dart';
+import '../../data/models/product/product_model.dart';
 
 enum DashboardTheme {
   grocery,
@@ -9,20 +11,20 @@ enum DashboardTheme {
 class DashboardController extends GetxController {
 
   // =============================
-  // 📌 UI SELECTION STATES
+  //  UI SELECTION STATES
   // =============================
 
   int selectedCategoryIndex = 0;
   int selectedVendorIndex = -1;
 
   // =============================
-  // 🎨 THEME STATE
+  // THEME STATE
   // =============================
 
   DashboardTheme currentTheme = DashboardTheme.grocery;
 
   // =============================
-  // 🚀 LIFECYCLE
+  // LIFECYCLE
   // =============================
 
   @override
@@ -37,7 +39,7 @@ class DashboardController extends GetxController {
   }
 
   // =============================
-  // 🗂 CATEGORY
+  //  CATEGORY
   // =============================
 
   void changeCategory(int index) {
@@ -46,7 +48,7 @@ class DashboardController extends GetxController {
   }
 
   // =============================
-  // 🏬 VENDOR
+  // VENDOR
   // =============================
 
   void changeVendor(int index) {
@@ -55,7 +57,7 @@ class DashboardController extends GetxController {
   }
 
   // =============================
-  // 🔁 THEME TOGGLE
+  // THEME TOGGLE
   // =============================
 
   void toggleTheme() {
@@ -71,14 +73,90 @@ class DashboardController extends GetxController {
   }
 
   // =============================
-  // 🖼 BANNER IMAGE HELPER
+  // BANNER IMAGE HELPER
   // =============================
 
   String get bannerImage {
     return currentTheme == DashboardTheme.grocery
         ? "assets/images/banner_grocery.png"
-        : "assets/images/banner_medicine.png";
+        : "assets/images/icons/medical.png";
   }
 
   bool get isGrocery => currentTheme == DashboardTheme.grocery;
+
+
+  int selectedTabIndex = 0;
+
+  void changeTab(int index) {
+    selectedTabIndex = index;
+    update();
+  }
+
+
+  List<ProductModel> flashProducts = [
+    ProductModel(
+      title: "Chicken breast frozen",
+      image: "assets/images/products/chicken_breast.png",
+      weight: "450–500gr /pack",
+      price: 22.40,
+      oldPrice: 32.00,
+      discount: 30,
+    ),
+    ProductModel(
+      title: "Chicken breast frozen",
+      image: "assets/images/products/eggs.png",
+      weight: "0.9–1kg /pack",
+      price: 13.00,
+      oldPrice: 20.00,
+      discount: 35,
+    ),
+    ProductModel(
+      title: "Beef meat slice",
+      image: "assets/images/products/beef.png",
+      weight: "450–500gr /pack",
+      price: 30.00,
+      oldPrice: 38.00,
+      discount: 20,
+    ),
+  ];
+
+  List<ProductModel> todaysSpecials = [
+    ProductModel(
+      title: "Australia beef terderloin",
+      image: "assets/images/products/chicken_breast.png",
+      weight: "450–500gr /pack",
+      price: 40.00,
+      oldPrice: 50.00,
+      discount: 20,
+    ),
+    ProductModel(
+      title: "Omega chicken eggs",
+      image: "assets/images/products/eggs.png",
+      weight: "0.9–1kg /pack",
+      price: 15.00,
+    ),
+    ProductModel(
+      title: "Cavendish baby banana",
+      image: "assets/images/products/beef.png",
+      weight: "450–500gr /pack",
+      price: 9.00,
+    ),
+  ];
+  List<InspirationModel> inspirations = [
+    InspirationModel(
+      title: "Classic spaghetti bolognese",
+      image: "assets/images/products/classic_spaghetti.png",
+      time: "10 mins",
+    ),
+    InspirationModel(
+      title: "Quick beef rice bowl",
+      image: "assets/images/products/quick_beef_rice.png",
+      time: "15 mins",
+    ),
+    InspirationModel(
+      title: "Morning healthy salad",
+      image: "assets/images/products/morning_salad.png",
+      time: "5 mins",
+    ),
+  ];
 }
