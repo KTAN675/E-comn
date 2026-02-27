@@ -1,18 +1,24 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../constant/app_colors.dart';
 import '../../../constant/app_text_styles.dart';
 import '../../../data/models/product/product_model.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductModel product;
+
+  /// THEME COLORS (Injected)
+  final Color accent;
+  final Color discountColor;
+  final Color cardBackground;
+
   final VoidCallback? onAdd;
   final VoidCallback? onFavorite;
 
   const ProductCard({
     super.key,
     required this.product,
+    required this.accent,
+    required this.discountColor,
+    this.cardBackground = const Color(0xFFEFEFEF),
     this.onAdd,
     this.onFavorite,
   });
@@ -22,11 +28,11 @@ class ProductCard extends StatelessWidget {
     return Container(
       width: 190,
       decoration: BoxDecoration(
-        color: const Color(0xFFEFEFEF),
+        color: cardBackground,
         borderRadius: BorderRadius.circular(28),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
+            color: Colors.black.withOpacity(0.08),
             blurRadius: 16,
             offset: const Offset(0, 10),
           ),
@@ -38,7 +44,7 @@ class ProductCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            /// Image + Badges
+            /// 🔹 Image + Badges
             Stack(
               children: [
                 ClipRRect(
@@ -51,7 +57,7 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
 
-                /// Favorite Icon
+                /// 🔸 Favorite Icon
                 Positioned(
                   top: 8,
                   left: 8,
@@ -61,7 +67,7 @@ class ProductCard extends StatelessWidget {
                       width: 36,
                       height: 36,
                       decoration: BoxDecoration(
-                        color: AppColors.primaryOrange,
+                        color: accent,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: const Icon(
@@ -73,16 +79,18 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
 
-                /// Discount Badge
+                /// 🔸 Discount Badge
                 if (product.discount != null)
                   Positioned(
                     top: 8,
                     right: 8,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
-                        color: Colors.red,
+                        color: discountColor,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
@@ -99,7 +107,7 @@ class ProductCard extends StatelessWidget {
 
             const SizedBox(height: 14),
 
-            /// Title
+            /// 🔹 Title
             Text(
               product.title,
               style: AppTextStyles.bodyLarge.copyWith(
@@ -111,7 +119,7 @@ class ProductCard extends StatelessWidget {
 
             const SizedBox(height: 4),
 
-            /// Weight
+            /// 🔹 Weight
             Text(
               product.weight,
               style: AppTextStyles.bodyGrey,
@@ -119,44 +127,60 @@ class ProductCard extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            /// Price Row
+            /// 🔹 Price Row
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Text(
-                      "\$${product.price.toStringAsFixed(2)}",
-                      style: AppTextStyles.price,
-                    ),
-                    const SizedBox(width: 6),
-                    if (product.oldPrice != null)
-                      Text(
-                        "\$${product.oldPrice!.toStringAsFixed(2)}",
-                        style: AppTextStyles.strikePrice,
+
+                /// PRICE AREA
+                Expanded(
+                  child: Row(
+                    children: [
+
+                      Flexible(
+                        child: Text(
+                          "\$${product.price.toStringAsFixed(2)}",
+                          style: AppTextStyles.price,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                  ],
+
+                      if (product.oldPrice != null) ...[
+                        const SizedBox(width: 4),
+                        Flexible(
+                          child: Text(
+                            "\$${product.oldPrice!.toStringAsFixed(2)}",
+                            style: AppTextStyles.strikePrice,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
                 ),
 
-                /// Add Button
-                GestureDetector(
-                  onTap: onAdd,
-                  child: Container(
-                    width: 42,
-                    height: 42,
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryOrange,
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.white,
-                      size: 22,
+                const SizedBox(width: 6),
+
+                /// 🔸 ADD BUTTON
+                SizedBox(
+                  width: 38,
+                  height: 38,
+                  child: GestureDetector(
+                    onTap: onAdd,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: accent,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.white,
+                        size: 20,
+                      ),
                     ),
                   ),
                 ),
               ],
-            ),
+            )
           ],
         ),
       ),

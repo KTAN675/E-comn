@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../constant/app_colors.dart';
 import '../../../constant/app_text_styles.dart';
 
 class VendorModel {
@@ -20,11 +19,17 @@ class VendorsSection extends StatelessWidget {
   final Function(int) onVendorTap;
   final VoidCallback? onSeeAll;
 
+  /// 🔥 Injected Theme Colors
+  final Color accent;
+  final Color lightAccent;
+
   const VendorsSection({
     super.key,
     required this.vendors,
     required this.selectedIndex,
     required this.onVendorTap,
+    required this.accent,
+    required this.lightAccent,
     this.onSeeAll,
   });
 
@@ -34,7 +39,7 @@ class VendorsSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
 
-        /// Header
+        /// 🔹 Header
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
@@ -53,7 +58,7 @@ class VendorsSection extends StatelessWidget {
                     Text(
                       "See all",
                       style: AppTextStyles.body.copyWith(
-                        color: AppColors.accent,
+                        color: accent,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -61,7 +66,7 @@ class VendorsSection extends StatelessWidget {
                     Icon(
                       Icons.arrow_forward_ios,
                       size: 12,
-                      color: AppColors.accent,
+                      color: accent,
                     ),
                   ],
                 ),
@@ -72,12 +77,12 @@ class VendorsSection extends StatelessWidget {
 
         const SizedBox(height: 14),
 
-        /// Orange strip
+        /// 🔹 Accent Strip Background
         Container(
           padding: const EdgeInsets.symmetric(vertical: 20),
-          color: AppColors.lightAccent.withValues(alpha: 0.16),
+          color: lightAccent.withOpacity(0.16),
           child: SizedBox(
-            height: 270, // increased to avoid overflow
+            height: 270,
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               scrollDirection: Axis.horizontal,
@@ -88,10 +93,8 @@ class VendorsSection extends StatelessWidget {
 
                 return _VendorCard(
                   vendor: vendor,
-                  onTap: () {
-                    // Navigate here
-                    // Get.to(() => StoreView(vendor: vendor));
-                  },
+                  accent: accent,
+                  onTap: () => onVendorTap(index),
                 );
               },
             ),
@@ -106,9 +109,13 @@ class _VendorCard extends StatefulWidget {
   final VendorModel vendor;
   final VoidCallback onTap;
 
+  /// 🔥 Accent injected
+  final Color accent;
+
   const _VendorCard({
     required this.vendor,
     required this.onTap,
+    required this.accent,
   });
 
   @override
@@ -125,7 +132,7 @@ class _VendorCardState extends State<_VendorCard> {
 
     setState(() => showEffect = false);
 
-    widget.onTap(); // navigate after flash
+    widget.onTap();
   }
 
   @override
@@ -143,14 +150,14 @@ class _VendorCardState extends State<_VendorCard> {
             borderRadius: BorderRadius.circular(26),
             border: Border.all(
               color: showEffect
-                  ? AppColors.primaryOrange
+                  ? widget.accent
                   : Colors.transparent,
               width: 3,
             ),
             boxShadow: [
               if (showEffect)
                 BoxShadow(
-                  color: AppColors.primaryOrange.withOpacity(0.35),
+                  color: widget.accent.withOpacity(0.35),
                   blurRadius: 22,
                   spreadRadius: 1,
                 ),
@@ -204,7 +211,7 @@ class _VendorCardState extends State<_VendorCard> {
                       Text(
                         "View Store",
                         style: AppTextStyles.body.copyWith(
-                          color: AppColors.primaryOrange,
+                          color: widget.accent,
                           fontWeight: FontWeight.w600,
                           decoration: TextDecoration.underline,
                         ),

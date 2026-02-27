@@ -17,13 +17,14 @@ class CategoriesSection extends StatelessWidget {
   final int selectedIndex;
   final Function(int) onCategoryTap;
   final VoidCallback? onSeeAll;
+  final Color lightAccent;
 
   const CategoriesSection({
     super.key,
     required this.categories,
     required this.selectedIndex,
     required this.onCategoryTap,
-    this.onSeeAll,
+    this.onSeeAll, required this.lightAccent,
   });
 
   @override
@@ -89,7 +90,7 @@ class CategoriesSection extends StatelessWidget {
                         width: 64,
                         height: 64,
                         decoration: BoxDecoration(
-                          color: AppColors.lightAccent.withOpacity(0.15),
+                          color: lightAccent.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Center(

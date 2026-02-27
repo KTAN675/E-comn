@@ -1,11 +1,14 @@
+import 'package:e_comm/modules/dashboard/widgets/floating_nav_bar.dart';
 import 'package:e_comm/modules/dashboard/widgets/inspirational_section.dart';
 import 'package:e_comm/modules/dashboard/widgets/product_section.dart';
 import 'package:e_comm/modules/dashboard/widgets/search_bar.dart';
 import 'package:e_comm/modules/dashboard/widgets/vendor_section.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../constant/app_colors.dart';
-import '../../utils/custom_tab_switcher.dart';
+import '../../utils/custom_product_grid.dart';
+import '../../utils/custom_tab_section.dart';
 import 'dashboard_controller.dart';
 import 'widgets/header_section.dart';
 import 'widgets/banner_section.dart';
@@ -18,6 +21,21 @@ class DashboardView extends GetView<DashboardController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+
+      /// 🔹 Bottom Nav
+      bottomNavigationBar: GetBuilder<DashboardController>(
+        builder: (controller) {
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: FloatingNavBar(
+              selectedIndex: controller.bottomNavIndex,
+              onItemSelected: controller.changeBottomNav,
+              accent: controller.accent, // 🔥 injected
+            ),
+          );
+        },
+      ),
+
       body: SafeArea(
         child: GetBuilder<DashboardController>(
           builder: (controller) {
@@ -37,30 +55,20 @@ class DashboardView extends GetView<DashboardController> {
                   const SizedBox(height: 8),
 
                   /// 🔹 Banner
-                  GetBuilder<DashboardController>(
-                    builder: (controller) {
-                      return BannerSection(
-                        imagePath: controller.bannerImage,
-                        isGrocery: controller.isGrocery,
-                        onToggle: controller.toggleTheme,
-                      );
-
-                    },
+                  BannerSection(
+                    imagePath: controller.bannerImage,
+                    isGrocery: controller.isGrocery,
+                    onToggle: controller.toggleTheme,
                   ),
-                  /// 🔹 Search
+
                   const SearchBarSection(),
 
                   /// 🔹 Categories
                   CategoriesSection(
-                    categories: [
-                      CategoryModel(title: "Vegetable", image: 'assets/images/icons/vegetable.png', ),
-                      CategoryModel(title: "Fruit", image: 'assets/images/icons/fruits.png', ),
-                      CategoryModel(title: "Meat", image: 'assets/images/icons/meat.png', ),
-                      CategoryModel(title: "Seafood", image: 'assets/images/icons/seafood.png', ),
-                      CategoryModel(title: "Protein", image: 'assets/images/icons/protine.png', ),
-                    ],
+                    categories: controller.currentCategories,
                     selectedIndex: controller.selectedCategoryIndex,
                     onCategoryTap: controller.changeCategory,
+                    lightAccent: controller.lightAccent,
                   ),
 
                   const SizedBox(height: 10),
@@ -81,51 +89,62 @@ class DashboardView extends GetView<DashboardController> {
                     ],
                     selectedIndex: controller.selectedVendorIndex,
                     onVendorTap: controller.changeVendor,
+                    accent: controller.accent, lightAccent: controller.lightAccent,
                   ),
 
                   const SizedBox(height: 20),
 
-              GetBuilder<DashboardController>(
-                builder: (controller) {
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: [
+                  /// 🔹 Flash Sale
+                  ProductsSection(
+                    title: "Flash Sale 🔥",
+                    products: controller.flashProducts,
+                    accent: controller.accent,
+                    backgroundColor: controller.flashSectionBg,
+                  ),
 
-                        ProductsSection(
-                          title: "Flash Sale 🔥",
-                          products: controller.flashProducts,
-                          backgroundColor: AppColors.lightAccent,
-                        ),
+                  /// 🔹 Today’s Specials
+                  ProductsSection(
+                    title: "Today’s Specials",
+                    products: controller.todaysSpecials,
+                    accent: controller.accent,
+                  ),
 
-                        ProductsSection(
-                          title: "Today’s Specials",
-                          products: controller.todaysSpecials,
-                        ),
+                  /// 🔹 Inspiration
+                  InspirationSection(
+                    items: controller.inspirations,
+                  ),
 
-                        InspirationSection(
-                          items: controller.inspirations,
-                        ),
-
-                        const SizedBox(height: 20,),
-
-                        CommonTabSwitcher(
-                          tabs: const [
-                            "Today's Choices",
-                            "Limited Discount!",
-                            "Cheapest!"
-                          ],
-                          selectedIndex: controller.selectedTabIndex,
-                          onTabChanged: controller.changeTab,
-                        ),
-
-                      ],
-                    ),
-                  );
-                },
-
-              ),
                   const SizedBox(height: 20),
 
+                  /// 🔹 Tab Section
+                  TabSection(
+                    tabs: const [
+                      "Today's Choices",
+                      "Limited Discount!",
+                      "Cheapest!",
+                    ],
+                    selectedIndex: controller.selectedTabIndex,
+                    onTabChanged: controller.changeTab,
+                    tabViews: [
+                      ProductsGrid(
+                        products: controller.todaysChoices,
+                        accent: controller.accent,
+                        discountColor: controller.accent,
+                      ),
+                      ProductsGrid(
+                        products: controller.limitedDiscount,
+                        accent: controller.accent,
+                        discountColor: controller.accent,
+                      ),
+                      ProductsGrid(
+                        products: controller.cheapest,
+                        accent: controller.accent,
+                        discountColor: controller.accent,
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 30),
                 ],
               ),
             );
