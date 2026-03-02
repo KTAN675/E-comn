@@ -7,11 +7,15 @@ class SearchBarSection extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final TextEditingController? controller;
 
+  /// 🔥 Injected theme accent
+  final Color accent;
+
   const SearchBarSection({
     super.key,
     this.onTap,
     this.onChanged,
     this.controller,
+    required this.accent,
   });
 
   @override
@@ -21,11 +25,11 @@ class SearchBarSection extends StatelessWidget {
       child: Container(
         height: 54,
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
-              color: AppColors.black.withValues(alpha: 0.05),
+              color: Colors.black.withOpacity(0.05),
               blurRadius: 12,
               offset: const Offset(0, 6),
             ),
@@ -36,7 +40,7 @@ class SearchBarSection extends StatelessWidget {
           onTap: onTap,
           onChanged: onChanged,
           style: AppTextStyles.bodyLarge,
-          cursorColor: AppColors.accent,
+          cursorColor: accent, // 🔥 dynamic
           decoration: InputDecoration(
             hintText: "What’s your daily needs?",
             hintStyle: AppTextStyles.bodyGrey,
@@ -47,7 +51,7 @@ class SearchBarSection extends StatelessWidget {
               padding: const EdgeInsets.only(right: 16),
               child: Icon(
                 Icons.search,
-                color: AppColors.accent,
+                color: accent, // 🔥 dynamic
               ),
             ),
             suffixIconConstraints:

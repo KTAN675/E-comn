@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../constant/app_colors.dart';
 import '../../../constant/app_text_styles.dart';
 import '../../../data/models/product/product_model.dart';
 import '../../products/widgets/product_card.dart';
@@ -7,19 +6,22 @@ import '../../products/widgets/product_card.dart';
 class ProductsSection extends StatelessWidget {
   final String title;
   final List<ProductModel> products;
-  final VoidCallback? onSeeAll;
+
+  /// THEME COLORS (Injected from Controller)
+  final Color accent;
   final Color? backgroundColor;
   final Color? headerTextColor;
-  final Color? seeAllColor;
+
+  final VoidCallback? onSeeAll;
 
   const ProductsSection({
     super.key,
     required this.title,
     required this.products,
-    this.onSeeAll,
+    required this.accent,
     this.backgroundColor,
     this.headerTextColor,
-    this.seeAllColor,
+    this.onSeeAll,
   });
 
   @override
@@ -30,20 +32,23 @@ class ProductsSection extends StatelessWidget {
       child: Column(
         children: [
 
-          /// Header
+          /// 🔹 Header
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
-              mainAxisAlignment:
-              MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+
+                /// Title
                 Text(
                   title,
                   style: AppTextStyles.h2.copyWith(
                     fontWeight: FontWeight.w700,
-                    color: headerTextColor ?? AppColors.black,
+                    color: headerTextColor,
                   ),
                 ),
+
+                /// See All
                 GestureDetector(
                   onTap: onSeeAll,
                   child: Row(
@@ -51,7 +56,7 @@ class ProductsSection extends StatelessWidget {
                       Text(
                         "See all",
                         style: AppTextStyles.body.copyWith(
-                          color: seeAllColor ?? AppColors.accent,
+                          color: accent,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -59,7 +64,7 @@ class ProductsSection extends StatelessWidget {
                       Icon(
                         Icons.arrow_forward_ios,
                         size: 12,
-                        color: seeAllColor ?? AppColors.accent,
+                        color: accent,
                       ),
                     ],
                   ),
@@ -70,12 +75,11 @@ class ProductsSection extends StatelessWidget {
 
           const SizedBox(height: 18),
 
-          /// Product List
+          /// 🔹 Product List
           SizedBox(
             height: 300,
             child: ListView.separated(
-              padding:
-              const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               scrollDirection: Axis.horizontal,
               itemCount: products.length,
               separatorBuilder: (_, __) =>
@@ -83,6 +87,7 @@ class ProductsSection extends StatelessWidget {
               itemBuilder: (context, index) {
                 return ProductCard(
                   product: products[index],
+                  accent: accent, discountColor: accent, // 🔥 Pass accent down
                 );
               },
             ),

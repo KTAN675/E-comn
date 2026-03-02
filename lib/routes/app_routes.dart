@@ -4,6 +4,8 @@ abstract class AppRoutes {
   static const login = '/login';
   static const otp = '/otp';
   static const dashboard = '/dashboard';
+  static const notification = '/notification';
+  static const wishlist = '/wishlist';
   static const productDetails = '/product-details';
   static const cart = '/cart';
   static const checkout = '/checkout';

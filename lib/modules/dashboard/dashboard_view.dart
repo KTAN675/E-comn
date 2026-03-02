@@ -1,11 +1,15 @@
+import 'package:e_comm/modules/dashboard/widgets/floating_nav_bar.dart';
 import 'package:e_comm/modules/dashboard/widgets/inspirational_section.dart';
 import 'package:e_comm/modules/dashboard/widgets/product_section.dart';
 import 'package:e_comm/modules/dashboard/widgets/search_bar.dart';
 import 'package:e_comm/modules/dashboard/widgets/vendor_section.dart';
+import 'package:e_comm/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../constant/app_colors.dart';
-import '../../utils/custom_tab_switcher.dart';
+import '../../utils/custom_product_grid.dart';
+import '../../utils/custom_tab_section.dart';
 import 'dashboard_controller.dart';
 import 'widgets/header_section.dart';
 import 'widgets/banner_section.dart';
@@ -18,106 +22,128 @@ class DashboardView extends GetView<DashboardController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: GetBuilder<DashboardController>(
-          builder: (controller) {
-            return SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+      extendBody: true,
 
-                  /// 🔹 Header
-                  HeaderSection(
-                    name: "Ghana",
-                    address: "E /5001, Posh Complex Hatkesh U...",
-                    onNotificationTap: () {},
-                    onLocationTap: () {},
-                  ),
+      /// 🔹 Bottom Nav
+      bottomNavigationBar: GetBuilder<DashboardController>(
+        builder: (controller) {
+          return FloatingNavBar(
+            selectedIndex: controller.bottomNavIndex,
+            onItemSelected: controller.changeBottomNav,
+            accent: controller.accent,
+          );
+        },
+      ),
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: GetBuilder<DashboardController>(
+            builder: (controller) {
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+        
+                    /// 🔹 Header
+                    HeaderSection(
+                      name: "Ghana",
+                      address: "E /5001, Posh Complex Hatkesh U...",
+                      onNotificationTap: () {
+                        Get.toNamed(AppRoutes.notification);
+                      },
+                      onLocationTap: () {},
+                    ),
+                    const SizedBox(height: 8),
+        
+                    /// 🔹 Banner
+                    BannerSection(
+                      imagePath: controller.bannerImage,
+                      isGrocery: controller.isGrocery,
+                      onToggle: controller.toggleTheme,
+                    ),
 
-                  const SizedBox(height: 8),
+                    SearchBarSection(
+                      accent: controller.accent,
+                    ),
 
-                  /// 🔹 Banner
-                  GetBuilder<DashboardController>(
-                    builder: (controller) {
-                      return BannerSection(
-                        imagePath: controller.bannerImage,
-                        isGrocery: controller.isGrocery,
-                        onToggle: controller.toggleTheme,
-                      );
-
-                    },
-                  ),
-                  /// 🔹 Search
-                  const SearchBarSection(),
-
-                  /// 🔹 Categories
-                  CategoriesSection(
-                    categories: [
-                      CategoryModel(title: "Vegetable", image: 'assets/images/icons/vegetable.png', ),
-                      CategoryModel(title: "Fruit", image: 'assets/images/icons/fruits.png', ),
-                      CategoryModel(title: "Meat", image: 'assets/images/icons/meat.png', ),
-                      CategoryModel(title: "Seafood", image: 'assets/images/icons/seafood.png', ),
-                      CategoryModel(title: "Protein", image: 'assets/images/icons/protine.png', ),
-                    ],
-                    selectedIndex: controller.selectedCategoryIndex,
-                    onCategoryTap: controller.changeCategory,
-                  ),
-
-                  const SizedBox(height: 10),
-
-                  /// 🔹 Vendors
-                  VendorsSection(
-                    vendors: [
-                      VendorModel(
-                        name: "Tripische distributor, Mumbai",
-                        subtitle: "5000 + Products",
-                        image: "assets/images/vendor1.png",
+                    /// 🔹 Categories
+                    CategoriesSection(
+                      categories: controller.currentCategories,
+                      selectedIndex: controller.selectedCategoryIndex,
+                      onCategoryTap: controller.changeCategory,
+                      lightAccent: controller.lightAccent,
+                    ),
+        
+                    const SizedBox(height: 10),
+        
+                    /// 🔹 Vendors
+                    VendorsSection(
+                      vendors: controller.currentVendors,
+                      selectedIndex: controller.selectedVendorIndex,
+                      onVendorTap: controller.changeVendor,
+                      accent: controller.accent,
+                      lightAccent: controller.lightAccent,
+                    ),
+                    const SizedBox(height: 20),
+        
+                    /// 🔹 Flash Sale
+                    ProductsSection(
+                      title: "Flash Sale 🔥",
+                      products: controller.flashProducts,
+                      accent: controller.accent,
+                      backgroundColor: controller.flashSectionBg,
+                    ),
+        
+                    /// 🔹 Today’s Specials
+                    ProductsSection(
+                      title: "Today’s Specials",
+                      products: controller.todaysSpecials,
+                      accent: controller.accent,
+                    ),
+        
+                    /// 🔹 Inspiration
+                    if (controller.showInspiration)
+                      InspirationSection(
+                        items: controller.inspirations,
                       ),
-                      VendorModel(
-                        name: "Starmall distributor, Mumbai",
-                        subtitle: "5000 + Products",
-                        image: "assets/images/vendor2.png",
-                      ),
-                    ],
-                    selectedIndex: controller.selectedVendorIndex,
-                    onVendorTap: controller.changeVendor,
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  ProductsSection(
-                    title: "Flash Sale 🔥",
-                    products: controller.flashProducts,
-                    backgroundColor: AppColors.lightAccent,
-                  ),
-
-                  ProductsSection(
-                    title: "Today's Specials",
-                    products: controller.todaysSpecials,
-                  ),
-
-                  InspirationSection(
-                    items: controller.inspirations,
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  CommonTabSwitcher(
-                    tabs: const [
-                      "Today's Choices",
-                      "Limited Discount!",
-                      "Cheapest!"
-                    ],
-                    selectedIndex: controller.selectedTabIndex,
-                    onTabChanged: controller.changeTab,
-                  ),
-
-                  const SizedBox(height: 20),
-
-                ],
-              ),
-            );
-          },
+        
+                    const SizedBox(height: 20),
+        
+                    /// 🔹 Tab Section
+                    TabSection(
+                      tabs: const [
+                        "Today's Choices",
+                        "Limited Discount!",
+                        "Cheapest!",
+                      ],
+                      selectedIndex: controller.selectedTabIndex,
+                      onTabChanged: controller.changeTab,
+                      tabViews: [
+                        ProductsGrid(
+                          products: controller.currentTabProducts,
+                          accent: controller.accent,
+                          discountColor: controller.accent,
+                        ),
+                        ProductsGrid(
+                          products: controller.limitedDiscount,
+                          accent: controller.accent,
+                          discountColor: controller.accent,
+        
+                        ),
+                        ProductsGrid(
+                          products: controller.cheapest,
+                          accent: controller.accent,
+                          discountColor: controller.accent,
+        
+                        ),
+                      ],
+                      accent: controller.accent, // 🔥 dynamic color
+                    ),
+                    const SizedBox(height: 30),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
