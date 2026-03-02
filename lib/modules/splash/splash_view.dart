@@ -8,7 +8,7 @@
 
     @override
     Widget build(BuildContext context) {
-      final SplashController controller = Get.find();
+      Get.find<SplashController>(); // ensure controller lifecycle starts
 
       return Scaffold(
         body: Image.asset(

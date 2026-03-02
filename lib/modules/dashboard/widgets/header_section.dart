@@ -83,7 +83,7 @@ class HeaderSection extends StatelessWidget {
               ),
               child: Icon(
                 Icons.notifications_none,
-                color: AppColors.primaryOrange,
+                color: AppColors.accent,
                 size: 22,
               ),
             ),

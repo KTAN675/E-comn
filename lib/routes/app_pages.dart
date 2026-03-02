@@ -1,3 +1,7 @@
+import 'package:e_comm/modules/notification/notification_settings_binding.dart';
+import 'package:e_comm/modules/notification/notification_settings_view.dart';
+import 'package:e_comm/modules/profile_and_setting/edit_profile_view.dart';
+import 'package:e_comm/modules/profile_and_setting/profile_and_setting_binding.dart';
 import 'package:get/get.dart';
 import '../modules/auth/login/login_binding.dart';
 import '../modules/auth/login/login_view.dart';
@@ -12,12 +16,10 @@ import '../modules/onboarding/onboarding_view.dart';
 import '../modules/splash/splash_binding.dart';
 import '../modules/splash/splash_view.dart';
 
-
 import 'app_routes.dart';
 
 class AppPages {
   static final pages = [
-
     GetPage(
       name: AppRoutes.splash,
       page: () => SplashView(),
@@ -52,6 +54,16 @@ class AppPages {
       name: AppRoutes.dashboard,
       page: () => DashboardView(),
       binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.editProfile,
+      page: () => EditProfileView(),
+      binding: ProfileAndSettingBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.notificationSettings,
+      page: () => NotificationSettingsView(),
+      binding: NotificationSettingsBinding(),
     ),
     //
     // GetPage(

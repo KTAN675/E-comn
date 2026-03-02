@@ -143,19 +143,19 @@ class _VendorCardState extends State<_VendorCard> {
             borderRadius: BorderRadius.circular(26),
             border: Border.all(
               color: showEffect
-                  ? AppColors.primaryOrange
+                  ? AppColors.accent
                   : Colors.transparent,
               width: 3,
             ),
             boxShadow: [
               if (showEffect)
                 BoxShadow(
-                  color: AppColors.primaryOrange.withOpacity(0.35),
+                  color: AppColors.accent.withValues(alpha: 0.35),
                   blurRadius: 22,
                   spreadRadius: 1,
                 ),
               BoxShadow(
-                color: Colors.black.withOpacity(0.10),
+                color: Colors.black.withValues(alpha: 0.10),
                 blurRadius: 18,
                 offset: const Offset(0, 14),
               ),
@@ -204,7 +204,7 @@ class _VendorCardState extends State<_VendorCard> {
                       Text(
                         "View Store",
                         style: AppTextStyles.body.copyWith(
-                          color: AppColors.primaryOrange,
+                          color: AppColors.accent,
                           fontWeight: FontWeight.w600,
                           decoration: TextDecoration.underline,
                         ),

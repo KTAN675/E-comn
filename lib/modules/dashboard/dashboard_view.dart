@@ -85,45 +85,33 @@ class DashboardView extends GetView<DashboardController> {
 
                   const SizedBox(height: 20),
 
-              GetBuilder<DashboardController>(
-                builder: (controller) {
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: [
+                  ProductsSection(
+                    title: "Flash Sale 🔥",
+                    products: controller.flashProducts,
+                    backgroundColor: AppColors.lightAccent,
+                  ),
 
-                        ProductsSection(
-                          title: "Flash Sale 🔥",
-                          products: controller.flashProducts,
-                          backgroundColor: AppColors.lightAccent,
-                        ),
+                  ProductsSection(
+                    title: "Today's Specials",
+                    products: controller.todaysSpecials,
+                  ),
 
-                        ProductsSection(
-                          title: "Today’s Specials",
-                          products: controller.todaysSpecials,
-                        ),
+                  InspirationSection(
+                    items: controller.inspirations,
+                  ),
 
-                        InspirationSection(
-                          items: controller.inspirations,
-                        ),
+                  const SizedBox(height: 20),
 
-                        const SizedBox(height: 20,),
+                  CommonTabSwitcher(
+                    tabs: const [
+                      "Today's Choices",
+                      "Limited Discount!",
+                      "Cheapest!"
+                    ],
+                    selectedIndex: controller.selectedTabIndex,
+                    onTabChanged: controller.changeTab,
+                  ),
 
-                        CommonTabSwitcher(
-                          tabs: const [
-                            "Today's Choices",
-                            "Limited Discount!",
-                            "Cheapest!"
-                          ],
-                          selectedIndex: controller.selectedTabIndex,
-                          onTabChanged: controller.changeTab,
-                        ),
-
-                      ],
-                    ),
-                  );
-                },
-
-              ),
                   const SizedBox(height: 20),
 
                 ],

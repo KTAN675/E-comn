@@ -29,7 +29,7 @@ class InspirationCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 18,
               offset: const Offset(0, 10),
             ),
@@ -49,7 +49,7 @@ class InspirationCard extends StatelessWidget {
                     item.title,
                     style: AppTextStyles.bodyLarge.copyWith(
                       fontWeight: FontWeight.w700,
-                      color: AppColors.primaryOrange,
+                      color: AppColors.accent,
                       height: 1.2,
                     ),
                     maxLines: 2,

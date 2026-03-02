@@ -1,6 +1,4 @@
-import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant/app_colors.dart';

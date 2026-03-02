@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constant/app_colors.dart';
 import '../../constant/app_images.dart';
-import '../../constant/app_radius.dart';
 import '../../constant/app_text_styles.dart';
 import '../../modules/theme/theme_controller.dart';
 import '../../routes/app_routes.dart';
@@ -71,11 +70,14 @@ class _OnboardingViewState extends State<OnboardingView> {
                   padding: const EdgeInsets.only(right: 20, top: 8),
                   child: Align(
                     alignment: Alignment.centerRight,
-                    child: Text(
-                      "Skip",
-                      style: AppTextStyles.bodyLarge.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: const Color(0xff2D3440),
+                    child: GestureDetector(
+                      onTap: () => Get.offAllNamed(AppRoutes.login),
+                      child: Text(
+                        "Skip",
+                        style: AppTextStyles.bodyLarge.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xff2D3440),
+                        ),
                       ),
                     ),
                   ),

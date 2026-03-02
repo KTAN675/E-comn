@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../constant/app_colors.dart';
 import '../../../../constant/app_images.dart';
 
 class SocialLoginRow extends StatelessWidget {
@@ -23,7 +24,7 @@ class SocialLoginRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: const Color(0xffFF660E)),
+        border: Border.all(color: AppColors.accent),
       ),
       child: Center(
         child: Image.asset(asset, height: 26),

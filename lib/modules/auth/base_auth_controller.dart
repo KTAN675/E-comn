@@ -117,9 +117,14 @@ abstract class BaseAuthController extends GetxController {
       smsCode: otp,
     );
 
-    await FirebaseAuth.instance.signInWithCredential(cred);
-
-    onAuthSuccess();
+    try {
+      await FirebaseAuth.instance.signInWithCredential(cred);
+      onAuthSuccess();
+    } on FirebaseAuthException catch (e) {
+      Get.snackbar("Error", e.message ?? "Verification failed");
+    } catch (e) {
+      Get.snackbar("Error", "Something went wrong");
+    }
   }
   void onAuthSuccess(); // abstract method
 

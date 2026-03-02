@@ -10,5 +10,6 @@ abstract class AppRoutes {
   static const profile = '/profile';
   static const signup = '/signup';
   static const locationPermission = '/location-permission';
-
+  static const editProfile = '/edit-profile';
+  static const notificationSettings = '/notification-settings';
 }

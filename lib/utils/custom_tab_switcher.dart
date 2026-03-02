@@ -37,7 +37,7 @@ class CommonTabSwitcher extends StatelessWidget {
                       fontWeight:
                       isSelected ? FontWeight.w700 : FontWeight.w500,
                       color: isSelected
-                          ? AppColors.primaryOrange
+                          ? AppColors.accent
                           : Colors.grey.shade500,
                     ),
                     child: Center(
@@ -119,7 +119,7 @@ class _WavePainter extends CustomPainter {
       ..strokeWidth = 1;
 
     final activePaint = Paint()
-      ..color = AppColors.primaryOrange
+      ..color = AppColors.accent
       ..style = PaintingStyle.fill;
 
     // Base grey line

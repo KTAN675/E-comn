@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant/app_colors.dart';
@@ -61,7 +60,7 @@ class ProductCard extends StatelessWidget {
                       width: 36,
                       height: 36,
                       decoration: BoxDecoration(
-                        color: AppColors.primaryOrange,
+                        color: AppColors.accent,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: const Icon(

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../constant/app_colors.dart';
-import '../../../constant/app_text_styles.dart';
 import '../../../utils/segment_toggle.dart';
 
 class BannerSection extends StatelessWidget {

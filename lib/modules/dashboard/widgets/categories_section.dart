@@ -89,7 +89,7 @@ class CategoriesSection extends StatelessWidget {
                         width: 64,
                         height: 64,
                         decoration: BoxDecoration(
-                          color: AppColors.lightAccent.withOpacity(0.15),
+                          color: AppColors.lightAccent.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Center(
