@@ -5,17 +5,15 @@ import '../modules/products/widgets/product_card.dart';
 class ProductsGrid extends StatelessWidget {
   final List<ProductModel> products;
 
-  /// THEME COLORS (Injected from parent/controller)
+  /// THEME COLORS (Accent still dynamic)
   final Color accent;
   final Color discountColor;
-  final Color cardBackground;
 
   const ProductsGrid({
     super.key,
     required this.products,
     required this.accent,
     required this.discountColor,
-    this.cardBackground = const Color(0xFFEFEFEF),
   });
 
   @override
@@ -37,7 +35,7 @@ class ProductsGrid extends StatelessWidget {
           product: products[index],
           accent: accent,
           discountColor: discountColor,
-          cardBackground: cardBackground,
+          cardBackground: Colors.white, // 🔥 ALWAYS WHITE
         );
       },
     );

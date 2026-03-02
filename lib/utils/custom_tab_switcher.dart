@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import '../constant/app_colors.dart';
 import '../constant/app_text_styles.dart';
 
 class CommonTabSwitcher extends StatelessWidget {
   final List<String> tabs;
   final int selectedIndex;
   final Function(int) onTabChanged;
+  final Color accent;
 
   const CommonTabSwitcher({
     super.key,
     required this.tabs,
     required this.selectedIndex,
     required this.onTabChanged,
+    required this.accent,
   });
 
   @override
@@ -31,13 +32,13 @@ class CommonTabSwitcher extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: AnimatedDefaultTextStyle(
-                    duration: const Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 250),
                     curve: Curves.easeInOut,
                     style: AppTextStyles.body.copyWith(
                       fontWeight:
                       isSelected ? FontWeight.w700 : FontWeight.w500,
                       color: isSelected
-                          ? AppColors.primaryOrange
+                          ? accent
                           : Colors.grey.shade500,
                     ),
                     child: Center(
@@ -50,61 +51,56 @@ class CommonTabSwitcher extends StatelessWidget {
           }),
         ),
 
-        /// 🔹 Wave Indicator
-        _TabIndicator(
-          tabs: tabs,
-          selectedIndex: selectedIndex,
+        /// 🔹 Animated Indicator
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final tabWidth = constraints.maxWidth / tabs.length;
+
+            return SizedBox(
+              height: 12,
+              width: double.infinity,
+              child: TweenAnimationBuilder<double>(
+                tween: Tween(
+                  begin: 0,
+                  end: selectedIndex.toDouble(),
+                ),
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+                builder: (context, animatedIndex, _) {
+                  return CustomPaint(
+                    painter: _WavePainter(
+                      tabs: tabs,
+                      animatedIndex: animatedIndex,
+                      tabWidth: tabWidth,
+                      textStyle: AppTextStyles.body.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                      accent: accent,
+                    ),
+                  );
+                },
+              ),
+            );
+          },
         ),
       ],
     );
   }
 }
 
-class _TabIndicator extends StatelessWidget {
-  final List<String> tabs;
-  final int selectedIndex;
-
-  const _TabIndicator({
-    required this.tabs,
-    required this.selectedIndex,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final tabWidth = constraints.maxWidth / tabs.length;
-
-        return SizedBox(
-          height: 12,
-          width: double.infinity,
-          child: CustomPaint(
-            painter: _WavePainter(
-              tabs: tabs,
-              selectedIndex: selectedIndex,
-              tabWidth: tabWidth,
-              textStyle: AppTextStyles.body.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-
 class _WavePainter extends CustomPainter {
   final List<String> tabs;
-  final int selectedIndex;
+  final double animatedIndex;
   final double tabWidth;
   final TextStyle textStyle;
+  final Color accent;
 
   _WavePainter({
     required this.tabs,
-    required this.selectedIndex,
+    required this.animatedIndex,
     required this.tabWidth,
     required this.textStyle,
+    required this.accent,
   });
 
   @override
@@ -114,7 +110,7 @@ class _WavePainter extends CustomPainter {
       ..strokeWidth = 1;
 
     final activePaint = Paint()
-      ..color = AppColors.primaryOrange
+      ..color = accent
       ..style = PaintingStyle.fill;
 
     // Base grey line
@@ -124,10 +120,16 @@ class _WavePainter extends CustomPainter {
       baseLinePaint,
     );
 
-    // Measure selected text width
+    // Calculate center position dynamically
+    final centerX =
+        (animatedIndex * tabWidth) + tabWidth / 2;
+
+    final int closestIndex = animatedIndex.round();
+
+    // Measure text width of target tab
     final textPainter = TextPainter(
       text: TextSpan(
-        text: tabs[selectedIndex],
+        text: tabs[closestIndex],
         style: textStyle,
       ),
       maxLines: 1,
@@ -136,14 +138,10 @@ class _WavePainter extends CustomPainter {
 
     final textWidth = textPainter.width;
 
-    // Center of selected tab
-    final tabStart = selectedIndex * tabWidth;
-    final centerX = tabStart + tabWidth / 2;
-
     final underlineLeft = centerX - textWidth / 2;
     final underlineTop = size.height - 3;
 
-    // Draw underline exactly matching text width
+    // Underline
     canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromLTWH(
@@ -157,7 +155,7 @@ class _WavePainter extends CustomPainter {
       activePaint,
     );
 
-    // Draw pointer bump centered on text
+    // Pointer bump
     const double pointerWidth = 45;
     const double pointerHeight = 8;
 
@@ -178,6 +176,7 @@ class _WavePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _WavePainter oldDelegate) {
-    return oldDelegate.selectedIndex != selectedIndex;
+    return oldDelegate.animatedIndex != animatedIndex ||
+        oldDelegate.accent != accent;
   }
 }

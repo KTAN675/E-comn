@@ -7,12 +7,16 @@ import '../modules/dashboard/dashboard_binding.dart';
 import '../modules/dashboard/dashboard_view.dart';
 import '../modules/location_premission/location_permission_binding.dart';
 import '../modules/location_premission/location_permission_view.dart';
+import '../modules/notification/notification_binding.dart';
+import '../modules/notification/notification_view.dart';
 import '../modules/onboarding/onboarding_binding.dart';
 import '../modules/onboarding/onboarding_view.dart';
 import '../modules/splash/splash_binding.dart';
 import '../modules/splash/splash_view.dart';
 
 
+import '../modules/wishlist/wishlist_binding.dart';
+import '../modules/wishlist/wishlist_view.dart';
 import 'app_routes.dart';
 
 class AppPages {
@@ -50,8 +54,20 @@ class AppPages {
 
     GetPage(
       name: AppRoutes.dashboard,
-      page: () => DashboardView(),
+      page: () => const DashboardView(),
       binding: DashboardBinding(),
+    ),
+
+    GetPage(
+      name: AppRoutes.notification,
+      page: () => const NotificationView(),
+      binding: NotificationBinding(),
+    ),
+
+    GetPage(
+      name: AppRoutes.wishlist,
+      page: () => const WishlistView(),
+      binding: WishlistBinding(),
     ),
     //
     // GetPage(

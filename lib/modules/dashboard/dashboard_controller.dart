@@ -1,10 +1,12 @@
 import 'dart:ui';
 
 import 'package:e_comm/modules/dashboard/widgets/categories_section.dart';
+import 'package:e_comm/modules/dashboard/widgets/vendor_section.dart';
 import 'package:get/get.dart';
 import '../../constant/app_colors.dart';
 import '../../data/models/product/inspriation_model.dart';
 import '../../data/models/product/product_model.dart';
+import '../../routes/app_routes.dart';
 
 enum DashboardTheme {
   grocery,
@@ -95,10 +97,10 @@ class DashboardController extends GetxController {
   bool get isGrocery => currentTheme == DashboardTheme.grocery;
 
   // ==========================================================
-  // PRODUCTS DATA
+  // PRODUCTS DATA(Grocery)
   // ==========================================================
 
-  List<ProductModel> flashProducts = [
+  List<ProductModel> groceryFlashProducts = [
     ProductModel(
       title: "Chicken breast frozen",
       image: "assets/images/products/chicken_breast.png",
@@ -124,10 +126,9 @@ class DashboardController extends GetxController {
       discount: 20,
     ),
   ];
-
-  List<ProductModel> todaysSpecials = [
+  List<ProductModel> groceryTodaysSpecials = [
     ProductModel(
-      title: "Australia beef terderloin",
+      title: "Australia beef tenderloin",
       image: "assets/images/products/chicken_breast.png",
       weight: "450–500gr /pack",
       price: 40.00,
@@ -147,6 +148,71 @@ class DashboardController extends GetxController {
       price: 9.00,
     ),
   ];
+
+
+  // ==========================================================
+  // PRODUCTS DATA(Pharmacy)
+  // ==========================================================
+  List<ProductModel> medicineFlashProducts = [
+    ProductModel(
+      title: "ColdRelief Plus",
+      image: "assets/images/medicine/cold_relief.png",
+      weight: "1 /pack",
+      price: 95,
+      oldPrice: 120,
+      discount: 10,
+    ),
+    ProductModel(
+      title: "ColdRelief Plus",
+      image: "assets/images/medicine/cold_relief.png",
+      weight: "1 /pack",
+      price: 95,
+      oldPrice: 120,
+      discount: 10,
+    ),
+    ProductModel(
+      title: "ColdRelief Plus",
+      image: "assets/images/medicine/cold_relief.png",
+      weight: "1 /pack",
+      price: 95,
+      oldPrice: 120,
+      discount: 10,
+    ),
+  ];
+
+  List<ProductModel> medicineTodaysSpecials = [
+    ProductModel(
+      title: "ColdRelief Plus",
+      image: "assets/images/medicine/cold_relief.png",
+      weight: "1 /pack",
+      price: 95,
+      oldPrice: 120,
+      discount: 10,
+    ),
+    ProductModel(
+      title: "ColdRelief Plus",
+      image: "assets/images/medicine/cold_relief.png",
+      weight: "1 /pack",
+      price: 95,
+      oldPrice: 120,
+      discount: 10,
+    ),
+    ProductModel(
+      title: "ColdRelief Plus",
+      image: "assets/images/medicine/cold_relief.png",
+      weight: "1 /pack",
+      price: 95,
+      oldPrice: 120,
+      discount: 10,
+    ),
+  ];
+
+  List<ProductModel> get flashProducts =>
+      isGrocery ? groceryFlashProducts : medicineFlashProducts;
+
+  List<ProductModel> get todaysSpecials =>
+      isGrocery ? groceryTodaysSpecials : medicineTodaysSpecials;
+
 
   // ==========================================================
   // TAB PRODUCTS (Today's Choices Section)
@@ -228,9 +294,20 @@ class DashboardController extends GetxController {
 
   void changeBottomNav(int index) {
     bottomNavIndex = index;
+
+    switch (index) {
+      case 0:
+        break; // already home
+      case 2:
+      // cart screen if needed
+        break;
+      case 4:
+        Get.toNamed(AppRoutes.wishlist);
+        break;
+    }
+
     update();
   }
-
 // ==========================================================
 // Categories
 // ==========================================================
@@ -244,11 +321,11 @@ class DashboardController extends GetxController {
   ];
 
   List<CategoryModel> medicineCategories = [
-    CategoryModel(title: "Cold", image: 'assets/images/icons/cold.png'),
-    CategoryModel(title: "Fever", image: 'assets/images/icons/fever.png'),
-    CategoryModel(title: "Infection", image: 'assets/images/icons/infection.png'),
-    CategoryModel(title: "Diet", image: 'assets/images/icons/diet.png'),
-    CategoryModel(title: "Pregnancy", image: 'assets/images/icons/pregnancy.png'),
+    CategoryModel(title: "Cold", image: 'assets/images/icons/medical/cold.png'),
+    CategoryModel(title: "Fever", image: 'assets/images/icons/medical/fever.png'),
+    CategoryModel(title: "Infection", image: 'assets/images/icons/medical/infection.png'),
+    CategoryModel(title: "Diet", image: 'assets/images/icons/medical/diet.png'),
+    CategoryModel(title: "Pregnancy", image: 'assets/images/icons/medical/pregnancy.png'),
   ];
   List<CategoryModel> get currentCategories =>
       isGrocery ? groceryCategories : medicineCategories;
@@ -265,5 +342,53 @@ class DashboardController extends GetxController {
 
   Color get flashSectionBg =>
       isGrocery ? const Color(0xFFFFE7D6) : const Color(0xFFD9F5F7);
+
+// ==========================================================
+// INSPIRATIONS
+// ==========================================================
+  List<VendorModel> groceryVendors = [
+    VendorModel(
+      name: "Tripische distributor, Mumbai",
+      subtitle: "5000 + Products",
+      image: "assets/images/vendor1.png",
+    ),
+    VendorModel(
+      name: "Starmall distributor, Mumbai",
+      subtitle: "5000 + Products",
+      image: "assets/images/vendor2.png",
+    ),
+    VendorModel(
+      name: "Green Harvest Store",
+      subtitle: "4200 + Products",
+      image: "assets/images/vendor3.png",
+    ),
+  ];
+
+  List<VendorModel> medicineVendors = [
+    VendorModel(
+      name: "Wellness Medical, Mumbai",
+      subtitle: "4000 + Products",
+      image: "assets/images/medicine/pharmacy1.png",
+    ),
+    VendorModel(
+      name: "24/7 Medical, Mumbai",
+      subtitle: "1000 + Products",
+      image: "assets/images/medicine/pharmacy2.png",
+    ),
+    VendorModel(
+      name: "PharmaCare Store",
+      subtitle: "2000 + Products",
+      image: "assets/images/medicine/pharmacy3.png",
+    ),
+  ];
+
+  List<VendorModel> get currentVendors =>
+      isGrocery ? groceryVendors : medicineVendors;
+
+  // ==========================================================
+// SECTION VISIBILITY
+// ==========================================================
+
+  bool get showInspiration => isGrocery;
 
 }

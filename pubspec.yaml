@@ -70,6 +70,8 @@ flutter:
    - assets/images/onboarding/
    - assets/images/auth/
    - assets/images/icons/
+   - assets/images/medicine/
+   - assets/images/icons/medical/
    - assets/images/products/
   #   - images/a_dot_ham.jpeg
 

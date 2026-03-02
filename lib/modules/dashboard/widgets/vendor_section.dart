@@ -80,7 +80,7 @@ class VendorsSection extends StatelessWidget {
         /// 🔹 Accent Strip Background
         Container(
           padding: const EdgeInsets.symmetric(vertical: 20),
-          color: lightAccent.withOpacity(0.16),
+          color: lightAccent.withValues(alpha: 0.16),
           child: SizedBox(
             height: 270,
             child: ListView.separated(
@@ -157,12 +157,12 @@ class _VendorCardState extends State<_VendorCard> {
             boxShadow: [
               if (showEffect)
                 BoxShadow(
-                  color: widget.accent.withOpacity(0.35),
+                  color: widget.accent.withValues(alpha: 0.35),
                   blurRadius: 22,
                   spreadRadius: 1,
                 ),
               BoxShadow(
-                color: Colors.black.withOpacity(0.10),
+                color: Colors.black.withValues(alpha: 0.10),
                 blurRadius: 18,
                 offset: const Offset(0, 14),
               ),
@@ -179,7 +179,7 @@ class _VendorCardState extends State<_VendorCard> {
                     widget.vendor.image,
                     height: 110,
                     width: double.infinity,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
                 const SizedBox(height: 14),
