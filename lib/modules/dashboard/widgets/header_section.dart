@@ -24,13 +24,19 @@ class HeaderSection extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const CircleAvatar(
-            radius: 22,
-            backgroundImage: AssetImage("assets/images/profile.png"),
+
+          /// 🔹 Profile Image (NOW CLICKABLE)
+          GestureDetector(
+            onTap: onLocationTap,
+            child: const CircleAvatar(
+              radius: 22,
+              backgroundImage: AssetImage("assets/images/profile.png"),
+            ),
           ),
 
           const SizedBox(width: 12),
 
+          /// 🔹 Name + Address (Already Clickable)
           Expanded(
             child: GestureDetector(
               onTap: onLocationTap,
@@ -72,13 +78,14 @@ class HeaderSection extends StatelessWidget {
 
           const SizedBox(width: 8),
 
+          /// 🔹 Notification Icon
           GestureDetector(
             onTap: onNotificationTap,
             child: Container(
               width: 40,
               height: 40,
               padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
               ),
               child: Icon(

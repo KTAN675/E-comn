@@ -10,17 +10,22 @@ import 'package:get/get.dart';
 import '../../constant/app_colors.dart';
 import '../../utils/custom_product_grid.dart';
 import '../../utils/custom_tab_section.dart';
+import '../drawer/drawer_controller.dart';
 import 'dashboard_controller.dart';
 import 'widgets/header_section.dart';
 import 'widgets/banner_section.dart';
 import 'widgets/categories_section.dart';
+import '../drawer/drawer_view.dart';
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Get.put(DrawerControllerX());
     return Scaffold(
+      key: controller.scaffoldKey,
+      drawer: const DrawerView(),
       backgroundColor: AppColors.background,
       extendBody: true,
 
@@ -34,6 +39,7 @@ class DashboardView extends GetView<DashboardController> {
           );
         },
       ),
+
       body: SingleChildScrollView(
         child: SafeArea(
           child: GetBuilder<DashboardController>(
@@ -42,7 +48,7 @@ class DashboardView extends GetView<DashboardController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-        
+
                     /// 🔹 Header
                     HeaderSection(
                       name: "Ghana",
@@ -50,10 +56,13 @@ class DashboardView extends GetView<DashboardController> {
                       onNotificationTap: () {
                         Get.toNamed(AppRoutes.notification);
                       },
-                      onLocationTap: () {},
+                      onLocationTap: () {
+                        controller.openDrawer();
+                      },
                     ),
+
                     const SizedBox(height: 8),
-        
+
                     /// 🔹 Banner
                     BannerSection(
                       imagePath: controller.bannerImage,
@@ -72,9 +81,9 @@ class DashboardView extends GetView<DashboardController> {
                       onCategoryTap: controller.changeCategory,
                       lightAccent: controller.lightAccent,
                     ),
-        
+
                     const SizedBox(height: 10),
-        
+
                     /// 🔹 Vendors
                     VendorsSection(
                       vendors: controller.currentVendors,
@@ -83,8 +92,9 @@ class DashboardView extends GetView<DashboardController> {
                       accent: controller.accent,
                       lightAccent: controller.lightAccent,
                     ),
+
                     const SizedBox(height: 20),
-        
+
                     /// 🔹 Flash Sale
                     ProductsSection(
                       title: "Flash Sale 🔥",
@@ -92,22 +102,22 @@ class DashboardView extends GetView<DashboardController> {
                       accent: controller.accent,
                       backgroundColor: controller.flashSectionBg,
                     ),
-        
+
                     /// 🔹 Today’s Specials
                     ProductsSection(
                       title: "Today’s Specials",
                       products: controller.todaysSpecials,
                       accent: controller.accent,
                     ),
-        
+
                     /// 🔹 Inspiration
                     if (controller.showInspiration)
                       InspirationSection(
                         items: controller.inspirations,
                       ),
-        
+
                     const SizedBox(height: 20),
-        
+
                     /// 🔹 Tab Section
                     TabSection(
                       tabs: const [
@@ -127,17 +137,16 @@ class DashboardView extends GetView<DashboardController> {
                           products: controller.limitedDiscount,
                           accent: controller.accent,
                           discountColor: controller.accent,
-        
                         ),
                         ProductsGrid(
                           products: controller.cheapest,
                           accent: controller.accent,
                           discountColor: controller.accent,
-        
                         ),
                       ],
-                      accent: controller.accent, // 🔥 dynamic color
+                      accent: controller.accent,
                     ),
+
                     const SizedBox(height: 30),
                   ],
                 ),
