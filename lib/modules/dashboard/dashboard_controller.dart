@@ -7,6 +7,7 @@ import '../../constant/app_colors.dart';
 import '../../data/models/product/inspriation_model.dart';
 import '../../data/models/product/product_model.dart';
 import '../../routes/app_routes.dart';
+import '../mian_shell/main_shell_controller.dart';
 
 enum DashboardTheme {
   grocery,
@@ -391,4 +392,13 @@ class DashboardController extends GetxController {
 
   bool get showInspiration => isGrocery;
 
+
+  void openCategory(int index) {
+    selectedCategoryIndex = index;
+
+    final mainController = Get.find<MainShellController>();
+    mainController.changeTab(1); // Category tab index
+
+    update();
+  }
 }

@@ -1,4 +1,3 @@
-import 'package:e_comm/modules/dashboard/widgets/floating_nav_bar.dart';
 import 'package:e_comm/modules/dashboard/widgets/inspirational_section.dart';
 import 'package:e_comm/modules/dashboard/widgets/product_section.dart';
 import 'package:e_comm/modules/dashboard/widgets/search_bar.dart';
@@ -25,15 +24,15 @@ class DashboardView extends GetView<DashboardController> {
       extendBody: true,
 
       /// 🔹 Bottom Nav
-      bottomNavigationBar: GetBuilder<DashboardController>(
-        builder: (controller) {
-          return FloatingNavBar(
-            selectedIndex: controller.bottomNavIndex,
-            onItemSelected: controller.changeBottomNav,
-            accent: controller.accent,
-          );
-        },
-      ),
+      // bottomNavigationBar: GetBuilder<DashboardController>(
+      //   builder: (controller) {
+      //     return FloatingNavBar(
+      //       selectedIndex: controller.bottomNavIndex,
+      //       onItemSelected: controller.changeBottomNav,
+      //       accent: controller.accent,
+      //     );
+      //   },
+      // ),
       body: SingleChildScrollView(
         child: SafeArea(
           child: GetBuilder<DashboardController>(
@@ -42,7 +41,7 @@ class DashboardView extends GetView<DashboardController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-        
+
                     /// 🔹 Header
                     HeaderSection(
                       name: "Ghana",
@@ -53,7 +52,7 @@ class DashboardView extends GetView<DashboardController> {
                       onLocationTap: () {},
                     ),
                     const SizedBox(height: 8),
-        
+
                     /// 🔹 Banner
                     BannerSection(
                       imagePath: controller.bannerImage,
@@ -69,12 +68,12 @@ class DashboardView extends GetView<DashboardController> {
                     CategoriesSection(
                       categories: controller.currentCategories,
                       selectedIndex: controller.selectedCategoryIndex,
-                      onCategoryTap: controller.changeCategory,
+                      onCategoryTap: controller.openCategory,
                       lightAccent: controller.lightAccent,
                     ),
-        
+
                     const SizedBox(height: 10),
-        
+
                     /// 🔹 Vendors
                     VendorsSection(
                       vendors: controller.currentVendors,
@@ -84,7 +83,7 @@ class DashboardView extends GetView<DashboardController> {
                       lightAccent: controller.lightAccent,
                     ),
                     const SizedBox(height: 20),
-        
+
                     /// 🔹 Flash Sale
                     ProductsSection(
                       title: "Flash Sale 🔥",
@@ -92,22 +91,22 @@ class DashboardView extends GetView<DashboardController> {
                       accent: controller.accent,
                       backgroundColor: controller.flashSectionBg,
                     ),
-        
+
                     /// 🔹 Today’s Specials
                     ProductsSection(
                       title: "Today’s Specials",
                       products: controller.todaysSpecials,
                       accent: controller.accent,
                     ),
-        
+
                     /// 🔹 Inspiration
                     if (controller.showInspiration)
                       InspirationSection(
                         items: controller.inspirations,
                       ),
-        
+
                     const SizedBox(height: 20),
-        
+
                     /// 🔹 Tab Section
                     TabSection(
                       tabs: const [
@@ -127,13 +126,13 @@ class DashboardView extends GetView<DashboardController> {
                           products: controller.limitedDiscount,
                           accent: controller.accent,
                           discountColor: controller.accent,
-        
+
                         ),
                         ProductsGrid(
                           products: controller.cheapest,
                           accent: controller.accent,
                           discountColor: controller.accent,
-        
+
                         ),
                       ],
                       accent: controller.accent, // 🔥 dynamic color

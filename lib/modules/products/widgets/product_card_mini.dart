@@ -2,10 +2,8 @@
   import '../../../constant/app_text_styles.dart';
   import '../../../data/models/product/product_model.dart';
 
-  class ProductCard extends StatelessWidget {
+  class ProductCardMini extends StatelessWidget {
     final ProductModel product;
-
-    /// THEME COLORS (Injected)
     final Color accent;
     final Color discountColor;
     final Color cardBackground;
@@ -13,12 +11,12 @@
     final VoidCallback? onAdd;
     final VoidCallback? onFavorite;
 
-    const ProductCard({
+    const ProductCardMini({
       super.key,
       required this.product,
       required this.accent,
       required this.discountColor,
-      this.cardBackground = const Color(0xFFEFEFEF),
+      this.cardBackground = Colors.white,
       this.onAdd,
       this.onFavorite,
     });
@@ -26,77 +24,77 @@
     @override
     Widget build(BuildContext context) {
       return Container(
-        width: 190,
         decoration: BoxDecoration(
           color: cardBackground,
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.08),
-              blurRadius: 16,
-              offset: const Offset(0, 10),
+              blurRadius: 14,
+              offset: const Offset(0, 8),
             ),
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.all(14),
+          padding: const EdgeInsets.all(12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              /// 🔹 Image + Badges
+              /// IMAGE + BADGES
               Stack(
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(22),
+                    borderRadius: BorderRadius.circular(18),
                     child: Image.asset(
                       product.image,
-                      height: 130,
+                      height: 110,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
                   ),
 
-                  /// 🔸 Favorite Icon
+                  /// FAVORITE
                   Positioned(
-                    top: 8,
-                    left: 8,
+                    top: 6,
+                    left: 6,
                     child: GestureDetector(
                       onTap: onFavorite,
                       child: Container(
-                        width: 36,
-                        height: 36,
+                        width: 30,
+                        height: 30,
                         decoration: BoxDecoration(
                           color: accent,
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         child: const Icon(
                           Icons.favorite_border,
                           color: Colors.white,
-                          size: 20,
+                          size: 16,
                         ),
                       ),
                     ),
                   ),
 
-                  /// 🔸 Discount Badge
+                  /// DISCOUNT
                   if (product.discount != null)
                     Positioned(
-                      top: 8,
-                      right: 8,
+                      top: 6,
+                      right: 6,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
+                          horizontal: 6,
+                          vertical: 3,
                         ),
                         decoration: BoxDecoration(
                           color: discountColor,
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
                           "${product.discount}%",
                           style: AppTextStyles.caption.copyWith(
                             color: Colors.white,
+                            fontSize: 10,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -105,29 +103,30 @@
                 ],
               ),
 
-              const SizedBox(height: 14),
+              const SizedBox(height: 10),
 
-              /// 🔹 Title
+              /// TITLE
               Text(
                 product.title,
-                style: AppTextStyles.bodyLarge.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
+                style: AppTextStyles.bodyLarge.copyWith(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                ),
               ),
 
               const SizedBox(height: 4),
 
-              /// 🔹 Weight
+              /// WEIGHT
               Text(
                 product.weight,
-                style: AppTextStyles.bodyGrey,
+                style: AppTextStyles.bodyGrey.copyWith(fontSize: 12),
               ),
 
-              const SizedBox(height: 10),
+              const SizedBox(height: 8),
 
-              /// 🔹 Price Row
+              /// PRICE ROW
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -139,16 +138,16 @@
                       children: [
 
                         Text(
-                          "\$${product.price.toStringAsFixed(2)}",
-                          style: AppTextStyles.price,
+                          "₹${product.price.toStringAsFixed(2)}",
+                          style: AppTextStyles.price.copyWith(fontSize: 14),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
 
                         if (product.oldPrice != null)
                           Text(
-                            "\$${product.oldPrice!.toStringAsFixed(2)}",
-                            style: AppTextStyles.strikePrice,
+                            "₹${product.oldPrice!.toStringAsFixed(2)}",
+                            style: AppTextStyles.strikePrice.copyWith(fontSize: 11),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -156,29 +155,27 @@
                     ),
                   ),
 
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 6),
 
                   /// ADD BUTTON
-                  SizedBox(
-                    width: 36,
-                    height: 36,
-                    child: GestureDetector(
-                      onTap: onAdd,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: accent,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                          size: 20,
-                        ),
+                  GestureDetector(
+                    onTap: onAdd,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      decoration: BoxDecoration(
+                        color: accent,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Icon(
+                        Icons.add,
+                        color: Colors.white,
+                        size: 18,
                       ),
                     ),
                   ),
                 ],
-              ),
+              )
             ],
           ),
         ),
