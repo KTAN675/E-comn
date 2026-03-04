@@ -1,5 +1,6 @@
 class ProductModel {
   final String title;
+  final String? subtitle;
   final String image;
   final String weight;
   final double price;
@@ -7,8 +8,9 @@ class ProductModel {
   final int? discount; // percentage
   final bool isFavorite;
 
-  ProductModel({
+  ProductModel( {
     required this.title,
+    this.subtitle,
     required this.image,
     required this.weight,
     required this.price,

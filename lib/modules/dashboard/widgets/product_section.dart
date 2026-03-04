@@ -82,17 +82,19 @@ class ProductsSection extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               scrollDirection: Axis.horizontal,
               itemCount: products.length,
-              separatorBuilder: (_, __) =>
-              const SizedBox(width: 20),
+              separatorBuilder: (_, __) => const SizedBox(width: 20),
               itemBuilder: (context, index) {
-                return ProductCard(
-                  product: products[index],
-                  accent: accent, discountColor: accent, // 🔥 Pass accent down
+                return SizedBox(
+                  width: 190,
+                  child: ProductCard(
+                    product: products[index],
+                    accent: accent,
+                    discountColor: accent,
+                  ),
                 );
               },
             ),
-          ),
-        ],
+          )        ],
       ),
     );
   }
