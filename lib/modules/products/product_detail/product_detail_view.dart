@@ -9,6 +9,7 @@ import 'package:e_comm/modules/products/product_detail/widgets/you_may_also_like
 import 'package:e_comm/utils/app_section_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../mian_shell/main_shell_controller.dart';
 import 'widgets/product_header.dart';
 import 'widgets/product_info_section.dart';
 import 'widgets/product_price_stepper.dart';
@@ -22,9 +23,11 @@ class ProductDetailView extends GetView<ProductDetailController> {
   Widget build(BuildContext context) {
 
 
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
+        bottom: false,
         child: GetBuilder<ProductDetailController>(
           builder: (controller) {
 
@@ -76,8 +79,20 @@ class ProductDetailView extends GetView<ProductDetailController> {
                           "Strawberries need to be stored in a cool and dry place after they have been picked.",
                         ),
 
-                        const ProductActionButtons(),
+                        ProductActionButtons(
+                          onAddToCart: () {
 
+                            /// Switch to Cart tab
+                            Get.find<MainShellController>()
+                                .openCartFromProduct(controller.product);
+                          },
+                          onBuyNow: () {
+
+                            /// Switch to Cart tab
+                            Get.find<MainShellController>()
+                                .openCartFromProduct(controller.product);
+                          },
+                        ),
                         ProductDetailTabs(
                           selectedIndex: controller.selectedTab,
                           onTabChanged: controller.changeTab,

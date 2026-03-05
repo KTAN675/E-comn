@@ -6,7 +6,7 @@ import 'constant/app_theme.dart';
 import 'modules/theme/theme_controller.dart';
 
 void main() {
-  Get.put(ThemeController());
+  Get.put(ThemeController(), permanent: true);
   runApp(MyApp());
 }
 

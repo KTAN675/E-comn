@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constant/app_colors.dart';
 import 'custom_tab_switcher.dart';
 
 class TabSection extends StatelessWidget {
@@ -6,7 +7,6 @@ class TabSection extends StatelessWidget {
   final int selectedIndex;
   final Function(int) onTabChanged;
   final List<Widget> tabViews;
-  final Color accent; // 🔥 dynamic theme color
 
   const TabSection({
     super.key,
@@ -14,11 +14,13 @@ class TabSection extends StatelessWidget {
     required this.selectedIndex,
     required this.onTabChanged,
     required this.tabViews,
-    required this.accent,
   });
 
   @override
   Widget build(BuildContext context) {
+
+    final accent = AppColors.accent;
+
     return Column(
       children: [
 

@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../constant/app_colors.dart';
 import '../../../data/models/product/product_model.dart';
 import '../../../data/models/review/review_model.dart';
+import '../../theme/theme_controller.dart';
 
 class ProductDetailController extends GetxController {
 
+  /// GLOBAL THEME
+  final ThemeController theme = Get.find<ThemeController>();
+
+  bool get isGrocery => theme.isGrocery;
+
+  Color get accent => AppColors.accent;
+
+  /// PRODUCT
   late ProductModel product;
+
+  /// =============================
+  /// TABS
+  /// =============================
 
   int selectedTab = 1;
 
@@ -13,6 +27,10 @@ class ProductDetailController extends GetxController {
     selectedTab = index;
     update();
   }
+
+  /// =============================
+  /// QUANTITY
+  /// =============================
 
   int quantity = 1;
 
@@ -28,24 +46,33 @@ class ProductDetailController extends GetxController {
     }
   }
 
+  /// =============================
   /// QUESTION INPUT
+  /// =============================
+
   final TextEditingController questionController =
   TextEditingController();
 
   void submitQuestion() {
-
     final question = questionController.text.trim();
-
     if (question.isEmpty) return;
 
-    /// Later you will call API here
     print("Question submitted: $question");
 
     questionController.clear();
   }
 
+  @override
+  void onClose() {
+    questionController.dispose();
+    super.onClose();
+  }
+
+  /// =============================
   /// BUNDLE PRODUCTS
-  List<ProductModel> bundleProducts = [
+  /// =============================
+
+  final List<ProductModel> groceryBundleProducts = [
     ProductModel(
       title: "Cake Mix",
       image: "assets/images/products/cake.png",
@@ -66,11 +93,33 @@ class ProductDetailController extends GetxController {
     ),
   ];
 
-  @override
-  void onClose() {
-    questionController.dispose();
-    super.onClose();
-  }
+  final List<ProductModel> medicineBundleProducts = [
+    ProductModel(
+      title: "Vitamin C",
+      image: "assets/images/medicine/flu_relief.png",
+      weight: "1 bottle",
+      price: 120,
+    ),
+    ProductModel(
+      title: "Cough Syrup",
+      image: "assets/images/medicine/cold_relief.png",
+      weight: "100ml",
+      price: 85,
+    ),
+    ProductModel(
+      title: "Thermometer",
+      image: "assets/images/medicine/cough_dx.png",
+      weight: "1 unit",
+      price: 220,
+    ),
+  ];
+
+  List<ProductModel> get bundleProducts =>
+      isGrocery ? groceryBundleProducts : medicineBundleProducts;
+
+  /// =============================
+  /// REVIEWS
+  /// =============================
 
   List<ReviewModel> reviews = [
     ReviewModel(
@@ -110,6 +159,7 @@ class ProductDetailController extends GetxController {
       isDisliked: false,
     ),
   ];
+
   void toggleLike(int index) {
     final review = reviews[index];
 
@@ -148,7 +198,11 @@ class ProductDetailController extends GetxController {
     update();
   }
 
-  List<ProductModel> recommendedProducts = [
+  /// =============================
+  /// RECOMMENDED PRODUCTS
+  /// =============================
+
+  final List<ProductModel> groceryRecommendedProducts = [
     ProductModel(
       title: "Dragon Fruit",
       image: "assets/images/products/dragon.png",
@@ -182,4 +236,30 @@ class ProductDetailController extends GetxController {
       discount: 15,
     ),
   ];
+
+  final List<ProductModel> medicineRecommendedProducts = [
+    ProductModel(
+      title: "Paracetamol",
+      image: "assets/images/medicine/paracetamol.png",
+      weight: "10 tablets",
+      price: 40,
+    ),
+    ProductModel(
+      title: "Pain Relief Spray",
+      image: "assets/images/medicine/pain_spray.png",
+      weight: "50ml",
+      price: 160,
+    ),
+    ProductModel(
+      title: "Multivitamin Tablets",
+      image: "assets/images/medicine/multivitamin.png",
+      weight: "30 tablets",
+      price: 220,
+    ),
+  ];
+
+  List<ProductModel> get recommendedProducts =>
+      isGrocery
+          ? groceryRecommendedProducts
+          : medicineRecommendedProducts;
 }

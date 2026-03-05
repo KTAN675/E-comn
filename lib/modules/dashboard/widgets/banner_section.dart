@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import '../../../utils/segment_toggle.dart';
 
 class BannerSection extends StatelessWidget {
-  final bool isGrocery;
-  final VoidCallback onToggle;
   final String imagePath;
 
   const BannerSection({
     super.key,
-    required this.isGrocery,
-    required this.onToggle,
     required this.imagePath,
   });
 
@@ -22,14 +18,10 @@ class BannerSection extends StatelessWidget {
           width: double.infinity,
           fit: BoxFit.cover,
         ),
-
-        Positioned(
+        const Positioned(
           top: 16,
           right: 16,
-          child: ThemeToggle(
-            isGrocery: isGrocery,
-            onToggle: onToggle,
-          ),
+          child: ThemeToggle(),
         ),
       ],
     );

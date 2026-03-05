@@ -49,7 +49,7 @@ class YouMayAlsoLikeSection extends StatelessWidget {
               crossAxisCount: 2,
               mainAxisSpacing: 14,
               crossAxisSpacing: 12,
-              childAspectRatio: .66,
+              childAspectRatio: .63,
             ),
             itemBuilder: (_, i) {
 

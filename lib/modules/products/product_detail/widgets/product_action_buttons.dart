@@ -5,7 +5,14 @@ import '../../../../utils/app_primary_button.dart';
 
 class ProductActionButtons extends StatelessWidget {
 
-  const ProductActionButtons({super.key});
+  final VoidCallback onAddToCart;
+  final VoidCallback onBuyNow;
+
+  const ProductActionButtons({
+    super.key,
+    required this.onAddToCart,
+    required this.onBuyNow,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,7 @@ class ProductActionButtons extends StatelessWidget {
             child: SizedBox(
               height: 58,
               child: OutlinedButton.icon(
-                onPressed: () {},
+                onPressed: onAddToCart,
                 icon: const Icon(
                   Icons.shopping_cart_outlined,
                   color: AppColors.primaryOrange,
@@ -52,7 +59,7 @@ class ProductActionButtons extends StatelessWidget {
           Expanded(
             child: AppPrimaryButton(
               title: "Buy Now",
-              onTap: () {},
+              onTap: onBuyNow,
             ),
           ),
         ],

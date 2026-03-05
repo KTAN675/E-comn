@@ -1,29 +1,37 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import '../../constant/app_colors.dart';
-import '../../routes/app_routes.dart';
 import '../dashboard/widgets/vendor_section.dart';
+import '../theme/theme_controller.dart';
 import 'category_navigator.dart';
 
-enum CategoryTheme {
-  grocery,
-  medicine,
-}
-
 class CategoryController extends GetxController {
+
+  /// 🔹 GLOBAL THEME CONTROLLER
+  final ThemeController theme = Get.find<ThemeController>();
+
+  // =============================
+  // LIFECYCLE
+  // =============================
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    /// Listen to theme changes
+    theme.addListener(() {
+      update();
+    });
+  }
 
   // =============================
   // THEME STATE
   // =============================
 
-  CategoryTheme currentTheme = CategoryTheme.grocery;
+  bool get isGrocery => theme.isGrocery;
 
-  bool get isGrocery => currentTheme == CategoryTheme.grocery;
-
-  Color get accent =>
-      isGrocery ? AppColors.primaryOrange : AppColors.secondaryCyan;
+  Color get accent => AppColors.accent;
 
   // =============================
   // FILTER TABS
@@ -33,18 +41,6 @@ class CategoryController extends GetxController {
 
   void changeFilter(int index) {
     selectedFilterIndex = index;
-    update();
-  }
-
-  // =============================
-  // THEME TOGGLE
-  // =============================
-
-  void toggleTheme() {
-    currentTheme = isGrocery
-        ? CategoryTheme.medicine
-        : CategoryTheme.grocery;
-
     update();
   }
 
@@ -77,35 +73,43 @@ class CategoryController extends GetxController {
       name: "City Organic Store",
       subtitle: "1800 + Products",
       image: "assets/images/vendor2.png",
-    ), VendorModel(
+    ),
+    VendorModel(
       name: "City Organic Store",
       subtitle: "1800 + Products",
       image: "assets/images/vendor2.png",
-    ), VendorModel(
+    ),
+    VendorModel(
       name: "City Organic Store",
       subtitle: "1800 + Products",
       image: "assets/images/vendor2.png",
-    ), VendorModel(
+    ),
+    VendorModel(
       name: "City Organic Store",
       subtitle: "1800 + Products",
       image: "assets/images/vendor2.png",
-    ), VendorModel(
+    ),
+    VendorModel(
       name: "City Organic Store",
       subtitle: "1800 + Products",
       image: "assets/images/vendor2.png",
-    ), VendorModel(
+    ),
+    VendorModel(
       name: "City Organic Store",
       subtitle: "1800 + Products",
       image: "assets/images/vendor2.png",
-    ), VendorModel(
+    ),
+    VendorModel(
       name: "City Organic Store",
       subtitle: "1800 + Products",
       image: "assets/images/vendor2.png",
-    ), VendorModel(
+    ),
+    VendorModel(
       name: "City Organic Store",
       subtitle: "1800 + Products",
       image: "assets/images/vendor2.png",
-    ), VendorModel(
+    ),
+    VendorModel(
       name: "City Organic Store",
       subtitle: "1800 + Products",
       image: "assets/images/vendor2.png",
@@ -140,13 +144,19 @@ class CategoryController extends GetxController {
   // ==========================================================
 
   List<VendorModel> get currentVendors {
-    final baseList = isGrocery ? groceryVendors : medicineVendors;
+
+    final baseList = isGrocery
+        ? groceryVendors
+        : medicineVendors;
 
     switch (selectedFilterIndex) {
-      case 1: // Near by (dummy logic)
+
+      case 1: // Near by
         return baseList.take(2).toList();
-      case 2: // Available (dummy logic)
+
+      case 2: // Available
         return baseList.reversed.toList();
+
       default:
         return baseList;
     }
@@ -157,6 +167,7 @@ class CategoryController extends GetxController {
   // ==========================================================
 
   void openVendor(VendorModel vendor) {
+
     CategoryNavigator.navigatorKey.currentState!
         .pushNamed('/vendor-categories');
   }

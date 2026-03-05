@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../constant/app_colors.dart';
 import '../../../constant/app_text_styles.dart';
 
 class SearchBarSection extends StatelessWidget {
@@ -6,19 +7,17 @@ class SearchBarSection extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final TextEditingController? controller;
 
-  /// 🔥 Injected theme accent
-  final Color accent;
-
   const SearchBarSection({
     super.key,
     this.onTap,
     this.onChanged,
     this.controller,
-    required this.accent,
   });
 
   @override
   Widget build(BuildContext context) {
+    final accent = AppColors.accent;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       child: Container(
@@ -39,7 +38,7 @@ class SearchBarSection extends StatelessWidget {
           onTap: onTap,
           onChanged: onChanged,
           style: AppTextStyles.bodyLarge,
-          cursorColor: accent, // 🔥 dynamic
+          cursorColor: accent,
           decoration: InputDecoration(
             hintText: "What’s your daily needs?",
             hintStyle: AppTextStyles.bodyGrey,
@@ -50,7 +49,7 @@ class SearchBarSection extends StatelessWidget {
               padding: const EdgeInsets.only(right: 16),
               child: Icon(
                 Icons.search,
-                color: accent, // 🔥 dynamic
+                color: accent,
               ),
             ),
             suffixIconConstraints:

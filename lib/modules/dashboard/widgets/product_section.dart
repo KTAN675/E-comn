@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../constant/app_colors.dart';
 import '../../../constant/app_text_styles.dart';
 import '../../../data/models/product/product_model.dart';
 import '../../products/widgets/product_card.dart';
@@ -7,8 +8,6 @@ class ProductsSection extends StatelessWidget {
   final String title;
   final List<ProductModel> products;
 
-  /// THEME COLORS (Injected from Controller)
-  final Color accent;
   final Color? backgroundColor;
   final Color? headerTextColor;
 
@@ -18,7 +17,6 @@ class ProductsSection extends StatelessWidget {
     super.key,
     required this.title,
     required this.products,
-    required this.accent,
     this.backgroundColor,
     this.headerTextColor,
     this.onSeeAll,
@@ -26,6 +24,9 @@ class ProductsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final accent = AppColors.accent;
+
     return Container(
       color: backgroundColor ?? Colors.transparent,
       padding: const EdgeInsets.symmetric(vertical: 20),
@@ -94,7 +95,8 @@ class ProductsSection extends StatelessWidget {
                 );
               },
             ),
-          )        ],
+          ),
+        ],
       ),
     );
   }
