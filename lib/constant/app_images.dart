@@ -1,6 +1,6 @@
 class AppImages {
   // Splash
-  static const splashLogo = 'assets/images/splash/logo.png';
+  static const splashLogo = 'assets/images/logo.png';
 
   // Onboarding
   static const onboarding1 = 'assets/images/onboarding/onboard1.png';
@@ -8,7 +8,7 @@ class AppImages {
   static const onboarding3 = 'assets/images/onboarding/onboard3.png';
 
   // Logo
-  static const logo = 'assets/images/auth/logo.png';
+  static const logo = 'assets/images/logo.png';
 
 
   // icons

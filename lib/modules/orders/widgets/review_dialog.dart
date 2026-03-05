@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:get/get.dart';
 import '../../../constant/app_colors.dart';
 import '../../../constant/app_text_styles.dart';
+import '../../../routes/app_routes.dart';
 
 class ReviewDialog extends StatefulWidget {
   const ReviewDialog({super.key});
@@ -13,6 +15,7 @@ class ReviewDialog extends StatefulWidget {
 class _ReviewDialogState extends State<ReviewDialog> {
 
   int rating = 4;
+
   final TextEditingController reviewController =
   TextEditingController(text: "I loved it!");
 
@@ -194,21 +197,54 @@ class _ReviewDialogState extends State<ReviewDialog> {
                   ),
                 ),
 
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 8,
+                /// RETURN / EXCHANGE BUTTON
+                TextButton(
+
+                  style: TextButton.styleFrom(
+                    backgroundColor: const Color(0xffF1F1F1),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 8,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
 
-                  decoration: BoxDecoration(
-                    color: const Color(0xffF1F1F1),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+                  onPressed: () {},
 
-                  child: Text(
-                    "Return/ Exchange",
-                    style: AppTextStyles.bodyLarge.copyWith(
-                      fontWeight: FontWeight.w600,
+                  child: RichText(
+                    text: TextSpan(
+                      style: AppTextStyles.bodyLarge.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                      children: [
+
+                        /// RETURN
+                        TextSpan(
+                          text: "Return",
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Get.back();
+                              Get.toNamed(AppRoutes.returns);
+                            },
+                        ),
+
+                        const TextSpan(
+                          text: " / ",
+                        ),
+
+                        /// EXCHANGE
+                        TextSpan(
+                          text: "Exchange",
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Get.back();
+                              Get.toNamed(AppRoutes.exchange);
+                            },
+                        ),
+                      ],
                     ),
                   ),
                 )

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../dashboard/dashboard_view.dart';
 import '../dashboard/widgets/floating_nav_bar.dart';
-import '../notification/notification_view.dart';
 import '../wishlist/wishlist_view.dart';
 import 'main_shell_controller.dart';
 

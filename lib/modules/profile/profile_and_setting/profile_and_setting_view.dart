@@ -57,7 +57,8 @@ class ProfileAndSettingView extends GetView<ProfileAndSettingController> {
                 ProfileMenuItem(
                   icon: Icons.shopping_bag_outlined,
                   title: 'Past Orders',
-                  onTap: () {},
+                  onTap: () =>
+                      Get.toNamed(AppRoutes.orders),
                 ),
                 ProfileMenuItem(
                   icon: Icons.notifications_none_outlined,
@@ -68,7 +69,8 @@ class ProfileAndSettingView extends GetView<ProfileAndSettingController> {
                 ProfileMenuItem(
                   icon: Icons.help_outline,
                   title: 'Help & Support',
-                  onTap: () {},
+                  onTap: () =>
+                      Get.toNamed(AppRoutes.help_and_faqs),
                 ),
                 ProfileMenuItem(
                   icon: Icons.map,
