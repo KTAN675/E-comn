@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../constant/app_colors.dart';
 import '../../../constant/app_text_styles.dart';
 
 class SearchBarSection extends StatelessWidget {
@@ -29,7 +28,7 @@ class SearchBarSection extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 12,
               offset: const Offset(0, 6),
             ),

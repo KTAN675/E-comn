@@ -18,6 +18,7 @@ class NotificationView extends GetView<NotificationController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: GetBuilder<NotificationController>(

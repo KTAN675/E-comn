@@ -9,7 +9,7 @@ class LocationPermissionController extends GetxController {
     final status = await Permission.locationWhenInUse.request();
 
     if (status.isGranted) {
-      Get.offAllNamed(AppRoutes.dashboard);
+      Get.offAllNamed(AppRoutes.mainShell);
       return;
     }
 

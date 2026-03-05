@@ -18,6 +18,7 @@ class WishlistView extends GetView<WishlistController> {
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
+        bottom: false,
         child: Column(
           children: [
 
