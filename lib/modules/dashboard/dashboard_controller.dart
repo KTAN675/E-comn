@@ -8,13 +8,13 @@ import '../../data/models/product/inspriation_model.dart';
 import '../../data/models/product/product_model.dart';
 import '../../routes/app_routes.dart';
 import '../mian_shell/main_shell_controller.dart';
-
-enum DashboardTheme {
-  grocery,
-  medicine,
-}
+import '../theme/theme_controller.dart';
 
 class DashboardController extends GetxController {
+
+  final ThemeController theme = Get.find<ThemeController>();
+
+
 
   // =============================
   // UI SELECTION STATES
@@ -25,21 +25,19 @@ class DashboardController extends GetxController {
   int selectedTabIndex = 0;
 
   // =============================
-  // THEME STATE
-  // =============================
-
-  DashboardTheme currentTheme = DashboardTheme.grocery;
-
-  // =============================
   // LIFECYCLE
   // =============================
-
   @override
   void onInit() {
     super.onInit();
+
+    /// Listen to ThemeController updates
+    theme.addListener(() {
+      update();
+    });
+
     loadDashboard();
   }
-
   void loadDashboard() {
     update();
   }
@@ -72,33 +70,18 @@ class DashboardController extends GetxController {
   }
 
   // =============================
-  // THEME TOGGLE
+  // THEME STATE
   // =============================
 
-  void toggleTheme() {
-    if (currentTheme == DashboardTheme.grocery) {
-      currentTheme = DashboardTheme.medicine;
-      AppColors.setMedicineTheme();
-    } else {
-      currentTheme = DashboardTheme.grocery;
-      AppColors.setGroceryTheme();
-    }
-    update();
-  }
-
-  // =============================
-  // BANNER IMAGE HELPER
-  // =============================
+  bool get isGrocery => theme.isGrocery;
 
   String get bannerImage =>
-      currentTheme == DashboardTheme.grocery
+      isGrocery
           ? "assets/images/banner_grocery.png"
           : "assets/images/icons/medical.png";
 
-  bool get isGrocery => currentTheme == DashboardTheme.grocery;
-
   // ==========================================================
-  // PRODUCTS DATA(Grocery)
+  // PRODUCTS DATA (Grocery)
   // ==========================================================
 
   List<ProductModel> groceryFlashProducts = [
@@ -127,6 +110,7 @@ class DashboardController extends GetxController {
       discount: 20,
     ),
   ];
+
   List<ProductModel> groceryTodaysSpecials = [
     ProductModel(
       title: "Australia beef tenderloin",
@@ -150,10 +134,10 @@ class DashboardController extends GetxController {
     ),
   ];
 
+  // ==========================================================
+  // PRODUCTS DATA (Medicine)
+  // ==========================================================
 
-  // ==========================================================
-  // PRODUCTS DATA(Pharmacy)
-  // ==========================================================
   List<ProductModel> medicineFlashProducts = [
     ProductModel(
       title: "ColdRelief Plus",
@@ -214,9 +198,8 @@ class DashboardController extends GetxController {
   List<ProductModel> get todaysSpecials =>
       isGrocery ? groceryTodaysSpecials : medicineTodaysSpecials;
 
-
   // ==========================================================
-  // TAB PRODUCTS (Today's Choices Section)
+  // TAB PRODUCTS
   // ==========================================================
 
   List<ProductModel> todaysChoices = [
@@ -291,26 +274,24 @@ class DashboardController extends GetxController {
       time: "5 mins",
     ),
   ];
-  int bottomNavIndex = 0;
 
-  void changeBottomNav(int index) {
-    bottomNavIndex = index;
+  bool get showInspiration => isGrocery;
 
-    switch (index) {
-      case 0:
-        break; // already home
-      case 2:
-      // cart screen if needed
-        break;
-      case 4:
-        Get.toNamed(AppRoutes.wishlist);
-        break;
-    }
+  // ==========================================================
+  // NAVIGATION
+  // ==========================================================
+
+  void openCategory(int index) {
+    selectedCategoryIndex = index;
+
+    final mainController = Get.find<MainShellController>();
+    mainController.changeTab(1);
 
     update();
   }
-// ==========================================================
-// Categories
+
+  // ==========================================================
+// CATEGORIES
 // ==========================================================
 
   List<CategoryModel> groceryCategories = [
@@ -328,25 +309,15 @@ class DashboardController extends GetxController {
     CategoryModel(title: "Diet", image: 'assets/images/icons/medical/diet.png'),
     CategoryModel(title: "Pregnancy", image: 'assets/images/icons/medical/pregnancy.png'),
   ];
+
   List<CategoryModel> get currentCategories =>
       isGrocery ? groceryCategories : medicineCategories;
 
-  // =============================
-// THEME COLORS (COMPUTED)
-// =============================
-
-  Color get accent =>
-      isGrocery ? AppColors.primaryOrange : AppColors.secondaryCyan;
-
-  Color get lightAccent =>
-      isGrocery ? AppColors.flashSale : AppColors.lightCyan;
-
-  Color get flashSectionBg =>
-      isGrocery ? const Color(0xFFFFE7D6) : const Color(0xFFD9F5F7);
 
 // ==========================================================
-// INSPIRATIONS
+// VENDORS
 // ==========================================================
+
   List<VendorModel> groceryVendors = [
     VendorModel(
       name: "Tripische distributor, Mumbai",
@@ -386,19 +357,11 @@ class DashboardController extends GetxController {
   List<VendorModel> get currentVendors =>
       isGrocery ? groceryVendors : medicineVendors;
 
-  // ==========================================================
-// SECTION VISIBILITY
+
+// ==========================================================
+// FLASH SECTION BACKGROUND
 // ==========================================================
 
-  bool get showInspiration => isGrocery;
-
-
-  void openCategory(int index) {
-    selectedCategoryIndex = index;
-
-    final mainController = Get.find<MainShellController>();
-    mainController.changeTab(1); // Category tab index
-
-    update();
-  }
+  Color get flashSectionBg =>
+      isGrocery ? const Color(0xFFFFE7D6) : const Color(0xFFD9F5F7);
 }

@@ -4,7 +4,7 @@ import '../../../constant/app_text_styles.dart';
 
 class CategoryModel {
   final String title;
-  final String image; // asset path for now, network later
+  final String image;
 
   CategoryModel({
     required this.title,
@@ -17,18 +17,20 @@ class CategoriesSection extends StatelessWidget {
   final int selectedIndex;
   final Function(int) onCategoryTap;
   final VoidCallback? onSeeAll;
-  final Color lightAccent;
 
   const CategoriesSection({
     super.key,
     required this.categories,
     required this.selectedIndex,
     required this.onCategoryTap,
-    this.onSeeAll, required this.lightAccent,
+    this.onSeeAll,
   });
 
   @override
   Widget build(BuildContext context) {
+
+    final lightAccent = AppColors.lightAccent;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -78,6 +80,7 @@ class CategoriesSection extends StatelessWidget {
               itemCount: categories.length,
               separatorBuilder: (_, __) => const SizedBox(width: 18),
               itemBuilder: (context, index) {
+
                 final category = categories[index];
 
                 return GestureDetector(

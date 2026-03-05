@@ -55,10 +55,7 @@ class NotificationView extends GetView<NotificationController> {
                         /// 🔹 Theme Toggle (Right)
                         Align(
                           alignment: Alignment.centerRight,
-                          child: ThemeToggle(
-                            isGrocery: controller.isGrocery,
-                            onToggle: controller.toggleTheme,
-                          ),
+                          child: ThemeToggle(),
                         ),
                       ],
                     ),

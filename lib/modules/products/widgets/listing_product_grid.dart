@@ -26,7 +26,7 @@ class ListingProductsGrid extends StatelessWidget {
     if (width < 360) {
       ratio = 0.49;
     } else if (width < 420) {
-      ratio = 0.55;
+      ratio = 0.48;
     } else if (width < 600) {
       ratio = 0.62;
     } else {

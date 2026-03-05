@@ -23,126 +23,101 @@ class DashboardView extends GetView<DashboardController> {
       backgroundColor: AppColors.background,
       extendBody: true,
 
-      /// 🔹 Bottom Nav
-      // bottomNavigationBar: GetBuilder<DashboardController>(
-      //   builder: (controller) {
-      //     return FloatingNavBar(
-      //       selectedIndex: controller.bottomNavIndex,
-      //       onItemSelected: controller.changeBottomNav,
-      //       accent: controller.accent,
-      //     );
-      //   },
-      // ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: GetBuilder<DashboardController>(
-            builder: (controller) {
-              return SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+      body: SafeArea(
+        bottom: false,
+        child: GetBuilder<DashboardController>(
+          builder: (controller) {
+            return SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
 
-                    /// 🔹 Header
-                    HeaderSection(
-                      name: "Ghana",
-                      address: "E /5001, Posh Complex Hatkesh U...",
-                      onNotificationTap: () {
-                        Get.toNamed(AppRoutes.notification);
-                      },
-                      onLocationTap: () {},
-                    ),
-                    const SizedBox(height: 8),
+                  /// 🔹 Header
+                  HeaderSection(
+                    name: "Ghana",
+                    address: "E /5001, Posh Complex Hatkesh U...",
+                    onNotificationTap: () {
+                      Get.toNamed(AppRoutes.notification);
+                    },
+                    onLocationTap: () {},
+                  ),
 
-                    /// 🔹 Banner
-                    BannerSection(
-                      imagePath: controller.bannerImage,
-                      isGrocery: controller.isGrocery,
-                      onToggle: controller.toggleTheme,
-                    ),
+                  const SizedBox(height: 8),
 
-                    SearchBarSection(
-                      accent: controller.accent,
-                    ),
+                  /// 🔹 Banner
+                  BannerSection(
+                    imagePath: controller.bannerImage,
+                  ),
 
-                    /// 🔹 Categories
-                    CategoriesSection(
-                      categories: controller.currentCategories,
-                      selectedIndex: controller.selectedCategoryIndex,
-                      onCategoryTap: controller.openCategory,
-                      lightAccent: controller.lightAccent,
-                    ),
+                  /// 🔹 Search
+                  SearchBarSection(),
 
-                    const SizedBox(height: 10),
+                  /// 🔹 Categories
+                  CategoriesSection(
+                    categories: controller.currentCategories,
+                    selectedIndex: controller.selectedCategoryIndex,
+                    onCategoryTap: controller.openCategory,
+                  ),
 
-                    /// 🔹 Vendors
-                    VendorsSection(
-                      vendors: controller.currentVendors,
-                      selectedIndex: controller.selectedVendorIndex,
-                      onVendorTap: controller.changeVendor,
-                      accent: controller.accent,
-                      lightAccent: controller.lightAccent,
-                    ),
-                    const SizedBox(height: 20),
+                  const SizedBox(height: 10),
 
-                    /// 🔹 Flash Sale
-                    ProductsSection(
-                      title: "Flash Sale 🔥",
-                      products: controller.flashProducts,
-                      accent: controller.accent,
-                      backgroundColor: controller.flashSectionBg,
+                  /// 🔹 Vendors
+                  VendorsSection(
+                    vendors: controller.currentVendors,
+                    selectedIndex: controller.selectedVendorIndex,
+                    onVendorTap: controller.changeVendor,
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  /// 🔹 Flash Sale
+                  ProductsSection(
+                    title: "Flash Sale 🔥",
+                    products: controller.flashProducts,
+                    backgroundColor: controller.flashSectionBg,
+                  ),
+
+                  /// 🔹 Today's Specials
+                  ProductsSection(
+                    title: "Today’s Specials",
+                    products: controller.todaysSpecials,
+                  ),
+
+                  /// 🔹 Inspiration
+                  if (controller.showInspiration)
+                    InspirationSection(
+                      items: controller.inspirations,
                     ),
 
-                    /// 🔹 Today’s Specials
-                    ProductsSection(
-                      title: "Today’s Specials",
-                      products: controller.todaysSpecials,
-                      accent: controller.accent,
-                    ),
+                  const SizedBox(height: 20),
 
-                    /// 🔹 Inspiration
-                    if (controller.showInspiration)
-                      InspirationSection(
-                        items: controller.inspirations,
+                  /// 🔹 Tab Section
+                  TabSection(
+                    tabs: const [
+                      "Today's Choices",
+                      "Limited Discount!",
+                      "Cheapest!",
+                    ],
+                    selectedIndex: controller.selectedTabIndex,
+                    onTabChanged: controller.changeTab,
+                    tabViews: [
+                      ProductsGrid(
+                        products: controller.currentTabProducts,
                       ),
+                      ProductsGrid(
+                        products: controller.limitedDiscount,
+                      ),
+                      ProductsGrid(
+                        products: controller.cheapest,
+                      ),
+                    ],
+                  ),
 
-                    const SizedBox(height: 20),
-
-                    /// 🔹 Tab Section
-                    TabSection(
-                      tabs: const [
-                        "Today's Choices",
-                        "Limited Discount!",
-                        "Cheapest!",
-                      ],
-                      selectedIndex: controller.selectedTabIndex,
-                      onTabChanged: controller.changeTab,
-                      tabViews: [
-                        ProductsGrid(
-                          products: controller.currentTabProducts,
-                          accent: controller.accent,
-                          discountColor: controller.accent,
-                        ),
-                        ProductsGrid(
-                          products: controller.limitedDiscount,
-                          accent: controller.accent,
-                          discountColor: controller.accent,
-
-                        ),
-                        ProductsGrid(
-                          products: controller.cheapest,
-                          accent: controller.accent,
-                          discountColor: controller.accent,
-
-                        ),
-                      ],
-                      accent: controller.accent, // 🔥 dynamic color
-                    ),
-                    const SizedBox(height: 30),
-                  ],
-                ),
-              );
-            },
-          ),
+                  const SizedBox(height: 30),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );

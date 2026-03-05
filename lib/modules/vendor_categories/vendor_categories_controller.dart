@@ -4,31 +4,16 @@ import '../../constant/app_colors.dart';
 import '../category/category_navigator.dart';
 import '../../modules/dashboard/widgets/categories_section.dart';
 import '../mian_shell/main_shell_controller.dart';
-
-enum VendorCategoryTheme {
-  grocery,
-  medicine,
-}
+import '../theme/theme_controller.dart';
 
 class VendorCategoriesController extends GetxController {
 
-  // =============================
-  // THEME
-  // =============================
+  /// 🔹 GLOBAL THEME
+  final ThemeController theme = Get.find<ThemeController>();
 
-  VendorCategoryTheme currentTheme = VendorCategoryTheme.grocery;
+  bool get isGrocery => theme.isGrocery;
 
-  bool get isGrocery => currentTheme == VendorCategoryTheme.grocery;
-
-  Color get accent =>
-      isGrocery ? AppColors.primaryOrange : AppColors.secondaryCyan;
-
-  void toggleTheme() {
-    currentTheme =
-    isGrocery ? VendorCategoryTheme.medicine : VendorCategoryTheme.grocery;
-
-    update();
-  }
+  Color get accent => AppColors.accent;
 
   // =============================
   // FILTER TABS
@@ -95,10 +80,10 @@ class VendorCategoriesController extends GetxController {
 
   void openCategory(CategoryModel category) {
 
-    // 🔹 Hide bottom navigation
+    /// 🔹 Hide bottom navigation
     Get.find<MainShellController>().hideNavBar();
 
-    // 🔹 Navigate to product listing
+    /// 🔹 Navigate to product listing
     CategoryNavigator.navigatorKey.currentState?.pushNamed(
       '/product-listing',
       arguments: {
@@ -106,4 +91,5 @@ class VendorCategoriesController extends GetxController {
         "isGrocery": isGrocery,
       },
     );
-  }}
+  }
+}

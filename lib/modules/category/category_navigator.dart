@@ -22,45 +22,62 @@ class CategoryNavigator extends StatelessWidget {
       key: navigatorKey,
       initialRoute: '/',
       onGenerateRoute: (settings) {
-
         switch (settings.name) {
 
-        // 🔹 Vendor Categories Screen
+        /// 🔹 Vendor Categories Screen
           case '/vendor-categories':
             return MaterialPageRoute(
               builder: (_) {
+
+                Get.delete<VendorCategoriesController>(force: true);
+
                 Get.put(VendorCategoriesController());
+
                 return const VendorCategoriesView();
               },
             );
 
-        // 🔹 Product Listing Screen
+        /// 🔹 Product Listing Screen
           case '/product-listing':
             final args = settings.arguments as Map?;
 
             return MaterialPageRoute(
               builder: (_) {
+
+                Get.delete<ProductListingController>(force: true);
+
                 Get.put(
                   ProductListingController(
                     isGrocery: args?['isGrocery'] ?? true,
                   ),
                 );
+
                 return const ProductListingView();
               },
             );
 
-        /// ⭐ Product Detail
+        /// 🔹 Product Detail Screen
           case AppRoutes.productDetails:
 
             final product = settings.arguments as ProductModel;
 
             return MaterialPageRoute(
               builder: (_) {
-                Get.put(ProductDetailController()..product = product);
+
+                /// Remove old instance
+                Get.delete<ProductDetailController>(force: true);
+
+                /// Create new instance
+                final controller = Get.put(ProductDetailController());
+
+                /// Inject product
+                controller.product = product;
+
                 return const ProductDetailView();
               },
             );
-        // 🔹 Default → Category Root
+
+        /// 🔹 Default → Category Root
           default:
             return MaterialPageRoute(
               builder: (_) => const CategoryView(),

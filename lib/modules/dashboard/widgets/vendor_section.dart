@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../constant/app_colors.dart';
 import '../../../constant/app_text_styles.dart';
 
 class VendorModel {
@@ -19,22 +20,20 @@ class VendorsSection extends StatelessWidget {
   final Function(int) onVendorTap;
   final VoidCallback? onSeeAll;
 
-  /// 🔥 Injected Theme Colors
-  final Color accent;
-  final Color lightAccent;
-
   const VendorsSection({
     super.key,
     required this.vendors,
     required this.selectedIndex,
     required this.onVendorTap,
-    required this.accent,
-    required this.lightAccent,
     this.onSeeAll,
   });
 
   @override
   Widget build(BuildContext context) {
+
+    final accent = AppColors.accent;
+    final lightAccent = AppColors.lightAccent;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -93,7 +92,6 @@ class VendorsSection extends StatelessWidget {
 
                 return _VendorCard(
                   vendor: vendor,
-                  accent: accent,
                   onTap: () => onVendorTap(index),
                 );
               },
@@ -109,13 +107,9 @@ class _VendorCard extends StatefulWidget {
   final VendorModel vendor;
   final VoidCallback onTap;
 
-  /// 🔥 Accent injected
-  final Color accent;
-
   const _VendorCard({
     required this.vendor,
     required this.onTap,
-    required this.accent,
   });
 
   @override
@@ -137,6 +131,9 @@ class _VendorCardState extends State<_VendorCard> {
 
   @override
   Widget build(BuildContext context) {
+
+    final accent = AppColors.accent;
+
     return GestureDetector(
       onTap: _handleTap,
       child: AnimatedScale(
@@ -150,14 +147,14 @@ class _VendorCardState extends State<_VendorCard> {
             borderRadius: BorderRadius.circular(26),
             border: Border.all(
               color: showEffect
-                  ? widget.accent
+                  ? accent
                   : Colors.transparent,
               width: 3,
             ),
             boxShadow: [
               if (showEffect)
                 BoxShadow(
-                  color: widget.accent.withValues(alpha: 0.35),
+                  color: accent.withValues(alpha: 0.35),
                   blurRadius: 22,
                   spreadRadius: 1,
                 ),
@@ -211,7 +208,7 @@ class _VendorCardState extends State<_VendorCard> {
                       Text(
                         "View Store",
                         style: AppTextStyles.body.copyWith(
-                          color: widget.accent,
+                          color: accent,
                           fontWeight: FontWeight.w600,
                           decoration: TextDecoration.underline,
                         ),
