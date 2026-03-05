@@ -13,7 +13,6 @@ class WishlistView extends GetView<WishlistController> {
   Widget build(BuildContext context) {
 
     final dashboardController = Get.find<DashboardController>();
-    final accent = dashboardController.accent;
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -58,8 +57,6 @@ class WishlistView extends GetView<WishlistController> {
               child: SingleChildScrollView(
                 child: ProductsGrid(
                   products: controller.wishlistProducts,
-                  accent: accent,
-                  discountColor: accent,
                 ),
               ),
             ),

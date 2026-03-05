@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
+import '../constant/app_colors.dart';
 import '../data/models/product/product_model.dart';
 import '../modules/products/widgets/product_card.dart';
 
 class ProductsGrid extends StatelessWidget {
   final List<ProductModel> products;
 
-  /// THEME COLORS (Accent still dynamic)
-  final Color accent;
-  final Color discountColor;
-
   const ProductsGrid({
     super.key,
     required this.products,
-    required this.accent,
-    required this.discountColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
 
+    final accent = AppColors.accent;
+
+    return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 100),
@@ -35,8 +32,8 @@ class ProductsGrid extends StatelessWidget {
         return ProductCard(
           product: products[index],
           accent: accent,
-          discountColor: discountColor,
-          cardBackground: Colors.white, // 🔥 ALWAYS WHITE
+          discountColor: accent,
+          cardBackground: Colors.white,
         );
       },
     );

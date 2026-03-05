@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import '../../constant/app_colors.dart';
+import '../../data/models/product/product_model.dart';
 
 class MainShellController extends GetxController {
 
@@ -8,10 +9,35 @@ class MainShellController extends GetxController {
 
   bool showNavBar = true;
 
-  void changeTab(int index) {
+  /// remember cart origin
+  bool openedCartFromProduct = false;
+  ProductModel? returnProduct;
+
+  /// 🔹 change tab with optional navbar visibility
+  void changeTab(int index, {bool? showNav}) {
     currentIndex = index;
-    showNavBar = true; // ensure nav appears when switching tabs
+
+    if (showNav != null) {
+      showNavBar = showNav;
+    }
+
     update();
+  }
+
+  /// 🔹 open cart normally
+  void openCart() {
+    openedCartFromProduct = false;
+    returnProduct = null;
+
+    changeTab(2, showNav: true);
+  }
+
+  /// 🔹 open cart from product
+  void openCartFromProduct(ProductModel product) {
+    openedCartFromProduct = true;
+    returnProduct = product;
+
+    changeTab(2, showNav: true);
   }
 
   void hideNavBar() {

@@ -4,14 +4,10 @@ import '../../../constant/app_text_styles.dart';
 import '../../../utils/segment_toggle.dart';
 
 class CategoryHeader extends StatelessWidget {
-  final bool isGrocery;
-  final VoidCallback onToggle;
   final VoidCallback? onBack;
 
   const CategoryHeader({
     super.key,
-    required this.isGrocery,
-    required this.onToggle,
     this.onBack,
   });
 
@@ -47,10 +43,7 @@ class CategoryHeader extends StatelessWidget {
           ),
 
           /// 🔹 Theme Toggle
-          ThemeToggle(
-            isGrocery: isGrocery,
-            onToggle: onToggle,
-          ),
+          // const ThemeToggle(),
         ],
       ),
     );

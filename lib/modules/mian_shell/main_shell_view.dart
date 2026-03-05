@@ -3,6 +3,7 @@ import 'package:e_comm/modules/category/category_navigator.dart';
 import 'package:e_comm/modules/orders/orders_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../routes/app_routes.dart';
 import '../dashboard/dashboard_view.dart';
 import '../dashboard/widgets/floating_nav_bar.dart';
 import '../wishlist/wishlist_view.dart';
@@ -36,7 +37,27 @@ class MainShellView extends GetView<MainShellController> {
                 }
               }
 
-              /// 🔹 If not dashboard → go to dashboard
+              /// 🔹 If cart opened from product → return to product
+              if (controller.currentIndex == 2 &&
+                  controller.openedCartFromProduct &&
+                  controller.returnProduct != null) {
+
+                controller.changeTab(1, showNav: false);
+
+                Future.delayed(const Duration(milliseconds: 80), () {
+                  CategoryNavigator.navigatorKey.currentState?.pushNamed(
+                    AppRoutes.productDetails,
+                    arguments: controller.returnProduct,
+                  );
+                });
+
+                controller.openedCartFromProduct = false;
+                controller.returnProduct = null;
+
+                return;
+              }
+
+              /// Default behavior
               if (controller.currentIndex != 0) {
                 controller.changeTab(0);
                 return;
@@ -66,7 +87,6 @@ class MainShellView extends GetView<MainShellController> {
                 ? FloatingNavBar(
               selectedIndex: controller.currentIndex,
               onItemSelected: controller.changeTab,
-              accent: controller.accent,
             )
                 : const SizedBox(),
           ),
