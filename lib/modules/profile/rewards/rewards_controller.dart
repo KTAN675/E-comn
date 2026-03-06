@@ -1,3 +1,4 @@
+import 'package:e_comm/modules/profile/rewards/reward_details.dart';
 import 'package:get/get.dart';
 
 class RewardsController extends GetxController {
@@ -25,4 +26,9 @@ class RewardsController extends GetxController {
     },
 
   ];
+
+  void openReward(Map<String,String> reward){
+    Get.to(() => RewardDetailsView(reward: reward));
+  }
+
 }

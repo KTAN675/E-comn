@@ -159,11 +159,16 @@ class NotificationSettingsView extends GetView<ProfileAndSettingController> {
           Switch(
             value: ctrl.enableAll,
             onChanged: ctrl.toggleEnableAll,
-            activeThumbColor: AppColors.white,
-            activeTrackColor: AppColors.primaryOrange,
-            inactiveThumbColor: AppColors.white,
-            inactiveTrackColor: Colors.grey[300],
-          ),
+            thumbColor: MaterialStateProperty.resolveWith<Color>((states) {
+              return AppColors.white;
+            }),
+            trackColor: MaterialStateProperty.resolveWith<Color>((states) {
+              if (states.contains(MaterialState.selected)) {
+                return AppColors.primaryOrange;
+              }
+              return Colors.grey.shade300;
+            }),
+          )
         ],
       ),
     );
@@ -212,11 +217,14 @@ class NotificationSettingsView extends GetView<ProfileAndSettingController> {
           Switch(
             value: value,
             onChanged: onChanged,
-            activeThumbColor: AppColors.white,
-            activeTrackColor: AppColors.primaryOrange,
-            inactiveThumbColor: AppColors.white,
-            inactiveTrackColor: Colors.grey[300],
-          ),
+            thumbColor: MaterialStateProperty.all(AppColors.white),
+            trackColor: MaterialStateProperty.resolveWith<Color>((states) {
+              if (states.contains(MaterialState.selected)) {
+                return AppColors.primaryOrange;
+              }
+              return Colors.grey.shade300;
+            }),
+          )
         ],
       ),
     );

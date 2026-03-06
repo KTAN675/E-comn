@@ -1,59 +1,32 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../return_controller.dart';
+import '../../../constant/app_text_styles.dart';
 
-class ReturnImageUpload extends GetView<ReturnController> {
+class ReturnImageUpload extends StatelessWidget {
   const ReturnImageUpload({super.key});
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
 
-        const Text(
+        Text(
           "Upload Image",
-          style: TextStyle(fontWeight: FontWeight.w600),
+          style: AppTextStyles.bodyLarge,
         ),
 
         const SizedBox(height: 10),
 
-        Obx(() {
-          return Row(
-            children: [
-
-              ...controller.images.map((img) => Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Stack(
-                  children: [
-                    Image.file(
-                      img,
-                      width: 70,
-                      height: 70,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
-                ),
-              )),
-
-              GestureDetector(
-                onTap: controller.pickImage,
-                child: Container(
-                  width: 70,
-                  height: 70,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: const Center(
-                    child: Text("+ Add"),
-                  ),
-                ),
-              ),
-            ],
-          );
-        })
+        Container(
+          height: 80,
+          width: 80,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: const Icon(Icons.add),
+        ),
       ],
     );
   }

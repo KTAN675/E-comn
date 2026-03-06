@@ -3,6 +3,8 @@ import 'package:e_comm/modules/category/category_navigator.dart';
 import 'package:e_comm/modules/orders/orders_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../constant/app_colors.dart';
+import '../../constant/app_text_styles.dart';
 import '../../routes/app_routes.dart';
 import '../dashboard/dashboard_view.dart';
 import '../dashboard/widgets/floating_nav_bar.dart';
@@ -64,8 +66,7 @@ class MainShellView extends GetView<MainShellController> {
               }
 
               /// 🔹 Exit app
-              Navigator.of(context).pop();
-            }
+              _showExitDialog(context);            }
           },
           child: Scaffold(
             backgroundColor: Colors.transparent,
@@ -94,4 +95,107 @@ class MainShellView extends GetView<MainShellController> {
       },
     );
   }
-}
+  void _showExitDialog(BuildContext context) {
+    Get.dialog(
+      Dialog(
+        backgroundColor: Colors.transparent,
+
+        child: Container(
+          padding: const EdgeInsets.all(22),
+
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(20),
+          ),
+
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+
+            children: [
+
+              /// ICON
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: AppColors.primaryOrange.withValues(alpha: .1),
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.exit_to_app_rounded,
+                  color: AppColors.primaryOrange,
+                  size: 30,
+                ),
+              ),
+
+              const SizedBox(height: 18),
+
+              /// TITLE
+              Text(
+                "Exit App",
+                style: AppTextStyles.h2,
+              ),
+
+              const SizedBox(height: 6),
+
+              /// MESSAGE
+              Text(
+                "Are you sure you want to exit the app?",
+                textAlign: TextAlign.center,
+                style: AppTextStyles.bodyGrey,
+              ),
+
+              const SizedBox(height: 24),
+
+              /// BUTTONS
+              Row(
+                children: [
+
+                  /// CANCEL
+                  Expanded(
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        side: const BorderSide(color: AppColors.border),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      onPressed: () => Get.back(),
+                      child: Text(
+                        "Cancel",
+                        style: AppTextStyles.buttonSecondary,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(width: 12),
+
+                  /// EXIT
+                  Expanded(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryOrange,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop(true);
+                      },
+                      child: Text(
+                        "Exit",
+                        style: AppTextStyles.button,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: true,
+    );
+  }}

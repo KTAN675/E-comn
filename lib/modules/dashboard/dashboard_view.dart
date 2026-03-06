@@ -39,7 +39,9 @@ class DashboardView extends GetView<DashboardController> {
                     onNotificationTap: () {
                       Get.toNamed(AppRoutes.notification);
                     },
-                    onLocationTap: () {},
+                    onLocationTap: () {
+                      Get.toNamed(AppRoutes.drawer);
+                    },
                   ),
 
                   const SizedBox(height: 8),

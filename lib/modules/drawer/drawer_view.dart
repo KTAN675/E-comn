@@ -8,122 +8,144 @@ class DrawerView extends GetView<DrawerControllerX> {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: Container(
-        color: const Color(0xFFFF6A00),
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+    final width = MediaQuery.of(context).size.width;
 
-              /// 🔥 HEADER
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: GetBuilder<DrawerControllerX>(
-                  builder: (controller) {
-                    return GestureDetector(
-                      onTap: () {
-                        Get.back(); // drawer close
-                        Get.toNamed(AppRoutes.ProfileAndSetting); // profile open
-                      },
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 35,
-                            backgroundImage:
-                            NetworkImage(controller.profileImage),
-                          ),
-                          const SizedBox(width: 20),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+    return Material(
+      color: Colors.transparent, // dim background
+      child: Row(
+        children: [
+
+          /// 🔥 DRAWER PANEL
+          Container(
+            width: width * 0.75,
+            color: const Color(0xFFFF6A00),
+            child: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+
+                  /// 🔥 HEADER
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: GetBuilder<DrawerControllerX>(
+                      builder: (controller) {
+                        return GestureDetector(
+                          onTap: () {
+                            Get.back();
+                            Get.toNamed(AppRoutes.ProfileAndSetting);
+                          },
+                          child: Row(
                             children: [
-                              Text(
-                                "Hello ${controller.userName}",
-                                style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                ),
+                              CircleAvatar(
+                                radius: 35,
+                                backgroundImage:
+                                NetworkImage(controller.profileImage),
                               ),
-                              const SizedBox(height: 5),
-                              Text(
-                                controller.userRole,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.white70,
-                                ),
-                              ),
+                              const SizedBox(width: 20),
+
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Hello ${controller.userName}",
+                                    style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 5),
+
+                                  Text(
+                                    controller.userRole,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white70,
+                                    ),
+                                  ),
+                                ],
+                              )
                             ],
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+
+                  const Divider(color: Colors.white54),
+
+                  /// 🔥 MENU ITEMS
+                  Expanded(
+                    child: ListView(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      children: [
+
+                        _menuItem(
+                          icon: Icons.shopping_bag_outlined,
+                          title: "Orders",
+                          onTap: controller.goToOrders,
+                        ),
+
+                        _menuItem(
+                          icon: Icons.help_outline,
+                          title: "Ask question",
+                          onTap: controller.askQuestion,
+                        ),
+
+                        _menuItem(
+                          icon: Icons.description_outlined,
+                          title: "Terms & service",
+                          onTap: controller.openTerms,
+                        ),
+
+                        _menuItem(
+                          icon: Icons.chat_bubble_outline,
+                          title: "FAQs",
+                          onTap: controller.openFaq,
+                        ),
+
+                        _menuItem(
+                          icon: Icons.privacy_tip_outlined,
+                          title: "Privacy policy",
+                          onTap: controller.openPrivacy,
+                        ),
+
+                        _menuItem(
+                          icon: Icons.assignment_outlined,
+                          title: "Return and refund policy",
+                          onTap: controller.openReturnPolicy,
+                        ),
+
+                        _menuItem(
+                          icon: Icons.call_outlined,
+                          title: "Call us",
+                          onTap: controller.callUs,
+                        ),
+
+                        const SizedBox(height: 10),
+
+                        _menuItem(
+                          icon: Icons.logout,
+                          title: "Logout",
+                          onTap: controller.logout,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              const Divider(color: Colors.white54),
-
-              /// 🔥 MENU ITEMS
-              Expanded(
-                child: ListView(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  children: [
-
-                    _menuItem(
-                      icon: Icons.shopping_bag_outlined,
-                      title: "Orders",
-                      onTap: controller.goToOrders,
-                    ),
-
-                    _menuItem(
-                      icon: Icons.help_outline,
-                      title: "Ask question",
-                      onTap: controller.askQuestion,
-                    ),
-
-                    _menuItem(
-                      icon: Icons.description_outlined,
-                      title: "Terms & service",
-                      onTap: controller.openTerms,
-                    ),
-
-                    _menuItem(
-                      icon: Icons.chat_bubble_outline,
-                      title: "FAQs",
-                      onTap: controller.openFaq,
-                    ),
-
-                    _menuItem(
-                      icon: Icons.privacy_tip_outlined,
-                      title: "Privacy policy",
-                      onTap: controller.openPrivacy,
-                    ),
-
-                    _menuItem(
-                      icon: Icons.assignment_outlined,
-                      title: "Return and refund policy",
-                      onTap: controller.openReturnPolicy,
-                    ),
-
-                    _menuItem(
-                      icon: Icons.call_outlined,
-                      title: "Call us",
-                      onTap: controller.callUs,
-                    ),
-
-                    const SizedBox(height: 10),
-
-                    _menuItem(
-                      icon: Icons.logout,
-                      title: "Logout",
-                      onTap: controller.logout,
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+
+          /// 🔥 TAP OUTSIDE TO CLOSE DRAWER
+          Expanded(
+            child: GestureDetector(
+              onTap: () => Get.back(),
+              child: Container(color: Colors.transparent),
+            ),
+          ),
+        ],
       ),
     );
   }

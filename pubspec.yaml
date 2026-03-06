@@ -41,6 +41,9 @@ dependencies:
   firebase_auth: ^6.1.4
   permission_handler: ^12.0.1
   flutter_svg: ^2.2.3
+  image_picker: ^1.2.1
+  fluttertoast: ^9.0.0
+  confetti: ^0.8.0
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +79,8 @@ flutter:
    - assets/images/products/
    - assets/images/product_category/
    - assets/images/payment/
+   - assets/images/wallet/
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

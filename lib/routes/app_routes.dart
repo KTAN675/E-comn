@@ -23,12 +23,14 @@ abstract class AppRoutes {
   static const select_payment = '/select_payment';
   static const address = "/address";
   static const help_and_faqs = "/help_and_faqs";
-  static const returns = "/returns";
   static const mapLocation = '/map-location';
   static const withdraw = '/withdraw';
   static const profile = '/profile';
   static const signup = '/signup';
-  static const exchange = '/exchange';
+  static const returns = "/returns";
+  static const exchange = "/exchange";
+  static const trackExchange = "/track-exchange";
+  static const trackReturn = "/track-return";
   static const locationPermission = '/location-permission';
   static const editProfile = '/edit-profile';
   static const ProfileAndSetting = '/ProfileAndSetting';

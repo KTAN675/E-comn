@@ -64,7 +64,7 @@ class ProfileAndSettingView extends GetView<ProfileAndSettingController> {
                   icon: Icons.notifications_none_outlined,
                   title: 'Notification',
                   onTap: () =>
-                      Get.toNamed(AppRoutes.notification),
+                      Get.toNamed(AppRoutes.notificationSettings),
                 ),
                 ProfileMenuItem(
                   icon: Icons.help_outline,

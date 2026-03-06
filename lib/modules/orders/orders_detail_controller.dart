@@ -1,6 +1,8 @@
 import 'package:e_comm/modules/orders/widgets/review_dialog.dart';
 import 'package:get/get.dart';
 
+import '../../routes/app_routes.dart';
+
 class OrderItem {
   final String name;
   final int price;
@@ -41,5 +43,9 @@ class OrderDetailController extends GetxController {
       const ReviewDialog(),
       barrierDismissible: true,
     );
+  }
+
+  void trackOrder() {
+    Get.toNamed(AppRoutes.trackExchange);
   }
 }

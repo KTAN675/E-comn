@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../constant/app_colors.dart';
+import '../../../../constant/app_text_styles.dart';
 
 class WalletBalanceCard extends StatelessWidget {
   final double balance;
@@ -11,24 +13,24 @@ class WalletBalanceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 357,
+      width: double.infinity,
       height: 170,
       padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
-        color: Color(0xFFFF660E),
+        color: AppColors.accent,
         borderRadius: BorderRadius.circular(19),
       ),
       child: Stack(
         children: [
 
-          /// 🔥 RIGHT SIDE BACKGROUND IMAGE
+          /// 🔥 BACKGROUND IMAGE
           Positioned(
             right: -10,
             bottom: -10,
             child: Opacity(
-              opacity: 0.30, // 👈 light background effect
+              opacity: .30,
               child: Image.asset(
-                'assets/images/wallet/available_balance.png', // 👈 your image
+                'assets/images/wallet/available_balance.png',
                 height: 100,
                 fit: BoxFit.contain,
               ),
@@ -40,30 +42,29 @@ class WalletBalanceCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+
+              Text(
                 "Available Balance",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
+                style: AppTextStyles.h2.copyWith(
+                  color: AppColors.white,
                 ),
               ),
 
               Text(
                 "₹${balance.toStringAsFixed(0)}",
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
+                style: AppTextStyles.display.copyWith(
+                  color: AppColors.white,
                 ),
               ),
 
-              Divider(color: Colors.white.withOpacity(.4)),
+              Divider(
+                color: AppColors.white.withValues(alpha: .4),
+              ),
 
-              const Text(
+              Text(
                 "Manage Your Balance With Ease. Add, Track, And Use It Anytime.",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
+                style: AppTextStyles.body.copyWith(
+                  color: AppColors.white,
                 ),
               ),
             ],

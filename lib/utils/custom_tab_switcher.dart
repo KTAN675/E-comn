@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import '../constant/app_colors.dart';
 import '../constant/app_text_styles.dart';
 
 class CommonTabSwitcher extends StatelessWidget {
   final List<String> tabs;
   final int selectedIndex;
   final Function(int) onTabChanged;
+  final Color accent;
 
   const CommonTabSwitcher({
     super.key,
     required this.tabs,
     required this.selectedIndex,
-    required this.onTabChanged, required accent,
+    required this.onTabChanged,
+    required this.accent,
   });
 
   @override
@@ -31,13 +32,13 @@ class CommonTabSwitcher extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: AnimatedDefaultTextStyle(
-                    duration: const Duration(milliseconds: 200),
+                    duration: const Duration(milliseconds: 250),
                     curve: Curves.easeInOut,
                     style: AppTextStyles.body.copyWith(
                       fontWeight:
                       isSelected ? FontWeight.w700 : FontWeight.w500,
                       color: isSelected
-                          ? AppColors.primaryOrange
+                          ? accent
                           : Colors.grey.shade500,
                     ),
                     child: Center(
@@ -50,66 +51,56 @@ class CommonTabSwitcher extends StatelessWidget {
           }),
         ),
 
-        const SizedBox(height: 6),
+        /// 🔹 Animated Indicator
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final tabWidth = constraints.maxWidth / tabs.length;
 
-        /// 🔹 Wave Indicator
-        _TabIndicator(
-          selectedIndex: selectedIndex,
-          totalTabs: tabs.length,
+            return SizedBox(
+              height: 12,
+              width: double.infinity,
+              child: TweenAnimationBuilder<double>(
+                tween: Tween(
+                  begin: 0,
+                  end: selectedIndex.toDouble(),
+                ),
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeInOut,
+                builder: (context, animatedIndex, _) {
+                  return CustomPaint(
+                    painter: _WavePainter(
+                      tabs: tabs,
+                      animatedIndex: animatedIndex,
+                      tabWidth: tabWidth,
+                      textStyle: AppTextStyles.body.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                      accent: accent,
+                    ),
+                  );
+                },
+              ),
+            );
+          },
         ),
       ],
     );
   }
 }
 
-class _TabIndicator extends StatelessWidget {
-  final int selectedIndex;
-  final int totalTabs;
-
-  const _TabIndicator({
-    required this.selectedIndex,
-    required this.totalTabs,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final tabWidth = constraints.maxWidth / totalTabs;
-
-        return TweenAnimationBuilder<double>(
-          tween: Tween(
-            begin: selectedIndex * tabWidth,
-            end: selectedIndex * tabWidth,
-          ),
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-          builder: (context, value, child) {
-            return SizedBox(
-              height: 24,
-              width: double.infinity,
-              child: CustomPaint(
-                painter: _WavePainter(
-                  indicatorStart: selectedIndex * tabWidth,
-                  tabWidth: tabWidth,
-                ),
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
-}
-
-
 class _WavePainter extends CustomPainter {
-  final double indicatorStart;
+  final List<String> tabs;
+  final double animatedIndex;
   final double tabWidth;
+  final TextStyle textStyle;
+  final Color accent;
 
   _WavePainter({
-    required this.indicatorStart,
+    required this.tabs,
+    required this.animatedIndex,
     required this.tabWidth,
+    required this.textStyle,
+    required this.accent,
   });
 
   @override
@@ -119,7 +110,7 @@ class _WavePainter extends CustomPainter {
       ..strokeWidth = 1;
 
     final activePaint = Paint()
-      ..color = AppColors.primaryOrange
+      ..color = accent
       ..style = PaintingStyle.fill;
 
     // Base grey line
@@ -129,44 +120,63 @@ class _WavePainter extends CustomPainter {
       baseLinePaint,
     );
 
-    final startX = indicatorStart + tabWidth * 0.05;
-    final endX = indicatorStart + tabWidth * 0.95;
-    final centerX = (startX + endX) / 2;
+    // Calculate center position dynamically
+    final centerX =
+        (animatedIndex * tabWidth) + tabWidth / 2;
 
-    final path = Path();
+    final int closestIndex = animatedIndex.round();
 
-    // Start from left
-    path.moveTo(startX, size.height - 2);
+    // Measure text width of target tab
+    final textPainter = TextPainter(
+      text: TextSpan(
+        text: tabs[closestIndex],
+        style: textStyle,
+      ),
+      maxLines: 1,
+      textDirection: TextDirection.ltr,
+    )..layout();
 
-    // Very subtle wide curve
-    path.quadraticBezierTo(
-      centerX,
-      size.height - 10, // LOWER curve height
-      endX,
-      size.height - 2,
-    );
+    final textWidth = textPainter.width;
 
-    // Close bottom
-    path.lineTo(endX, size.height);
-    path.lineTo(startX, size.height);
-    path.close();
+    final underlineLeft = centerX - textWidth / 2;
+    final underlineTop = size.height - 3;
 
-    canvas.drawPath(path, activePaint);
-
-    // Thin underline
-    canvas.drawRect(
-      Rect.fromLTWH(
-        startX,
-        size.height - 3,
-        endX - startX,
-        2,
+    // Underline
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromLTWH(
+          underlineLeft,
+          underlineTop,
+          textWidth,
+          3,
+        ),
+        const Radius.circular(2),
       ),
       activePaint,
     );
+
+    // Pointer bump
+    const double pointerWidth = 45;
+    const double pointerHeight = 8;
+
+    final pointerLeft = centerX - pointerWidth / 2;
+
+    final path = Path();
+    path.moveTo(pointerLeft, underlineTop);
+    path.quadraticBezierTo(
+      centerX,
+      underlineTop - pointerHeight,
+      pointerLeft + pointerWidth,
+      underlineTop,
+    );
+    path.close();
+
+    canvas.drawPath(path, activePaint);
   }
 
   @override
   bool shouldRepaint(covariant _WavePainter oldDelegate) {
-    return oldDelegate.indicatorStart != indicatorStart;
+    return oldDelegate.animatedIndex != animatedIndex ||
+        oldDelegate.accent != accent;
   }
 }
