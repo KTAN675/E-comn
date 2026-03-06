@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../constant/app_colors.dart';
+
 class PredefinedAmountChip extends StatelessWidget {
   final int amount;
   final bool isSelected;
@@ -17,7 +19,7 @@ class PredefinedAmountChip extends StatelessWidget {
     return ChoiceChip(
       label: Text("₹$amount"),
       selected: isSelected,
-      selectedColor: Colors.orange,
+      selectedColor: AppColors.primaryOrange,
       onSelected: (_) => onSelected(),
     );
   }

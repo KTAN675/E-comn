@@ -48,12 +48,7 @@ class ProfileAndSettingView extends GetView<ProfileAndSettingController> {
 
                 const SizedBox(height: 8),
 
-                /// 🔹 Menu Items
-                ProfileMenuItem(
-                  icon: Icons.center_focus_weak,
-                  title: 'Payment Method',
-                  onTap: () {},
-                ),
+                /// 🔹 Menu Itemsss
                 ProfileMenuItem(
                   icon: Icons.shopping_bag_outlined,
                   title: 'Past Orders',

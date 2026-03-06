@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../constant/app_colors.dart';
+
 class AmountChip extends StatelessWidget {
   final int amount;
   final bool isSelected;
@@ -29,7 +31,7 @@ class AmountChip extends StatelessWidget {
               borderRadius: BorderRadius.circular(18),
               border: Border.all(
                 color: isSelected
-                    ? const Color(0xffFF6A00)
+                    ? AppColors.primaryOrange
                     : Colors.grey.shade400,
               ),
             ),
@@ -39,7 +41,7 @@ class AmountChip extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 fontSize: 16,
                 color: isSelected
-                    ? const Color(0xffFF6A00)
+                    ? AppColors.primaryOrange
                     : Colors.black87,
               ),
             ),

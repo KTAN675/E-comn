@@ -251,6 +251,15 @@ class AppPages {
       page: () => const OpenTermsView(),
       binding: OpenTermsBinding(),
     ),
+    GetPage(
+      name: AppRoutes.trackExchange,
+      page: () => const TrackExchangeView(),
+    ),
+
+    GetPage(
+      name: AppRoutes.trackReturn,
+      page: () => const TrackReturnView(),
+    ),
 
     GetPage(
       name: AppRoutes.ProfileAndSetting,

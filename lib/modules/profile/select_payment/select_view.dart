@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../constant/app_colors.dart';
 import 'select_controller.dart';
 import 'widgets/payment_tile.dart';
 import 'widgets/section_title.dart';
@@ -60,7 +61,7 @@ class SelectView extends GetView<SelectController> {
                   trailing: controller.selectedPayment.value == "upi"
                       ? const CircleAvatar(
                     radius: 14,
-                    backgroundColor: Color(0xffFF6A00),
+                    backgroundColor: AppColors.primaryOrange,
                     child: Icon(Icons.check,
                         size: 16, color: Colors.white),
                   )
@@ -75,7 +76,7 @@ class SelectView extends GetView<SelectController> {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xffFF6A00),
+                      backgroundColor: AppColors.primaryOrange,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
@@ -104,7 +105,7 @@ class SelectView extends GetView<SelectController> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(Icons.add,
-                    color: Color(0xffFF6A00)),
+                    color: AppColors.primaryOrange),
               ),
               title: "Add New Card",
               subtitle: "Save And Pay Via Cards",

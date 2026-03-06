@@ -92,19 +92,22 @@ class CartItemCard extends StatelessWidget {
 
                         const Spacer(),
 
-                        Text(
-                          "₹${item.originalPrice}",
-                          style: AppTextStyles.strikePrice,
-                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              "₹${item.originalPrice}",
+                              style: AppTextStyles.strikePrice,
+                            ),
 
-                        const SizedBox(width: 6),
-
-                        Text(
-                          "₹${item.price}",
-                          style: AppTextStyles.price.copyWith(
-                            color: Colors.green,
-                          ),
-                        ),
+                            Text(
+                              "₹${item.price}",
+                              style: AppTextStyles.price.copyWith(
+                                color: Colors.green,
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ],

@@ -30,6 +30,8 @@ abstract class AppRoutes {
   static const signup = '/signup';
   static const exchange = '/exchange';
   static const openTerms = '/openTerms';
+  static const trackExchange = "/track-exchange";
+  static const trackReturn = "/track-return";
   static const locationPermission = '/location-permission';
   static const editProfile = '/edit-profile';
   static const ProfileAndSetting = '/ProfileAndSetting';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../constant/app_colors.dart';
 import '../../../constant/app_text_styles.dart';
+import '../../../routes/app_routes.dart';
 import '../../../utils/app_primary_button.dart';
 
 class OrderSuccessDialog extends StatelessWidget {
@@ -86,10 +87,11 @@ class OrderSuccessDialog extends StatelessWidget {
               title: "Go to Orders",
               onTap: () {
 
-                Get.back(); // close dialog
+                Get.back(); // close popup
 
-                /// navigate to orders later
-                // Get.toNamed(AppRoutes.orders);
+                Future.delayed(const Duration(milliseconds: 200), () {
+                  Get.toNamed(AppRoutes.orders);
+                });
 
               },
             )

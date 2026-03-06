@@ -21,10 +21,10 @@ class DashboardView extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(DrawerControllerX());
+    //Get.put(DrawerControllerX());
     return Scaffold(
-      key: controller.scaffoldKey,
-      drawer: const DrawerView(),
+     // key: controller.scaffoldKey,
+      //drawer: const DrawerView(),
       backgroundColor: AppColors.background,
       extendBody: true,
 
@@ -45,7 +45,7 @@ class DashboardView extends GetView<DashboardController> {
                       Get.toNamed(AppRoutes.notification);
                     },
                     onLocationTap: () {
-                      controller.openDrawer();
+                      Get.toNamed(AppRoutes.drawer);
                     },
                   ),
 

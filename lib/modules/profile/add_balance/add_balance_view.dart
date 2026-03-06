@@ -3,6 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 
+import '../../../constant/app_colors.dart';
 import '../../../routes/app_routes.dart';
 
 class AddBalanceView extends StatefulWidget {
@@ -80,7 +81,7 @@ class _AddBalanceViewState extends State<AddBalanceView> {
               width: double.infinity,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: const Color(0xffFF6A00),
+                color: AppColors.primaryOrange,
                 borderRadius: BorderRadius.circular(19),
               ),
               child: Column(
@@ -173,7 +174,7 @@ class _AddBalanceViewState extends State<AddBalanceView> {
                                 borderRadius: BorderRadius.circular(14),
                                 border: Border.all(
                                   color: isSelected
-                                      ? const Color(0xffFF6A00)
+                                      ? AppColors.primaryOrange
                                       : Colors.grey.shade400,
                                 ),
                               ),
@@ -182,7 +183,7 @@ class _AddBalanceViewState extends State<AddBalanceView> {
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: isSelected
-                                      ? const Color(0xffFF6A00)
+                                      ? AppColors.primaryOrange
                                       : Colors.black87,
                                 ),
                               ),
@@ -209,7 +210,7 @@ class _AddBalanceViewState extends State<AddBalanceView> {
                         child: const Text(
                           "Redeem Now",
                           style: TextStyle(
-                            color: Color(0xffFF6A00),
+                            color: AppColors.primaryOrange,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -228,7 +229,7 @@ class _AddBalanceViewState extends State<AddBalanceView> {
               child: ElevatedButton(
                 onPressed: proceedToAddBalance,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xffFF6A00),
+                  backgroundColor: AppColors.primaryOrange,
                   padding:
                   const EdgeInsets.symmetric(vertical: 18),
                   shape: RoundedRectangleBorder(

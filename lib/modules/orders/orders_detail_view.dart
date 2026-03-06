@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constant/app_colors.dart';
 import '../../constant/app_text_styles.dart';
+import '../../routes/app_routes.dart';
 import '../../utils/app_primary_button.dart';
 import 'orders_detail_controller.dart';
 import 'widgets/order_info_card.dart';
@@ -47,11 +48,16 @@ class OrderDetailView extends GetView<OrderDetailController> {
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: Center(
+              child: InkWell(
+                onTap: () {
+                  Get.toNamed(AppRoutes.help_and_faqs);
+                },
               child: Text(
                 "Help",
                 style: AppTextStyles.bodyLarge.copyWith(
                   color: AppColors.primaryOrange,
                   fontWeight: FontWeight.w600,
+                ),
                 ),
               ),
             ),

@@ -64,7 +64,7 @@ class OrderSummarySection extends GetView<CartController> {
               ),
 
               /// PROMO
-              _row(
+             /* _row(
                 "Promo-code",
                 "₹${controller.promo.toStringAsFixed(2)}",
               ),
@@ -73,7 +73,7 @@ class OrderSummarySection extends GetView<CartController> {
               _row(
                 "Delivery",
                 "₹${controller.delivery.toStringAsFixed(2)}",
-              ),
+              ),*/
 
               /// TAX
               _row(

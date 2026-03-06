@@ -164,12 +164,12 @@ class CartController extends GetxController {
   List<PaymentMethodModel> paymentMethods = [
 
     PaymentMethodModel(
-      title: "UPI",
+      title: "Pay Online",
       subtitle: "*********8317",
       image: "assets/images/payment/upi.png",
     ),
 
-    PaymentMethodModel(
+   /* PaymentMethodModel(
       title: "Card",
       subtitle: "dji***@gmail.com",
       image: "assets/images/payment/visa.png",
@@ -178,7 +178,7 @@ class CartController extends GetxController {
     PaymentMethodModel(
       title: "Net Banking",
       image: "assets/images/payment/netbanking.png",
-    ),
+    ),*/
 
     PaymentMethodModel(
       title: "Cash on Delivery",
