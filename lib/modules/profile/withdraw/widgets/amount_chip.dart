@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../../constant/app_colors.dart';
+import '../../../../constant/app_text_styles.dart';
+
 
 class AmountChip extends StatelessWidget {
   final int amount;
@@ -14,6 +17,8 @@ class AmountChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final accent = AppColors.accent;
+
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -24,23 +29,20 @@ class AmountChip extends StatelessWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: isSelected
-                  ? const Color(0xffFFE7D6)
-                  : const Color(0xffE9E9E9),
+                  ? AppColors.lightAccent
+                  : AppColors.white,
               borderRadius: BorderRadius.circular(18),
               border: Border.all(
                 color: isSelected
-                    ? const Color(0xffFF6A00)
-                    : Colors.grey.shade400,
+                    ? accent
+                    : AppColors.border,
               ),
             ),
             child: Text(
               "₹$amount",
-              style: TextStyle(
+              style: AppTextStyles.bodyLarge.copyWith(
                 fontWeight: FontWeight.w600,
-                fontSize: 16,
-                color: isSelected
-                    ? const Color(0xffFF6A00)
-                    : Colors.black87,
+                color: isSelected ? accent : AppColors.black,
               ),
             ),
           ),

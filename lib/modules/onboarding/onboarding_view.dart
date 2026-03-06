@@ -54,13 +54,14 @@ class _OnboardingViewState extends State<OnboardingView> {
             bottom: 0,
             left: 0,
             right: 0,
-            child: Image.asset(
-              'assets/images/onboarding/onboarding_bg.png',
-              height: h * 0.6,
-              fit: BoxFit.cover,
+            child: IgnorePointer(
+              child: Image.asset(
+                'assets/images/onboarding/onboarding_bg.png',
+                height: h * 0.6,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-
           SafeArea(
             child: Column(
               children: [
@@ -84,123 +85,127 @@ class _OnboardingViewState extends State<OnboardingView> {
                 ),
 
                 /// IMAGE AREA
-                SizedBox(
-                  height: h * 0.42,
+                Expanded(
                   child: PageView.builder(
                     controller: _controller,
                     itemCount: pages.length,
-                    onPageChanged: (i) =>
-                        setState(() => _currentPage = i),
+                    onPageChanged: (i) {
+                      setState(() {
+                        _currentPage = i;
+                      });
+                    },
                     itemBuilder: (context, i) {
                       final item = pages[i];
-                      return Center(
-                        child: Image.asset(
-                          item.image,
-                          fit: BoxFit.contain,
-                        ),
+
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+
+                          /// IMAGE
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.42,
+                            child: Center(
+                              child: Image.asset(
+                                item.image,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+
+                          /// TITLE
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 36),
+                            child: Text(
+                              item.title,
+                              textAlign: TextAlign.center,
+                              style: AppTextStyles.h1.copyWith(
+                                fontSize: 19,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(height: 18),
+
+                          /// DESC
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 44),
+                            child: Text(
+                              item.desc,
+                              textAlign: TextAlign.center,
+                              style: AppTextStyles.body.copyWith(
+                                color: const Color(0xff24252C),
+                              ),
+                            ),
+                          ),
+                        ],
                       );
                     },
                   ),
                 ),
 
-                /// TEXT AREA (this visually sits inside curve)
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                /// DOTS (outside PageView)
+                const SizedBox(height: 30),
 
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 36),
-                        child: Text(
-                          pages[_currentPage].title,
-                          textAlign: TextAlign.center,
-                          style: AppTextStyles.h1.copyWith(
-                            fontSize: 19,
-                            fontWeight: FontWeight.w700,
-                            // color: const Color(0xff2B1606),
-                          ),
-                        ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                    pages.length,
+                        (i) => AnimatedContainer(
+                      duration: const Duration(milliseconds: 250),
+                      margin: const EdgeInsets.only(right: 8),
+                      height: 10,
+                      width: _currentPage == i ? 22 : 10,
+                      decoration: BoxDecoration(
+                        color: _currentPage == i
+                            ? accent
+                            : const Color(0xffBDBDBD),
+                        borderRadius: BorderRadius.circular(30),
                       ),
-
-                      const SizedBox(height: 18),
-
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 44),
-                        child: Text(
-                          pages[_currentPage].desc,
-                          textAlign: TextAlign.center,
-                          style: AppTextStyles.body.copyWith(
-
-                            color: const Color(0xff24252C),
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 30),
-
-                      /// DOTS
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(
-                          pages.length,
-                              (i) => AnimatedContainer(
-                            duration: const Duration(milliseconds: 250),
-                            margin: const EdgeInsets.only(right: 8),
-                            height: 10,
-                            width: _currentPage == i ? 22 : 10,
-                            decoration: BoxDecoration(
-                              color: _currentPage == i
-                                  ? accent
-                                  : const Color(0xffBDBDBD),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 40),
-
-                      /// BUTTON
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 28),
-                        child: SizedBox(
-                          width: double.infinity,
-                          height: 60,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (_currentPage == pages.length - 1) {
-                                Get.offAllNamed(AppRoutes.login);
-                              } else {
-                                _controller.nextPage(
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.easeOut,
-                                );
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: accent,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              elevation: 0,
-                            ),
-                            child: Text(
-                              _currentPage == pages.length - 1
-                                  ? "Continue"
-                                  : "Next",
-                              style: AppTextStyles.button.copyWith(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 30),
-                    ],
+                    ),
                   ),
                 ),
+
+                const SizedBox(height: 40),
+
+                /// BUTTON (fixed)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 60,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_currentPage == pages.length - 1) {
+                          Get.offAllNamed(AppRoutes.login);
+                        } else {
+                          _controller.nextPage(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeOut,
+                          );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: accent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        elevation: 0,
+                      ),
+                      child: Text(
+                        _currentPage == pages.length - 1
+                            ? "Continue"
+                            : "Next",
+                        style: AppTextStyles.button.copyWith(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 30),
               ],
             ),
           ),

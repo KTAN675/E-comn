@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../../../constant/app_colors.dart';
+import '../../../../constant/app_text_styles.dart';
+
 
 class PaymentTile extends StatelessWidget {
   final Widget leading;
@@ -20,35 +23,41 @@ class PaymentTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
+
       child: Container(
         padding: const EdgeInsets.all(18),
+
         decoration: BoxDecoration(
-          color: const Color(0xffECECEC),
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(20),
         ),
+
         child: Row(
           children: [
+
             leading,
+
             const SizedBox(width: 16),
 
-            /// Title & Subtitle
+            /// TITLE + SUBTITLE
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
                   Text(
                     title,
-                    style: const TextStyle(
-                      fontSize: 16,
+                    style: AppTextStyles.bodyLarge.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
                   ),
+
                   if (subtitle != null) ...[
                     const SizedBox(height: 4),
+
                     Text(
                       subtitle!,
-                      style: const TextStyle(
-                        color: Colors.black54,
+                      style: AppTextStyles.bodyGrey.copyWith(
                         fontSize: 13,
                       ),
                     ),

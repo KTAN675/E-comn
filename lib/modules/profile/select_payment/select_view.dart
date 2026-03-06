@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../constant/app_colors.dart';
+import '../../../constant/app_text_styles.dart';
 import 'select_controller.dart';
 import 'widgets/payment_tile.dart';
 import 'widgets/section_title.dart';
@@ -9,89 +11,117 @@ class SelectView extends GetView<SelectController> {
 
   @override
   Widget build(BuildContext context) {
+
+    final accent = AppColors.accent;
+
     return Scaffold(
-      backgroundColor: const Color(0xffF5F5F5),
+      backgroundColor: AppColors.background,
+
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.background,
         elevation: 0,
-        foregroundColor: Colors.black,
+        foregroundColor: AppColors.black,
         centerTitle: true,
+
         title: Column(
-          children: const [
+          children: [
             Text(
               "Select Payment",
-              style: TextStyle(fontWeight: FontWeight.w600),
+              style: AppTextStyles.h2.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
             ),
-            SizedBox(height: 2),
+
+            const SizedBox(height: 2),
+
             Text(
               "Add ₹100 To Wallet",
-              style: TextStyle(
+              style: AppTextStyles.bodyGrey.copyWith(
                 fontSize: 13,
-                color: Colors.black54,
               ),
             )
           ],
         ),
       ),
+
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
+
         child: ListView(
           children: [
 
             /// Preferred Payment
             const SectionTitle(title: "Preferred Payment"),
 
-            Obx(() => Column(
-              children: [
-                PaymentTile(
-                  leading: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Text(
-                      "BHIM",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  title: "UPI",
-                  subtitle: "********8317",
-                  trailing: controller.selectedPayment.value == "upi"
-                      ? const CircleAvatar(
-                    radius: 14,
-                    backgroundColor: Color(0xffFF6A00),
-                    child: Icon(Icons.check,
-                        size: 16, color: Colors.white),
-                  )
-                      : null,
-                  onTap: () => controller.selectPayment("upi"),
-                ),
+            Obx(
+                  () => Column(
+                children: [
 
-                const SizedBox(height: 16),
+                  /// UPI
+                  PaymentTile(
+                    leading: Container(
+                      padding: const EdgeInsets.all(10),
 
-                /// Pay Button
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xffFF6A00),
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+
+                      child: Text(
+                        "BHIM",
+                        style: AppTextStyles.bodyLarge.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                    onPressed: () {},
-                    child: const Text(
-                      "Pay via UPI",
-                      style: TextStyle(
+
+                    title: "UPI",
+                    subtitle: "********8317",
+
+                    trailing: controller.selectedPayment.value == "upi"
+                        ? CircleAvatar(
+                      radius: 14,
+                      backgroundColor: accent,
+                      child: const Icon(
+                        Icons.check,
+                        size: 16,
+                        color: Colors.white,
+                      ),
+                    )
+                        : null,
+
+                    onTap: () => controller.selectPayment("upi"),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  /// PAY BUTTON
+                  SizedBox(
+                    width: double.infinity,
+
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: accent,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+
+                      onPressed: () {},
+
+                      child: Text(
+                        "Pay via UPI",
+                        style: AppTextStyles.button.copyWith(
                           fontSize: 18,
-                          fontWeight: FontWeight.w600),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            )),
+                ],
+              ),
+            ),
 
             /// Credit & Debit
             const SectionTitle(title: "Credit & Debit Card"),
@@ -99,13 +129,18 @@ class SelectView extends GetView<SelectController> {
             PaymentTile(
               leading: Container(
                 padding: const EdgeInsets.all(10),
+
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey.shade300),
+                  border: Border.all(color: AppColors.border),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(Icons.add,
-                    color: Color(0xffFF6A00)),
+
+                child: Icon(
+                  Icons.add,
+                  color: accent,
+                ),
               ),
+
               title: "Add New Card",
               subtitle: "Save And Pay Via Cards",
             ),
@@ -116,13 +151,18 @@ class SelectView extends GetView<SelectController> {
             PaymentTile(
               leading: Container(
                 padding: const EdgeInsets.all(10),
+
                 decoration: BoxDecoration(
-                  color: Colors.teal.shade100,
+                  color: AppColors.lightAccent,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(Icons.account_balance,
-                    color: Colors.teal),
+
+                child: Icon(
+                  Icons.account_balance,
+                  color: accent,
+                ),
               ),
+
               title: "Netbanking",
               subtitle: "select from a list of banks",
             ),
