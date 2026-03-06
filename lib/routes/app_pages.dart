@@ -1,9 +1,10 @@
 //import 'package:e_comm/modules/profile_and_setting/profile_and_setting_view.dart';
+import 'package:e_comm/modules/profile/notification/notification_settings_binding.dart';
+import 'package:e_comm/modules/profile/notification/notification_settings_view.dart';
+import 'package:e_comm/modules/return/return_binding.dart';
 import 'package:get/get.dart';
 //import '../modules/add_balance/add_balance_binding.dart';
 //import '../modules/add_balance/add_balance_view.dart';
-import '../exchange/exchange_binding.dart';
-import '../exchange/exchange_view.dart';
 import '../modules/address/address_controller.dart';
 import '../modules/address/address_view.dart';
 import '../modules/address/widgets/map_location_view.dart';
@@ -19,6 +20,8 @@ import '../modules/dashboard/dashboard_binding.dart';
 import '../modules/dashboard/dashboard_view.dart';
 import '../modules/drawer/drawer_binding.dart';
 import '../modules/drawer/drawer_view.dart';
+import '../modules/exchange/exchange_binding.dart';
+import '../modules/exchange/exchange_view.dart';
 import '../modules/mian_shell/main_shell_binding.dart';
 import '../modules/mian_shell/main_shell_view.dart';
 import '../modules/orders/order_detail_binding.dart';
@@ -58,10 +61,11 @@ import '../modules/profile/wallet/wallet_binding.dart';
 import '../modules/profile/wallet/wallet_view.dart';
 import '../modules/profile/withdraw/withdraw_binding.dart';
 import '../modules/profile/withdraw/withdraw_view.dart';
-import '../modules/return/return_binding.dart';
 import '../modules/return/return_view.dart';
 import '../modules/splash/splash_binding.dart';
 import '../modules/splash/splash_view.dart';
+import '../modules/tracking/track_exchange_view.dart';
+import '../modules/tracking/track_return_view.dart';
 import '../modules/vendor_categories/vendor_categories_binding.dart';
 import '../modules/vendor_categories/vendor_categories_view.dart';
 import '../modules/wishlist/wishlist_binding.dart';
@@ -167,6 +171,12 @@ class AppPages {
     ),
 
     GetPage(
+      name: AppRoutes.notificationSettings,
+      page: () => const NotificationSettingsView(),
+      binding: NotificationSettingsBinding(),
+    ),
+
+    GetPage(
       name: AppRoutes.wallet,
       page: () => const WalletView(),
       binding: WalletBinding(),
@@ -204,20 +214,24 @@ class AppPages {
 
     GetPage(
       name: AppRoutes.returns,
-      page: () =>  ReturnView(),
-      binding: ReturnBinding(),
+      page: () => const ReturnView(),
+      binding: ReturnBinding()
     ),
 
     GetPage(
       name: AppRoutes.exchange,
-      page: () =>  ExchangeView(),
+      page: () => const ExchangeView(),
       binding: ExchangeBinding(),
     ),
+
+
 
     GetPage(
       name: AppRoutes.drawer,
       page: () => const DrawerView(),
       binding: DrawerBinding(),
+      opaque: false,
+      transition: Transition.leftToRight,
     ),
 
     GetPage(
@@ -261,6 +275,15 @@ class AppPages {
        page: () => CartView(),
        binding: CartBinding(),
      ),
+
+    GetPage(
+      name: AppRoutes.trackExchange,
+      page: () => const TrackExchangeView(),
+    ),
+    GetPage(
+      name: AppRoutes.trackReturn,
+      page: () => const TrackReturnView(),
+    ),
     //
      //GetPage(
        //name: AppRoutes.checkout,

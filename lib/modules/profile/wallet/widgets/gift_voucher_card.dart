@@ -7,73 +7,69 @@ class GiftVoucherCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
       height: 167,
-      padding: const EdgeInsets.all(20),
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
-        color: const Color(0x33D9D9D9), // light grey with opacity
-        borderRadius: BorderRadius.circular(16),
+        color: const Color(0xFFEDEDED),
+        borderRadius: BorderRadius.circular(24),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          /// LEFT CONTENT
+
+          /// LEFT TEXT CONTENT
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  "Share Love Through E-Gift Vouchers!",
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+
+                Text(
+                  "Share Love Through E-Gift Vouchers !",
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 20,
                     fontWeight: FontWeight.w600,
+                    color: Color(0xFF333333),
                   ),
+                  maxLines: 2,
                 ),
-                const SizedBox(height: 8),
-                const Text(
+
+                SizedBox(height: 6),
+
+                Text(
                   "A Perfect Gift For Every Special Moment.",
                   style: TextStyle(
-                    color: Color(0xFF97999D),
                     fontSize: 14,
+                    color: Color(0xFF9EA0A5),
                   ),
+                  maxLines: 2,
                 ),
-                const SizedBox(height: 15),
+
+                SizedBox(height: 18),
+
                 Text(
                   "Buy a Gift Voucher",
                   style: TextStyle(
                     color: AppColors.primaryOrange,
+                    fontSize: 16,
                     fontWeight: FontWeight.w600,
                     decoration: TextDecoration.underline,
                   ),
-                )
+                ),
               ],
             ),
           ),
 
-          const SizedBox(width: 12),
+          const SizedBox(width: 10),
 
-          /// RIGHT SIDE IMAGE
-          Image.asset(
-            'assets/images/wallet/gift voucher.png', // 👈 your asset path
-            height: 90,
-            width: 90,
-            fit: BoxFit.contain,
-            errorBuilder: (context, error, stackTrace) {
-              return Container(
-                height: 68.21,
-                width: 62.61,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: AppColors.primaryOrange,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: const Icon(
-                  Icons.card_giftcard,
-                  color: Colors.white,
-                  size: 35,
-                ),
-              );
-            },
+          /// RIGHT IMAGE
+          Flexible(
+            child: Image.asset(
+              "assets/images/wallet/gift voucher.png",
+              height: 90,
+              fit: BoxFit.contain,
+            ),
           ),
         ],
       ),

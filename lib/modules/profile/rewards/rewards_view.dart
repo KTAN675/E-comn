@@ -1,156 +1,147 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../constant/app_colors.dart';
+import '../../../constant/app_text_styles.dart';
+import '../../../utils/app_primary_button.dart';
 import 'rewards_controller.dart';
 
-class RewardsView extends StatelessWidget {
-  RewardsView({super.key});
-
-  final RewardsController controller = Get.put(RewardsController());
+class RewardsView extends GetView<RewardsController> {
+  const RewardsView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.find<RewardsController>();
+    final controller = Get.put(RewardsController());
+
     return Scaffold(
+      backgroundColor: AppColors.white,
+
       appBar: AppBar(
-        title: const Text("Rewards"),
+        backgroundColor: AppColors.white,
+        elevation: 0,
         centerTitle: true,
+        title: Text("Rewards", style: AppTextStyles.h2),
+        leading: const BackButton(color: Colors.black),
       ),
 
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+        padding: const EdgeInsets.all(16),
 
-              /// Banner
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.orange,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Text(
-                  "Redeem Your Points And\nEnjoy Instant Savings.",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+            /// BANNER
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: AppColors.primaryOrange,
+                borderRadius: BorderRadius.circular(24),
+              ),
+
+              child: Row(
+                children: [
+
+                  /// TEXT
+                  Expanded(
+                    child: Text(
+                      "Redeem Your\nPoints And\nEnjoy Instant\nSavings.",
+                      style: AppTextStyles.h2.copyWith(
+                        color: Colors.white,
+                        height: 1.3,
+                      ),
+                    ),
                   ),
-                ),
+
+                  /// IMAGE
+                  Image.asset(
+                    "assets/images/reward_fruits.png",
+                    height: 110,
+                  )
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 28),
+
+            /// ACCUMULATE HEADER
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+
+                Text("Accumulate Points", style: AppTextStyles.h3),
+
+                Text(
+                  "View All >",
+                  style: AppTextStyles.bodyGrey,
+                )
+              ],
+            ),
+
+            const SizedBox(height: 14),
+
+            rewardTask(
+              icon: Icons.mail_outline,
+              title: "Email Verification",
+              subtitle: "Earn 100 Points",
+              button: "Go",
+            ),
+
+            const SizedBox(height: 12),
+
+            rewardTask(
+              icon: Icons.shopping_bag_outlined,
+              title: "Make A Purchase",
+              subtitle: "Earn Points",
+              button: "Shop Now",
+            ),
+
+            const SizedBox(height: 28),
+
+            /// REWARDS HEADER
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+
+                Text("Your Rewards", style: AppTextStyles.h3),
+
+                Text(
+                  "View All >",
+                  style: AppTextStyles.bodyGrey,
+                )
+              ],
+            ),
+
+            const SizedBox(height: 16),
+
+            /// GRID
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+
+              itemCount: controller.rewards.length,
+
+              gridDelegate:
+              const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 14,
+                mainAxisSpacing: 14,
+                childAspectRatio: 0.9,
               ),
 
-              const SizedBox(height: 20),
+              itemBuilder: (context, index) {
 
-              const Text(
-                "Accumulate Points",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
+                final reward = controller.rewards[index];
 
-              const SizedBox(height: 10),
-
-              /// Email Verification
-              rewardTask(
-                icon: Icons.email,
-                title: "Email Verification",
-                subtitle: "Earn 100 Points",
-                button: "Go",
-              ),
-
-              const SizedBox(height: 10),
-
-              /// Purchase
-              rewardTask(
-                icon: Icons.shopping_bag,
-                title: "Make A Purchase",
-                subtitle: "Earn Points",
-                button: "Shop Now",
-              ),
-
-              const SizedBox(height: 25),
-
-              const Text(
-                "Your Rewards",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
-              ),
-
-              const SizedBox(height: 15),
-
-              /// GRID
-              GridView.builder(
-                shrinkWrap: true, // IMPORTANT
-                physics: const NeverScrollableScrollPhysics(), // IMPORTANT
-                itemCount: controller.rewards.length,
-                gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
-                  childAspectRatio: 0.9,
-                ),
-                itemBuilder: (context, index) {
-
-                  final reward = controller.rewards[index];
-
-                  return Container(
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: const Color(0xffF6EFEA),
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                    child: Column(
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween,
-                      children: [
-
-                        Column(
-                          children: [
-                            Text(
-                              reward["title"]!,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-
-                            const SizedBox(height: 5),
-
-                            Text(
-                              reward["subtitle"]!,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.orange,
-                          ),
-                          child: const Text("Redeem"),
-                        )
-                      ],
-                    ),
-                  );
-                },
-              ),
-
-            ],
-          ),
+                return rewardCard(reward);
+              },
+            )
+          ],
         ),
       ),
     );
   }
 
-  /// reward tile widget
+  /// TASK CARD
   Widget rewardTask({
     required IconData icon,
     required String title,
@@ -158,39 +149,105 @@ class RewardsView extends StatelessWidget {
     required String button,
   }) {
     return Container(
-      padding: const EdgeInsets.all(14),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+
       decoration: BoxDecoration(
-        color: const Color(0xffF6EFEA),
-        borderRadius: BorderRadius.circular(15),
+        color: const Color(0xffE9E0D9),
+        borderRadius: BorderRadius.circular(20),
       ),
+
       child: Row(
         children: [
 
-          Icon(icon, color: Colors.orange),
+          Icon(icon, color: AppColors.primaryOrange, size: 28),
 
-          const SizedBox(width: 10),
+          const SizedBox(width: 14),
 
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w600)),
-                Text(subtitle,
-                    style: const TextStyle(color: Colors.grey)),
+
+                Text(title, style: AppTextStyles.bodyLarge),
+
+                Text(subtitle, style: AppTextStyles.bodyGrey),
               ],
             ),
           ),
 
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.orange,
-            ),
-            child: Text(button),
-          )
+          /// PILL BUTTON
+          Container(
+            padding:
+            const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
 
+            decoration: BoxDecoration(
+              color: AppColors.primaryOrange,
+              borderRadius: BorderRadius.circular(30),
+            ),
+
+            child: Text(
+              button,
+              style: AppTextStyles.bodyLarge.copyWith(
+                color: Colors.white,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  /// REWARD CARD
+  Widget rewardCard(Map<String, String> reward) {
+    return Container(
+      padding: const EdgeInsets.all(18),
+
+      decoration: BoxDecoration(
+        color: const Color(0xffF6EFEA),
+        borderRadius: BorderRadius.circular(22),
+      ),
+
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+        children: [
+
+          Column(
+            children: [
+
+              Text(
+                reward["title"]!,
+                style: AppTextStyles.h2,
+              ),
+
+              const SizedBox(height: 6),
+
+              Text(
+                reward["subtitle"]!,
+                textAlign: TextAlign.center,
+                style: AppTextStyles.bodyGrey,
+              ),
+            ],
+          ),
+
+          GestureDetector(
+            onTap: () {
+              Get.find<RewardsController>().openReward(reward);
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 10),
+              decoration: BoxDecoration(
+                color: AppColors.primaryOrange,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Text(
+                "Redeem",
+                style: AppTextStyles.bodyLarge.copyWith(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

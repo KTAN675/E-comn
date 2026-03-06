@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../constant/app_colors.dart';
 import '../../../constant/app_text_styles.dart';
-import '../return_controller.dart';
+import '../exchange_controller.dart';
 
-class ReturnReasonDropdown extends StatelessWidget {
-  const ReturnReasonDropdown({super.key});
+class ExchangeReasonDropdown extends StatelessWidget {
+  const ExchangeReasonDropdown({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<ReturnController>();
+    final controller = Get.find<ExchangeController>();
 
-    return GetBuilder<ReturnController>(
+    return GetBuilder<ExchangeController>(
       builder: (controller) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
             Text(
-              "Return Reason",
+              "Exchange Reason",
               style: AppTextStyles.bodyLarge,
             ),
 
@@ -56,7 +55,7 @@ class ReturnReasonDropdown extends StatelessWidget {
 
                     const Icon(
                       Icons.keyboard_arrow_down_rounded,
-                    ),
+                    )
                   ],
                 ),
               ),
@@ -67,7 +66,7 @@ class ReturnReasonDropdown extends StatelessWidget {
     );
   }
 
-  void _openReasonSheet(ReturnController controller) {
+  void _openReasonSheet(ExchangeController controller) {
     Get.bottomSheet(
 
       Container(
@@ -85,7 +84,7 @@ class ReturnReasonDropdown extends StatelessWidget {
           children: [
 
             Text(
-              "Select Return Reason",
+              "Select Exchange Reason",
               style: AppTextStyles.h3,
             ),
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../utils/app_primary_button.dart';
+
 class WalletActionButton extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
@@ -12,26 +14,12 @@ class WalletActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 335,
+    return AppPrimaryButton(
+      title: title,
+      onTap: onTap,
       height: 40,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFFFF660E),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
-        onPressed: onTap,
-        child: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
     );
   }
 }

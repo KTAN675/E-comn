@@ -4,6 +4,6 @@ import 'return_controller.dart';
 class ReturnBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<ReturnController>(() => ReturnController());
+    Get.lazyPut(() => ReturnController());
   }
 }

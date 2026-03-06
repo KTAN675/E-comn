@@ -6,6 +6,8 @@ import 'package:e_comm/modules/profile/subscription/widgets/subscription_plan_ti
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../constant/app_colors.dart';
+
 class SubscriptionView extends GetView<SubscriptionController> {
   const SubscriptionView({super.key});
 
@@ -16,7 +18,7 @@ class SubscriptionView extends GetView<SubscriptionController> {
     return Scaffold(
       backgroundColor: const Color(0xFFF4F4F4),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.background,
         elevation: 0,
         leading: const BackButton(color: Colors.black),
       ),

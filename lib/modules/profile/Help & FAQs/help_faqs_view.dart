@@ -22,9 +22,9 @@ class HelpFaqsView extends GetView<HelpFaqsController> {
         centerTitle: true,
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 6),
+            padding: const EdgeInsets.only(right: 14),
             child: SizedBox(
-              width: 84,
+              width: 72,
               height: 24,
               child: AppPrimaryButton(
                 icon: Icons.wechat_outlined,

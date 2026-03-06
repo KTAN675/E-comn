@@ -37,7 +37,7 @@ class WalletSection extends GetView<CartController> {
 
                   /// WALLET IMAGE
                   Image.asset(
-                    "assets/images/wallet/Wallet.png",
+                    "assets/images/payment/wallet.png",
                     width: 36,
                     height: 36,
                   ),

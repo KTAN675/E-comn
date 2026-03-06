@@ -76,6 +76,15 @@ class OrderDetailView extends GetView<OrderDetailController> {
 
             const SizedBox(height: 30),
 
+            /// TRACK ORDER
+            AppPrimaryButton(
+              title: "Track Order",
+              icon: Icons.location_on_outlined,
+              onTap: controller.trackOrder,
+            ),
+
+            const SizedBox(height: 14),
+
             /// ORDER AGAIN
             AppPrimaryButton(
               title: "Order Again",
