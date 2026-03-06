@@ -90,7 +90,7 @@ class DrawerView extends GetView<DrawerControllerX> {
                     _menuItem(
                       icon: Icons.chat_bubble_outline,
                       title: "FAQs",
-                      onTap: controller.openFaq,
+                      onTap: controller.help_and_faqs,
                     ),
 
                     _menuItem(

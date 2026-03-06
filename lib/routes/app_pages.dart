@@ -66,6 +66,8 @@ import '../modules/vendor_categories/vendor_categories_binding.dart';
 import '../modules/vendor_categories/vendor_categories_view.dart';
 import '../modules/wishlist/wishlist_binding.dart';
 import '../modules/wishlist/wishlist_view.dart';
+import '../openTerms/open_terms_binding.dart';
+import '../openTerms/open_terms_view.dart';
 import 'app_routes.dart';
 
 class AppPages {
@@ -228,6 +230,12 @@ class AppPages {
       name: AppRoutes.editProfile,
       page: () => const EditProfileView(),
       binding: ProfileAndSettingBinding(),
+    ),
+
+    GetPage(
+      name: AppRoutes.openTerms,
+      page: () => const OpenTermsView(),
+      binding: OpenTermsBinding(),
     ),
 
     GetPage(

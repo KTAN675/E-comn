@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../exchange_controller.dart';
+import 'package:e_comm/exchange/exchange_controller.dart';
 
 class ExchangeReasonDropdown extends GetView<ExchangeController> {
   const ExchangeReasonDropdown({super.key});

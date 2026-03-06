@@ -19,12 +19,12 @@ class DrawerControllerX extends GetxController {
 
   void openTerms() {
     Get.back();
-    Get.toNamed('/terms');
+    Get.toNamed('/openTerms');
   }
 
-  void openFaq() {
+  void help_and_faqs() {
     Get.back();
-    Get.toNamed('/faq');
+    Get.toNamed('/help_and_faqs');
   }
 
   void openPrivacy() {

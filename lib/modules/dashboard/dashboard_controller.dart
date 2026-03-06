@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:e_comm/modules/dashboard/widgets/categories_section.dart';
 import 'package:e_comm/modules/dashboard/widgets/vendor_section.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constant/app_colors.dart';
 import '../../data/models/product/inspriation_model.dart';
@@ -14,7 +16,13 @@ class DashboardController extends GetxController {
 
   final ThemeController theme = Get.find<ThemeController>();
 
+// Drawer Key
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
+  /// Open Drawer
+  void openDrawer() {
+    scaffoldKey.currentState?.openDrawer();
+  }
 
   // =============================
   // UI SELECTION STATES

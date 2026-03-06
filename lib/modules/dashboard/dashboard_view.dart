@@ -9,6 +9,8 @@ import 'package:get/get.dart';
 import '../../constant/app_colors.dart';
 import '../../utils/custom_product_grid.dart';
 import '../../utils/custom_tab_section.dart';
+import '../drawer/drawer_controller.dart';
+import '../drawer/drawer_view.dart';
 import 'dashboard_controller.dart';
 import 'widgets/header_section.dart';
 import 'widgets/banner_section.dart';
@@ -19,7 +21,10 @@ class DashboardView extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(DrawerControllerX());
     return Scaffold(
+      key: controller.scaffoldKey,
+      drawer: const DrawerView(),
       backgroundColor: AppColors.background,
       extendBody: true,
 
@@ -39,7 +44,9 @@ class DashboardView extends GetView<DashboardController> {
                     onNotificationTap: () {
                       Get.toNamed(AppRoutes.notification);
                     },
-                    onLocationTap: () {},
+                    onLocationTap: () {
+                      controller.openDrawer();
+                    },
                   ),
 
                   const SizedBox(height: 8),
