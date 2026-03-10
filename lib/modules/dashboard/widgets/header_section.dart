@@ -5,8 +5,9 @@ import '../../../constant/app_text_styles.dart';
 class HeaderSection extends StatelessWidget {
   final String name;
   final String address;
-  final VoidCallback? onLocationTap;
+  final VoidCallback? onLocationTap;   // avatar tap → drawer
   final VoidCallback? onNotificationTap;
+  final VoidCallback? onAddressTap;    // address tap → address page
 
   const HeaderSection({
     super.key,
@@ -14,6 +15,7 @@ class HeaderSection extends StatelessWidget {
     required this.address,
     this.onLocationTap,
     this.onNotificationTap,
+    this.onAddressTap,
   });
 
   @override
@@ -25,7 +27,7 @@ class HeaderSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
 
-          /// 🔹 Profile Image (NOW CLICKABLE)
+          /// 🔹 Profile Image → opens Drawer
           GestureDetector(
             onTap: onLocationTap,
             child: const CircleAvatar(
@@ -36,25 +38,30 @@ class HeaderSection extends StatelessWidget {
 
           const SizedBox(width: 12),
 
-          /// 🔹 Name + Address (Already Clickable)
+          /// 🔹 Name + Address — split into two separate taps
           Expanded(
-            child: GestureDetector(
-              onTap: onLocationTap,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                /// Name row → opens Drawer (same as avatar)
+                GestureDetector(
+                  onTap: onLocationTap,
+                  child: Row(
                     children: [
-                      Text(
-                        name,
-                        style: AppTextStyles.h1,
-                      ),
+                      Text(name, style: AppTextStyles.h1),
                       const SizedBox(width: 6),
                       const Text("👋"),
                     ],
                   ),
-                  const SizedBox(height: 4),
-                  Row(
+                ),
+
+                const SizedBox(height: 4),
+
+                /// Address row → navigates to Address page
+                GestureDetector(
+                  onTap: onAddressTap ?? onLocationTap, // fallback to drawer if not set
+                  child: Row(
                     children: [
                       Expanded(
                         child: Text(
@@ -71,8 +78,8 @@ class HeaderSection extends StatelessWidget {
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
 
@@ -85,8 +92,9 @@ class HeaderSection extends StatelessWidget {
               width: 40,
               height: 40,
               padding: const EdgeInsets.all(8),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
+                color: AppColors.accent.withOpacity(0.1),
               ),
               child: Icon(
                 Icons.notifications_none,

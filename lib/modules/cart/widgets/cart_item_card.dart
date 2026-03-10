@@ -3,7 +3,6 @@ import '../../../constant/app_colors.dart';
 import '../../../constant/app_text_styles.dart';
 import '../../../data/models/cart/cart_item_model.dart';
 
-
 class CartItemCard extends StatelessWidget {
   final CartItemModel item;
   final VoidCallback onIncrease;
@@ -18,28 +17,46 @@ class CartItemCard extends StatelessWidget {
     required this.onWishlist,
   });
 
+  /// Formats double to clean price string
+  /// 150.0 → "150"  |  150.5 → "150.5"
+  String _formatPrice(double price) {
+    return price == price.truncateToDouble()
+        ? price.toInt().toString()
+        : price.toStringAsFixed(1);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final int discountPercent = item.originalPrice > 0
+        ? (((item.originalPrice - item.price) / item.originalPrice) * 100)
+        .round()
+        : 0;
+
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.border),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
-      child: Stack(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
 
-          /// MAIN CONTENT
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          /// IMAGE BOX
+          Stack(
             children: [
-
-              /// IMAGE BOX
               Container(
-                height: 80,
-                width: 80,
+                height: 85,
+                width: 85,
                 padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
                   color: AppColors.background,
@@ -51,117 +68,161 @@ class CartItemCard extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(width: 14),
+              /// DISCOUNT BADGE
+              if (discountPercent > 0)
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  child: Container(
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(14),
+                        bottomRight: Radius.circular(8),
+                      ),
+                    ),
+                    child: Text(
+                      "$discountPercent%",
+                      style: const TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
 
-              /// TEXT SECTION
-              Expanded(
-                child: Column(
+          const SizedBox(width: 14),
+
+          /// TEXT + ACTIONS
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+
+                /// TITLE + STEPPER ROW
+                Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
-                    /// TITLE
-                    Text(
-                      item.name,
-                      style: AppTextStyles.bodyLarge,
+                    /// NAME + SUBTITLE
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            item.name,
+                            style: AppTextStyles.bodyLarge,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            item.subtitle,
+                            style: AppTextStyles.bodyGrey,
+                          ),
+                        ],
+                      ),
                     ),
 
-                    const SizedBox(height: 6),
+                    const SizedBox(width: 10),
 
-                    Text(
-                      item.subtitle,
-                      style: AppTextStyles.bodyGrey,
-                    ),
-
-                    const SizedBox(height: 14),
-
-                    Row(
-                      children: [
-
-                        /// MOVE TO WISHLIST
-                        GestureDetector(
-                          onTap: onWishlist,
-                          child: Text(
-                            "Move to Wishlist",
-                            style: AppTextStyles.caption.copyWith(
-                              decoration: TextDecoration.underline,
-                              decorationStyle:
-                              TextDecorationStyle.dotted,
+                    /// STEPPER
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      decoration: BoxDecoration(
+                        color: AppColors.background,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: AppColors.border),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          GestureDetector(
+                            onTap: onDecrease,
+                            child: const Padding(
+                              padding: EdgeInsets.all(6),
+                              child: Icon(Icons.remove, size: 16),
                             ),
                           ),
-                        ),
-
-                        const Spacer(),
-
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              "₹${item.originalPrice}",
-                              style: AppTextStyles.strikePrice,
+                          Padding(
+                            padding:
+                            const EdgeInsets.symmetric(horizontal: 6),
+                            child: Text(
+                              "${item.quantity}",
+                              style: AppTextStyles.bodyLarge,
                             ),
-
-                            Text(
-                              "₹${item.price}",
-                              style: AppTextStyles.price.copyWith(
-                                color: Colors.green,
+                          ),
+                          GestureDetector(
+                            onTap: onIncrease,
+                            child: Padding(
+                              padding: const EdgeInsets.all(6),
+                              child: Icon(
+                                Icons.add,
+                                size: 16,
+                                color: AppColors.accent,
                               ),
                             ),
-                          ],
-                        )
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 12),
+
+                /// WISHLIST + PRICE ROW
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+
+                    /// MOVE TO WISHLIST
+                    GestureDetector(
+                      onTap: onWishlist,
+                      child: Text(
+                        "Move to Wishlist",
+                        style: AppTextStyles.caption.copyWith(
+                          decoration: TextDecoration.underline,
+                          decorationStyle: TextDecorationStyle.dotted,
+                        ),
+                      ),
+                    ),
+
+                    const Spacer(),
+
+                    /// PRICES
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        // Original price (strikethrough)
+                        if (item.originalPrice > item.price)
+                          Text(
+                            "₹${_formatPrice(item.originalPrice)}",
+                            style: AppTextStyles.strikePrice,
+                          ),
+
+                        // Final price
+                        Text(
+                          "₹${_formatPrice(item.price)}",
+                          style: AppTextStyles.price.copyWith(
+                            color: Colors.green,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
                       ],
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-
-          /// STEPPER (FLOATING)
-          Positioned(
-            right: 0,
-            top: 0,
-            bottom: 0,
-            child: Center(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                decoration: BoxDecoration(
-                  color: AppColors.background,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: onDecrease,
-                      child: const Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Icon(Icons.remove, size: 18),
-                      ),
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Text(
-                        "${item.quantity}",
-                        style: AppTextStyles.bodyLarge,
-                      ),
-                    ),
-
-                    GestureDetector(
-                      onTap: onIncrease,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Icon(
-                          Icons.add,
-                          size: 18,
-                          color: AppColors.accent,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              ],
             ),
-          )        ],
+          ),
+        ],
       ),
     );
   }

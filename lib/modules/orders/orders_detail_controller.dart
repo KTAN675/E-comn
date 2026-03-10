@@ -1,4 +1,4 @@
-import 'package:e_comm/modules/orders/widgets/review_dialog.dart';
+import 'package:realtime_user/modules/orders/widgets/review_dialog.dart';
 import 'package:get/get.dart';
 
 import '../../routes/app_routes.dart';

@@ -59,14 +59,14 @@ class InspirationSection extends StatelessWidget {
         const SizedBox(height: 16),
 
         SizedBox(
-          height: 140,
+          height: 120,
           child: ListView.separated(
             padding:
             const EdgeInsets.symmetric(horizontal: 16),
             scrollDirection: Axis.horizontal,
             itemCount: items.length,
             separatorBuilder: (_, __) =>
-            const SizedBox(width: 18),
+            const SizedBox(width: 10),
             itemBuilder: (context, index) {
               return InspirationCard(
                 item: items[index],

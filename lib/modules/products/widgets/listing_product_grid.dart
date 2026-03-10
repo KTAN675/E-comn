@@ -1,7 +1,8 @@
-import 'package:e_comm/modules/products/widgets/product_card_mini.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:realtime_user/modules/products/widgets/product_card_mini.dart';
 import '../../../data/models/product/product_model.dart';
 import '../../category/category_navigator.dart';
 import '../../../routes/app_routes.dart';

@@ -1,6 +1,6 @@
-import 'package:e_comm/modules/cart/cart_view.dart';
-import 'package:e_comm/modules/category/category_navigator.dart';
-import 'package:e_comm/modules/orders/orders_view.dart';
+import 'package:realtime_user/modules/cart/cart_view.dart';
+import 'package:realtime_user/modules/category/category_navigator.dart';
+import 'package:realtime_user/modules/orders/orders_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constant/app_colors.dart';

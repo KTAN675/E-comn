@@ -1,187 +1,247 @@
-  import 'package:flutter/material.dart';
-  import '../../../constant/app_text_styles.dart';
-  import '../../../data/models/product/product_model.dart';
 
-  class ProductCard extends StatelessWidget {
-    final ProductModel product;
+import 'package:flutter/material.dart';
+import '../../../constant/app_text_styles.dart';
+import '../../../data/models/product/product_model.dart';
 
-    /// THEME COLORS (Injected)
-    final Color accent;
-    final Color discountColor;
-    final Color cardBackground;
+class ProductCard extends StatefulWidget {
+final ProductModel product;
 
-    final VoidCallback? onAdd;
-    final VoidCallback? onFavorite;
+final Color accent;
+final Color discountColor;
+final Color cardBackground;
 
-    const ProductCard({
-      super.key,
-      required this.product,
-      required this.accent,
-      required this.discountColor,
-      this.cardBackground = const Color(0xFFEFEFEF),
-      this.onAdd,
-      this.onFavorite,
-    });
+final VoidCallback? onFavorite;
+final bool showShadow;
 
-    @override
-    Widget build(BuildContext context) {
-      return Container(
-        width: 190,
-        decoration: BoxDecoration(
-          color: cardBackground,
-          borderRadius: BorderRadius.circular(28),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.08),
-              blurRadius: 16,
-              offset: const Offset(0, 10),
-            ),
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(14),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+const ProductCard({
+super.key,
+required this.product,
+required this.accent,
+required this.discountColor,
+this.cardBackground = const Color(0xFFEFEFEF),
+this.showShadow = true,
+this.onFavorite,
+});
 
-              /// 🔹 Image + Badges
-              Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(22),
-                    child: Image.asset(
-                      product.image,
-                      height: 130,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+@override
+State<ProductCard> createState() => _ProductCardState();
+}
 
-                  /// 🔸 Favorite Icon
-                  Positioned(
-                    top: 8,
-                    left: 8,
-                    child: GestureDetector(
-                      onTap: onFavorite,
-                      child: Container(
-                        width: 36,
-                        height: 36,
-                        decoration: BoxDecoration(
-                          color: accent,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: const Icon(
-                          Icons.favorite_border,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                  ),
+class _ProductCardState extends State<ProductCard> {
 
-                  /// 🔸 Discount Badge
-                  if (product.discount != null)
-                    Positioned(
-                      top: 8,
-                      right: 8,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: discountColor,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text(
-                          "${product.discount}%",
-                          style: AppTextStyles.caption.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
+int quantity = 0;
+bool isFavorite = false;
 
-              const SizedBox(height: 14),
+@override
+Widget build(BuildContext context) {
 
-              /// 🔹 Title
-              Text(
-                product.title,
-                style: AppTextStyles.bodyLarge.copyWith(
-                  fontWeight: FontWeight.w700,
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
+final product = widget.product;
 
-              const SizedBox(height: 4),
+/// 🔹 TOTAL PRICE CALCULATION
+double totalPrice =
+quantity == 0 ? product.price : product.price * quantity;
 
-              /// 🔹 Weight
-              Text(
-                product.weight,
-                style: AppTextStyles.bodyGrey,
-              ),
+return Container(
+width: 190,
+decoration: BoxDecoration(
+color: widget.cardBackground,
+borderRadius: BorderRadius.circular(28),
+boxShadow: widget.showShadow
+? [
+BoxShadow(
+color: Colors.black.withValues(alpha: 0.08),
+blurRadius: 16,
+offset: const Offset(0, 10),
+),
+]
+    : [],
+),
+child: Padding(
+padding: const EdgeInsets.all(14),
+child: Column(
+crossAxisAlignment: CrossAxisAlignment.start,
+children: [
 
-              const SizedBox(height: 10),
+/// IMAGE
+Stack(
+children: [
 
-              /// 🔹 Price Row
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
+ClipRRect(
+borderRadius: BorderRadius.circular(22),
+child: Image.asset(
+product.image,
+height: 130,
+width: double.infinity,
+fit: BoxFit.cover,
+),
+),
 
-                  /// PRICE AREA
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+/// ❤️ FAVORITE
+Positioned(
+top: 8,
+left: 8,
+child: GestureDetector(
+onTap: () {
+setState(() {
+isFavorite = !isFavorite;
+});
+widget.onFavorite?.call();
+},
+child: Container(
+width: 36,
+height: 36,
+decoration: BoxDecoration(
+color: widget.accent,
+borderRadius: BorderRadius.circular(12),
+),
+child: Icon(
+isFavorite
+? Icons.favorite
+    : Icons.favorite_border,
+color: Colors.white,
+size: 20,
+),
+),
+),
+),
 
-                        Text(
-                          "\$${product.price.toStringAsFixed(2)}",
-                          style: AppTextStyles.price,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+/// DISCOUNT
+if (product.discount != null)
+Positioned(
+top: 8,
+right: 8,
+child: Container(
+padding: const EdgeInsets.symmetric(
+horizontal: 8,
+vertical: 4,
+),
+decoration: BoxDecoration(
+color: widget.discountColor,
+borderRadius: BorderRadius.circular(10),
+),
+child: Text(
+"${product.discount}%",
+style: AppTextStyles.caption.copyWith(
+color: Colors.white,
+fontWeight: FontWeight.w600,
+),
+),
+),
+),
+],
+),
 
-                        if (product.oldPrice != null)
-                          Text(
-                            "\$${product.oldPrice!.toStringAsFixed(2)}",
-                            style: AppTextStyles.strikePrice,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                      ],
-                    ),
-                  ),
+const SizedBox(height: 14),
 
-                  const SizedBox(width: 8),
+/// TITLE
+Text(
+product.title,
+style: AppTextStyles.bodyLarge.copyWith(
+fontWeight: FontWeight.w700,
+),
+maxLines: 2,
+overflow: TextOverflow.ellipsis,
+),
 
-                  /// ADD BUTTON
-                  SizedBox(
-                    width: 36,
-                    height: 36,
-                    child: GestureDetector(
-                      onTap: onAdd,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: accent,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-  }
+const SizedBox(height: 4),
+
+/// WEIGHT
+Text(
+product.weight,
+style: AppTextStyles.bodyGrey,
+),
+
+const SizedBox(height: 8),
+
+/// PRICE + ADD
+Row(
+children: [
+
+/// 🔹 UPDATED PRICE
+Text(
+"\$${totalPrice.toStringAsFixed(2)}",
+style: AppTextStyles.price,
+),
+
+const Spacer(),
+
+/// ADD / REMOVE BUTTON
+quantity == 0
+? GestureDetector(
+onTap: () {
+setState(() {
+quantity = 1;
+});
+},
+child: Container(
+width: 28,
+height: 28,
+decoration: BoxDecoration(
+color: widget.accent,
+borderRadius: BorderRadius.circular(8),
+),
+child: const Icon(
+Icons.add,
+color: Colors.white,
+size: 18,
+),
+),
+)
+    : Container(
+padding: const EdgeInsets.symmetric(horizontal: 6),
+decoration: BoxDecoration(
+color: widget.accent,
+borderRadius: BorderRadius.circular(8),
+),
+child: Row(
+children: [
+
+/// REMOVE
+GestureDetector(
+onTap: () {
+setState(() {
+if (quantity > 0) quantity--;
+});
+},
+child: const Icon(
+Icons.remove,
+color: Colors.white,
+size: 18,
+),
+),
+
+Padding(
+padding:
+const EdgeInsets.symmetric(horizontal: 6),
+child: Text(
+quantity.toString(),
+style: const TextStyle(
+color: Colors.white,
+fontWeight: FontWeight.bold),
+),
+),
+
+/// ADD
+GestureDetector(
+onTap: () {
+setState(() {
+quantity++;
+});
+},
+child: const Icon(
+Icons.add,
+color: Colors.white,
+size: 18,
+),
+),
+],
+),
+),
+],
+),
+],
+),
+),
+);
+}
+}

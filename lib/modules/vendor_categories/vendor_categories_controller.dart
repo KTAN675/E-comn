@@ -15,6 +15,9 @@ class VendorCategoriesController extends GetxController {
 
   Color get accent => AppColors.accent;
 
+  /// 🔒 Navigation Lock (important)
+  bool _isNavigating = false;
+
   // =============================
   // FILTER TABS
   // =============================
@@ -31,65 +34,64 @@ class VendorCategoriesController extends GetxController {
   // ==========================================================
 
   List<CategoryModel> groceryCategories = [
-    CategoryModel(
-        title: "Fruits",
-        image: "assets/images/product_category/fruits.png"),
-    CategoryModel(
-        title: "Veggies",
-        image: "assets/images/product_category/veggie.png"),
-    CategoryModel(
-        title: "Chicken, Meat & Fish",
-        image: "assets/images/product_category/non_veg.png"),
-    CategoryModel(
-        title: "Masala, Oil & Dry Fruits",
-        image: "assets/images/product_category/masala oil.png"),
-    CategoryModel(
-        title: "Dairy",
-        image: "assets/images/product_category/dairy.png"),
-    CategoryModel(
-        title: "Beverages",
-        image: "assets/images/product_category/beverages.png"),
-    CategoryModel(
-        title: "Snacks",
-        image: "assets/images/product_category/snacks.png"),
-    CategoryModel(
-        title: "Breakfast",
-        image: "assets/images/product_category/breakfast.png"),
-    CategoryModel(
-        title: "Tea & Coffee",
-        image: "assets/images/product_category/tea_and_coffe.png"),
+    CategoryModel(title: "Fruits", image: "assets/images/product_category/fruits.png"),
+    CategoryModel(title: "Veggies", image: "assets/images/product_category/veggie.png"),
+    CategoryModel(title: "Chicken, Meat & Fish", image: "assets/images/product_category/non_veg.png"),
+    CategoryModel(title: "Masala, Oil & Dry Fruits", image: "assets/images/product_category/masala oil.png"),
+    CategoryModel(title: "Dairy", image: "assets/images/product_category/dairy.png"),
+    CategoryModel(title: "Beverages", image: "assets/images/product_category/beverages.png"),
+    CategoryModel(title: "Snacks", image: "assets/images/product_category/snacks.png"),
+    CategoryModel(title: "Breakfast", image: "assets/images/product_category/breakfast.png"),
+    CategoryModel(title: "Tea & Coffee", image: "assets/images/product_category/tea_and_coffe.png"),
   ];
 
   List<CategoryModel> medicineCategories = [
     CategoryModel(title: "Cold", image: "assets/images/icons/medical/cold.png"),
     CategoryModel(title: "Fever", image: "assets/images/icons/medical/fever.png"),
     CategoryModel(title: "Infection", image: "assets/images/icons/medical/infection.png"),
-    CategoryModel(title: "Diet", image: "assets/images/icons/medical/diet.png"),
     CategoryModel(title: "Pregnancy", image: "assets/images/icons/medical/pregnancy.png"),
+    CategoryModel(title: "Diet", image: "assets/images/icons/medical/diet.png"),
     CategoryModel(title: "Heart", image: "assets/images/icons/medical/heart.png"),
     CategoryModel(title: "Diabetes", image: "assets/images/icons/medical/diabetes.png"),
+    CategoryModel(title: "Physics", image: "assets/images/icons/medical/physics.png"),
     CategoryModel(title: "Tooth Pain", image: "assets/images/icons/medical/tooth.png"),
+    // CategoryModel(title: "Physics", image: "assets/images/icons/medical/physics.png"),
   ];
 
   List<CategoryModel> get currentCategories =>
       isGrocery ? groceryCategories : medicineCategories;
 
   // ==========================================================
-  // NAVIGATION (NESTED)
+  // NAVIGATION (SAFE NESTED NAVIGATION)
   // ==========================================================
 
   void openCategory(CategoryModel category) {
 
+    /// 🔒 Prevent multiple navigation
+    if (_isNavigating) return;
+    _isNavigating = true;
+
     /// 🔹 Hide bottom navigation
     Get.find<MainShellController>().hideNavBar();
 
-    /// 🔹 Navigate to product listing
-    CategoryNavigator.navigatorKey.currentState?.pushNamed(
-      '/product-listing',
-      arguments: {
-        "category": category,
-        "isGrocery": isGrocery,
-      },
-    );
+    /// 🔹 Safe navigation
+    Future.microtask(() {
+      CategoryNavigator.navigatorKey.currentState
+          ?.pushNamed(
+        '/product-listing',
+        arguments: {
+          "category": category,
+          "isGrocery": isGrocery,
+        },
+      )
+          .then((_) {
+
+        /// 🔹 Reset navigation lock
+        _isNavigating = false;
+
+        /// 🔹 Show bottom navigation again
+        Get.find<MainShellController>().showNavBar;
+      });
+    });
   }
 }

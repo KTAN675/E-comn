@@ -1,4 +1,4 @@
-import 'package:e_comm/modules/cart/widgets/payment_methods_tile.dart';
+import 'package:realtime_user/modules/cart/widgets/payment_methods_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../constant/app_colors.dart';

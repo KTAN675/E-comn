@@ -23,13 +23,11 @@ class CategoriesSection extends StatelessWidget {
     required this.categories,
     required this.selectedIndex,
     required this.onCategoryTap,
-    this.onSeeAll,
+    this.onSeeAll, required List<CategoryModel> products,
   });
 
   @override
   Widget build(BuildContext context) {
-
-    final lightAccent = AppColors.lightAccent;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -38,89 +36,68 @@ class CategoriesSection extends StatelessWidget {
         children: [
 
           /// Header
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Categories",
-                style: AppTextStyles.h2.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              GestureDetector(
-                onTap: onSeeAll,
-                child: Row(
+          Text(
+            "Categories",
+            style: AppTextStyles.h2.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+
+          const SizedBox(height: 16),
+
+          /// GRID
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: categories.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 18,
+              childAspectRatio: 0.68,
+            ),
+            itemBuilder: (context, index) {
+
+              final category = categories[index];
+
+              return GestureDetector(
+                onTap: () => onCategoryTap(index),
+                child: Column(
                   children: [
-                    Text(
-                      "See all",
-                      style: AppTextStyles.body.copyWith(
-                        color: AppColors.accent,
-                        fontWeight: FontWeight.w500,
+
+                    /// CATEGORY CARD
+                    Container(
+                      height: 100,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      child: Center(
+                        child: Image.asset(
+                          category.image,
+                          height: 65,
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
-                    const SizedBox(width: 4),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      size: 12,
-                      color: AppColors.accent,
+
+                    const SizedBox(height: 8),
+
+                    /// TITLE
+                    Text(
+                      category.title,
+                      textAlign: TextAlign.center,
+                      style: AppTextStyles.body.copyWith(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.black,
+                      ),
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-
-          const SizedBox(height: 14),
-
-          /// Category List
-          SizedBox(
-            height: 92,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: categories.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 18),
-              itemBuilder: (context, index) {
-
-                final category = categories[index];
-
-                return GestureDetector(
-                  onTap: () => onCategoryTap(index),
-                  child: Column(
-                    children: [
-
-                      /// Image Container
-                      Container(
-                        width: 64,
-                        height: 64,
-                        decoration: BoxDecoration(
-                          color: lightAccent.withValues(alpha: 0.15),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Center(
-                          child: Image.asset(
-                            category.image,
-                            width: 30,
-                            height: 30,
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 6),
-
-                      Text(
-                        category.title,
-                        style: AppTextStyles.body.copyWith(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
+              );
+            },
           ),
         ],
       ),

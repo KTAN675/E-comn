@@ -1,8 +1,8 @@
-import 'package:e_comm/modules/category/category_navigator.dart';
-import 'package:e_comm/modules/category/widgets/category_header.dart';
-import 'package:e_comm/modules/category/widgets/vendor_fliter_tab.dart';
-import 'package:e_comm/modules/category/widgets/vendor_grid.dart';
-import 'package:e_comm/modules/mian_shell/main_shell_controller.dart';
+import 'package:realtime_user/modules/category/category_navigator.dart';
+import 'package:realtime_user/modules/category/widgets/category_header.dart';
+import 'package:realtime_user/modules/category/widgets/vendor_fliter_tab.dart';
+import 'package:realtime_user/modules/category/widgets/vendor_grid.dart';
+import 'package:realtime_user/modules/mian_shell/main_shell_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constant/app_colors.dart';

@@ -5,7 +5,7 @@ import '../../../constant/app_text_styles.dart';
 import '../../../data/models/product/product_model.dart';
 import '../../products/widgets/product_card.dart';
 
-class ProductsSection extends StatelessWidget {
+class FlashSaleSection extends StatelessWidget {
   final List<ProductModel> products;
 
   final Color? backgroundColor;
@@ -13,7 +13,7 @@ class ProductsSection extends StatelessWidget {
 
   final VoidCallback? onSeeAll;
 
-  const ProductsSection({
+  const FlashSaleSection({
     super.key,
     required this.products,
     this.backgroundColor,
@@ -40,7 +40,7 @@ class ProductsSection extends StatelessWidget {
           //   ),
           // ),
 
-          //  const SizedBox(height: 18),
+        //  const SizedBox(height: 18),
 
           /// 🔹 Product Grid (2 × 2)
           Padding(

@@ -1,4 +1,4 @@
-import 'package:e_comm/constant/app_colors.dart';
+import 'package:realtime_user/constant/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../../../constant/app_text_styles.dart';
 import '../../../data/models/product/product_model.dart';

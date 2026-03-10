@@ -199,10 +199,10 @@ class ProductDetailController extends GetxController {
   }
 
   /// =============================
-  /// RECOMMENDED PRODUCTS
+  /// Rrealtime_userENDED PRODUCTS
   /// =============================
 
-  final List<ProductModel> groceryRecommendedProducts = [
+  final List<ProductModel> groceryRrealtime_userendedProducts = [
     ProductModel(
       title: "Dragon Fruit",
       image: "assets/images/products/dragon.png",
@@ -237,7 +237,7 @@ class ProductDetailController extends GetxController {
     ),
   ];
 
-  final List<ProductModel> medicineRecommendedProducts = [
+  final List<ProductModel> medicineRrealtime_userendedProducts = [
     ProductModel(
       title: "Paracetamol",
       image: "assets/images/medicine/paracetamol.png",
@@ -258,8 +258,8 @@ class ProductDetailController extends GetxController {
     ),
   ];
 
-  List<ProductModel> get recommendedProducts =>
+  List<ProductModel> get rrealtime_userendedProducts =>
       isGrocery
-          ? groceryRecommendedProducts
-          : medicineRecommendedProducts;
+          ? groceryRrealtime_userendedProducts
+          : medicineRrealtime_userendedProducts;
 }

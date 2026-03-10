@@ -10,7 +10,7 @@ class AppPrimaryButton extends StatelessWidget {
   final double fontSize;
   final FontWeight fontWeight;
   final EdgeInsetsGeometry padding;
-  final IconData? icon; // 👈 add this
+  final IconData? icon;
 
   const AppPrimaryButton({
     super.key,
@@ -26,39 +26,42 @@ class AppPrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accent = Get.find<ThemeController>().currentAccent;
-
-    return SizedBox(
-      height: height,
-      child: ElevatedButton(
-        onPressed: enabled ? onTap : null,
-        style: ElevatedButton.styleFrom(
-          padding: padding,
-          backgroundColor: accent,
-          disabledBackgroundColor: const Color(0xffD6D6D6),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          elevation: 0,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (icon != null) ...[
-              Icon(icon, size: fontSize + 4, color: Colors.white),
-              const SizedBox(width: 6),
-            ],
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: fontSize,
-                fontWeight: fontWeight,
-                color: Colors.white,
+    // ✅ GetBuilder — reactive rebuild
+    return GetBuilder<ThemeController>(
+      builder: (theme) {
+        return SizedBox(
+          height: height,
+          child: ElevatedButton(
+            onPressed: enabled ? onTap : null,
+            style: ElevatedButton.styleFrom(
+              padding: padding,
+              backgroundColor: theme.currentAccent, // ✅ hardcode nahi
+              disabledBackgroundColor: const Color(0xffD6D6D6),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
               ),
+              elevation: 0,
             ),
-          ],
-        ),
-      ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (icon != null) ...[
+                  Icon(icon, size: fontSize + 4, color: Colors.white),
+                  const SizedBox(width: 6),
+                ],
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: fontSize,
+                    fontWeight: fontWeight,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

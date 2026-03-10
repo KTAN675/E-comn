@@ -48,7 +48,7 @@ class CategoryNavigator extends StatelessWidget {
 
                 Get.put(
                   ProductListingController(
-                    isGrocery: args?['isGrocery'] ?? true,
+                    isGrocery: args?['isGrocery'] ?? false,
                   ),
                 );
 

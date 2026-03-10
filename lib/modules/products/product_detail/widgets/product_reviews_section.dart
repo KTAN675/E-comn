@@ -1,9 +1,9 @@
-import 'package:e_comm/modules/products/product_detail/product_detail_controller.dart';
-import 'package:e_comm/modules/products/product_detail/widgets/review_widgets/rating_distribution.dart';
-import 'package:e_comm/modules/products/product_detail/widgets/review_widgets/review_filters.dart';
-import 'package:e_comm/modules/products/product_detail/widgets/review_widgets/reviews_header.dart';
-import 'package:e_comm/modules/products/product_detail/widgets/review_widgets/add_question_widget.dart';
-import 'package:e_comm/modules/products/product_detail/widgets/review_widgets/review_card.dart';
+import 'package:realtime_user/modules/products/product_detail/product_detail_controller.dart';
+import 'package:realtime_user/modules/products/product_detail/widgets/review_widgets/rating_distribution.dart';
+import 'package:realtime_user/modules/products/product_detail/widgets/review_widgets/review_filters.dart';
+import 'package:realtime_user/modules/products/product_detail/widgets/review_widgets/reviews_header.dart';
+import 'package:realtime_user/modules/products/product_detail/widgets/review_widgets/add_question_widget.dart';
+import 'package:realtime_user/modules/products/product_detail/widgets/review_widgets/review_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../constant/app_text_styles.dart';

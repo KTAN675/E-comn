@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../constant/app_colors.dart';
 
 class FaqItem extends StatelessWidget {
@@ -7,7 +6,7 @@ class FaqItem extends StatelessWidget {
   final String question;
   final String answer;
   final bool isOpen;
-  final VoidCallback onTap;
+//  final VoidCallback onTap;
 
   const FaqItem({
     super.key,
@@ -15,67 +14,69 @@ class FaqItem extends StatelessWidget {
     required this.question,
     required this.answer,
     required this.isOpen,
-    required this.onTap,
+  //  required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        InkWell(
-          onTap: onTap,
-          child: Row(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+
+          /// Red Bold Number
+          Text(
+            index < 9 ? "0${index + 1}" : "${index + 1}",
+            style: const TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primaryOrange,
+            ),
+          ),
+
+          const SizedBox(height: 6),
+
+          /// Question + Plain Icon
+          Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-              Text(
-                "0${index + 1}",
-                style: const TextStyle(
-                  fontSize: 22,
-                  color: AppColors.primaryOrange,
-                  fontWeight: FontWeight.bold,
+              Expanded(
+                child: Text(
+                  question,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                  ),
                 ),
               ),
-
-              const SizedBox(width: 12),
-
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            question,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                        Icon(
-                          isOpen ? Icons.close : Icons.add,
-                          color: AppColors.primaryOrange,
-                        )
-                      ],
-                    ),
-
-                    if (isOpen) ...[
-                      const SizedBox(height: 10),
-                      Text(
-                        answer,
-                        style: TextStyle(color: Colors.grey.shade600),
-                      )
-                    ]
-                  ],
+              const SizedBox(width: 8),
+              GestureDetector(
+              //  onTap: onTap,
+                child: Icon(
+                  isOpen ? Icons.cancel : Icons.add,
+                  color: AppColors.primaryOrange,
+                  size: 26,
                 ),
-              )
+              ),
             ],
           ),
-        ),
 
-        const Divider(height: 30)
-      ],
+          /// Answer
+          if (isOpen) ...[
+            const SizedBox(height: 10),
+            Text(
+              answer,
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey.shade600,
+                height: 1.6,
+              ),
+            ),
+          ],
+        ],
+      ),
     );
   }
 }

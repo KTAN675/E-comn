@@ -1,9 +1,9 @@
-import 'package:e_comm/modules/cart/widgets/payment_methods_section.dart';
-import 'package:e_comm/modules/cart/widgets/place_order_button.dart';
-import 'package:e_comm/modules/cart/widgets/recommended_products_section.dart';
-import 'package:e_comm/modules/cart/widgets/delivery_address_card.dart';
-import 'package:e_comm/modules/cart/widgets/wallet_section.dart';
-import 'package:e_comm/modules/cart/widgets/order_summary_section.dart';
+import 'package:realtime_user/modules/cart/widgets/payment_methods_section.dart';
+import 'package:realtime_user/modules/cart/widgets/place_order_button.dart';
+import 'package:realtime_user/modules/cart/widgets/delivery_address_card.dart';
+import 'package:realtime_user/modules/cart/widgets/recommended_products_section.dart';
+import 'package:realtime_user/modules/cart/widgets/wallet_section.dart';
+import 'package:realtime_user/modules/cart/widgets/order_summary_section.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -67,9 +67,9 @@ class CartView extends GetView<CartController> {
 
                         const SizedBox(height: 16),
 
-                        /// RECOMMENDED PRODUCTS
-                        CartRecommendationsSection(
-                          products: controller.recommendedProducts,
+                        /// Rrealtime_userENDED PRODUCTS
+                        CartRrealtime_userendationsSection(
+                          products: controller.rrealtime_userendedProducts,
                           onAdd: (product) {
                             controller.addToCart(product);
                           },

@@ -1,4 +1,4 @@
-import 'package:e_comm/utils/app_section_divider.dart';
+import 'package:realtime_user/utils/app_section_divider.dart';
 import 'package:flutter/material.dart';
 import '../../../../../constant/app_text_styles.dart';
 import '../../../../../data/models/review/review_model.dart';

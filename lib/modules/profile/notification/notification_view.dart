@@ -1,15 +1,11 @@
-//import 'package:e_comm/modules/notification/widgets/notification_card.dart';
-import 'package:e_comm/modules/profile/notification/widgets/notification_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-//import '../../constant/app_colors.dart';
-//import '../../constant/app_text_styles.dart';
-//import '../../utils/custom_tab_switcher.dart';
-//import '../../utils/segment_toggle.dart';
+import 'package:realtime_user/modules/profile/notification/widgets/notification_card.dart';
 import '../../../constant/app_colors.dart';
 import '../../../constant/app_text_styles.dart';
 import '../../../utils/custom_tab_switcher.dart';
 import '../../../utils/segment_toggle.dart';
+import '../../theme/theme_controller.dart';
 import 'notification_controller.dart';
 
 class NotificationView extends GetView<NotificationController> {
@@ -21,84 +17,87 @@ class NotificationView extends GetView<NotificationController> {
       extendBody: true,
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: GetBuilder<NotificationController>(
-          builder: (controller) {
-            final accent = controller.accent;
+        child: GetBuilder<ThemeController>(
+          builder: (theme) {
+            return GetBuilder<NotificationController>(
+              builder: (controller) {
+                final accent = controller.accent;
 
-            return Column(
-              children: [
+                return Column(
+                  children: [
 
-                /// 🔹 HEADER
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  child: SizedBox(
-                    height: 40,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
+                    /// 🔹 HEADER
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      child: SizedBox(
+                        height: 40,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
 
-                        /// 🔹 Back Button (Left)
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: GestureDetector(
-                            onTap: () => Get.back(),
-                            child: const Icon(Icons.arrow_back),
-                          ),
-                        ),
-
-                        /// 🔹 Center Title (True Center)
-                        Center(
-                          child: Text(
-                            "Notification",
-                            style: AppTextStyles.body.copyWith(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
+                            /// 🔹 Back Button
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: GestureDetector(
+                                onTap: () => Get.back(),
+                                child: const Icon(Icons.arrow_back),
+                              ),
                             ),
-                          ),
-                        ),
 
-                        /// 🔹 Theme Toggle (Right)
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: ThemeToggle(),
+                            /// 🔹 Center Title
+                            Center(
+                              child: Text(
+                                "Notification",
+                                style: AppTextStyles.body.copyWith(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+
+                            /// 🔹 Theme Toggle
+                            const Align(
+                              alignment: Alignment.centerRight,
+                              child: ThemeToggle(),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-                /// 🔹 TAB SWITCHER (Reuse)
-                CommonTabSwitcher(
-                  tabs: const ["Orders", "Shopping", "Coupons"],
-                  selectedIndex: controller.selectedTabIndex,
-                  onTabChanged: controller.changeTab,
-                  accent: accent,
-                ),
 
-                const SizedBox(height: 12),
+                    /// 🔹 TAB SWITCHER
+                    CommonTabSwitcher(
+                      tabs: const ["Orders", "Shopping", "Coupons"],
+                      selectedIndex: controller.selectedTabIndex,
+                      onTabChanged: controller.changeTab,
+                      accent: accent,
+                    ),
 
-                /// 🔹 TAB CONTENT
-                Expanded(
-                  child: controller.currentList.isEmpty
-                      ? _EmptyState()
-                      : ListView.builder(
-                    padding: const EdgeInsets.only(top: 8),
-                    itemCount: controller.currentList.length,
-                    itemBuilder: (_, index) {
-                      final item =
-                      controller.currentList[index];
+                    const SizedBox(height: 12),
 
-                      return NotificationCard(
-                        title: item["title"]!,
-                        subtitle: item["subtitle"]!,
-                        time: item["time"]!,
-                        date: item["date"]!,
-                        accent: accent,
-                        backgroundColor: controller.cardBg,
-                      );
-                    },
-                  ),
-                ),
-              ],
+                    /// 🔹 TAB CONTENT
+                    Expanded(
+                      child: controller.currentList.isEmpty
+                          ? _EmptyState()
+                          : ListView.builder(
+                        padding: const EdgeInsets.only(top: 8),
+                        itemCount: controller.currentList.length,
+                        itemBuilder: (_, index) {
+                          final item = controller.currentList[index];
+                          return NotificationCard(
+                            title: item["title"]!,
+                            subtitle: item["subtitle"]!,
+                            time: item["time"]!,
+                            date: item["date"]!,
+                            accent: accent,
+                            backgroundColor: controller.cardBg,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              },
             );
           },
         ),

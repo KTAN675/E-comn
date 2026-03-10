@@ -26,7 +26,7 @@ class ProductsGrid extends StatelessWidget {
         crossAxisCount: 2,
         mainAxisSpacing: 16,
         crossAxisSpacing: 16,
-        childAspectRatio: 0.54,
+        childAspectRatio: 0.59,
       ),
       itemBuilder: (context, index) {
         return ProductCard(
@@ -34,6 +34,7 @@ class ProductsGrid extends StatelessWidget {
           accent: accent,
           discountColor: accent,
           cardBackground: Colors.white,
+          showShadow: false,
         );
       },
     );

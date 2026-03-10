@@ -1,5 +1,5 @@
-import 'package:e_comm/modules/cart/cart_controller.dart';
-import 'package:e_comm/modules/orders/orders_controller.dart';
+import 'package:realtime_user/modules/cart/cart_controller.dart';
+import 'package:realtime_user/modules/orders/orders_controller.dart';
 import 'package:get/get.dart';
 import '../dashboard/dashboard_controller.dart';
 import '../wishlist/wishlist_controller.dart';

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../utils/custom_tab_switcher.dart';
+//import '../../category/vendor_categories_controller.dart';
+import '../vendor_categories_controller.dart';
 
 class CategoryFilterTabs extends StatelessWidget {
   final int selectedIndex;
@@ -15,14 +18,25 @@ class CategoryFilterTabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final vendorController = Get.find<VendorCategoriesController>();
+
+    /// 🔹 AUTO TAB CHANGE BASED ON VENDOR
+    final List<String> tabs = vendorController.isGrocery
+        ? const [
+      "All Categories",
+      "Quick Cook",
+      "Healthy Life",
+    ]
+        : const [
+      "All Categories",
+      "Healthy Life",
+    ];
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: CommonTabSwitcher(
-        tabs: const [
-          "All Categories",
-          "Quick Cook",
-          "Healthy Life",
-        ],
+        tabs: tabs,
         selectedIndex: selectedIndex,
         onTabChanged: onTabChanged,
         accent: accent,

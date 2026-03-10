@@ -170,40 +170,6 @@ class _EditProfileViewState extends State<EditProfileView> {
                   _buildLabel("Date of Birth"),
                   _buildDateField(),
 
-                  const SizedBox(height: 30),
-
-                  const Text(
-                    "Address",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  _buildLabel("Flat/House/Building name"),
-                  _buildField(
-                    controller: ctrl.flatController,
-                    hint: "Enter building name",
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  _buildLabel("Floor/Apartment No."),
-                  _buildField(
-                    controller: ctrl.floorController,
-                    hint: "Enter floor",
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  _buildLabel("Area/Sector/Locality"),
-                  _buildField(
-                    controller: ctrl.areaController,
-                    hint: "Enter area",
-                  ),
-
                   const SizedBox(height: 40),
 
                   AppPrimaryButton(

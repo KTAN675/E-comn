@@ -1,4 +1,4 @@
-import 'package:e_comm/modules/category/widgets/vendor_card.dart';
+import 'package:realtime_user/modules/category/widgets/vendor_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../dashboard/widgets/vendor_section.dart';

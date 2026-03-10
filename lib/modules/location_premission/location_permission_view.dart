@@ -55,7 +55,7 @@ class LocationPermissionView
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 44),
                   child: Text(
-                    "Your location helps us show nearby shops, offers and better recommendations",
+                    "Your location helps us show nearby shops, offers and better rrealtime_userendations",
                     textAlign: TextAlign.center,
                     style: AppTextStyles.body.copyWith(
                       color: const Color(0xff24252C),

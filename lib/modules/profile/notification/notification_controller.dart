@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../constant/app_colors.dart';
-//import '../../constant/app_colors.dart';
+import '../../theme/theme_controller.dart';
 
 class NotificationController extends GetxController {
 
@@ -11,7 +11,6 @@ class NotificationController extends GetxController {
   // =============================
 
   int selectedTabIndex = 0;
-  bool isGrocery = true;
 
   // =============================
   // TAB CHANGE
@@ -23,31 +22,14 @@ class NotificationController extends GetxController {
   }
 
   // =============================
-  // THEME TOGGLE
+  // DYNAMIC COLORS (synced with ThemeController)
   // =============================
 
-  void toggleTheme() {
-    isGrocery = !isGrocery;
+  Color get accent => Get.find<ThemeController>().isGrocery
+      ? AppColors.primaryOrange
+      : AppColors.secondaryCyan;
 
-    // 🔥 Sync with AppColors theme system
-    if (isGrocery) {
-      AppColors.setGroceryTheme();
-    } else {
-      AppColors.setMedicineTheme();
-    }
-
-    update();
-  }
-
-  // =============================
-  // DYNAMIC COLORS (NO HARDCODE)
-  // =============================
-
-  /// Accent color (comes from AppColors system)
-  Color get accent => AppColors.accent;
-
-  /// Light background tone (from theme system)
-  Color get cardBg => AppColors.lightAccent.withValues(alpha: 0.16);
+  Color get cardBg => accent.withValues(alpha: 0.16);
 
   // =============================
   // MOCK DATA
@@ -57,8 +39,7 @@ class NotificationController extends GetxController {
     4,
         (_) => {
       "title": "Flat 25% OFF on First Prescription Order!",
-      "subtitle":
-      "Use code FIRST25 at checkout. Valid till May 31.",
+      "subtitle": "Use code FIRST25 at checkout. Valid till May 31.",
       "time": "12:34 AM",
       "date": "12 Aug 2024",
     },

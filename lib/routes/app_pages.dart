@@ -1,7 +1,4 @@
 //import 'package:e_comm/modules/profile_and_setting/profile_and_setting_view.dart';
-import 'package:e_comm/modules/profile/notification/notification_settings_binding.dart';
-import 'package:e_comm/modules/profile/notification/notification_settings_view.dart';
-import 'package:e_comm/modules/return/return_binding.dart';
 import 'package:get/get.dart';
 //import '../modules/add_balance/add_balance_binding.dart';
 //import '../modules/add_balance/add_balance_view.dart';
@@ -45,7 +42,11 @@ import '../modules/onboarding/onboarding_binding.dart';
 import '../modules/onboarding/onboarding_view.dart';
 //import '../modules/profile_and_setting/profile_and_setting_binding.dart';
 import '../modules/profile/notification/notification_binding.dart';
+import '../modules/profile/notification/notification_settings_binding.dart';
+import '../modules/profile/notification/notification_settings_view.dart';
 import '../modules/profile/notification/notification_view.dart';
+import '../modules/profile/privacy_policy/privacy_policy_binding.dart';
+import '../modules/profile/privacy_policy/privacy_policy_view.dart';
 import '../modules/profile/profile_and_setting/profile_and_setting_binding.dart';
 import '../modules/profile/profile_and_setting/profile_and_setting_view.dart';
 import '../modules/profile/profile_and_setting/widgets/edit_profile_view.dart';
@@ -61,6 +62,7 @@ import '../modules/profile/wallet/wallet_binding.dart';
 import '../modules/profile/wallet/wallet_view.dart';
 import '../modules/profile/withdraw/withdraw_binding.dart';
 import '../modules/profile/withdraw/withdraw_view.dart';
+import '../modules/return/return_binding.dart';
 import '../modules/return/return_view.dart';
 import '../modules/splash/splash_binding.dart';
 import '../modules/splash/splash_view.dart';
@@ -228,7 +230,7 @@ class AppPages {
 
     GetPage(
       name: AppRoutes.drawer,
-      page: () => const DrawerView(),
+      page: () => DrawerView(),
       binding: DrawerBinding(),
       opaque: false,
       transition: Transition.leftToRight,
@@ -251,6 +253,13 @@ class AppPages {
       page: () => const OpenTermsView(),
       binding: OpenTermsBinding(),
     ),
+
+    GetPage(
+      name: AppRoutes.privacyPolicy,
+      page: () => const PrivacyPolicyView(),
+      binding: PrivacyPolicyBinding(),
+    ),
+
     GetPage(
       name: AppRoutes.trackExchange,
       page: () => const TrackExchangeView(),

@@ -6,6 +6,7 @@ abstract class AppRoutes {
   static const mainShell = '/main-shell';
   static const dashboard = '/dashboard';
   static const notification = '/notification';
+  static const privacyPolicy = '/privacyPolicy';
   static const orders = '/orders';
   static const ordersDetail = '/orders-detail';
   static const wishlist = '/wishlist';

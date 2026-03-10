@@ -1,15 +1,17 @@
-import 'package:e_comm/modules/products/product_detail/product_detail_controller.dart';
-import 'package:e_comm/modules/products/product_detail/widgets/delivery_services_content.dart';
-import 'package:e_comm/modules/products/product_detail/widgets/frequently_bought_together.dart';
-import 'package:e_comm/modules/products/product_detail/widgets/product_detail_tabs.dart';
-import 'package:e_comm/modules/products/product_detail/widgets/product_details_content.dart';
-import 'package:e_comm/modules/products/product_detail/widgets/product_image_carousel.dart';
-import 'package:e_comm/modules/products/product_detail/widgets/product_reviews_section.dart';
-import 'package:e_comm/modules/products/product_detail/widgets/you_may_also_like_section.dart';
-import 'package:e_comm/utils/app_section_divider.dart';
+import 'package:realtime_user/modules/products/product_detail/product_detail_controller.dart';
+import 'package:realtime_user/modules/products/product_detail/widgets/delivery_services_content.dart';
+import 'package:realtime_user/modules/products/product_detail/widgets/frequently_bought_together.dart';
+import 'package:realtime_user/modules/products/product_detail/widgets/product_detail_tabs.dart';
+import 'package:realtime_user/modules/products/product_detail/widgets/product_details_content.dart';
+import 'package:realtime_user/modules/products/product_detail/widgets/product_image_carousel.dart';
+import 'package:realtime_user/modules/products/product_detail/widgets/product_reviews_section.dart';
+import 'package:realtime_user/modules/products/product_detail/widgets/you_may_also_like_section.dart';
+import 'package:realtime_user/utils/app_section_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../constant/app_colors.dart';
 import '../../mian_shell/main_shell_controller.dart';
+import '../../theme/theme_controller.dart';
 import 'widgets/product_header.dart';
 import 'widgets/product_info_section.dart';
 import 'widgets/product_price_stepper.dart';
@@ -21,11 +23,10 @@ class ProductDetailView extends GetView<ProductDetailController> {
 
   @override
   Widget build(BuildContext context) {
-
-
+    final ThemeController theme = Get.find<ThemeController>();
 
     return Scaffold(
-      backgroundColor: Colors.white,
+        backgroundColor: AppColors.background,
       body: SafeArea(
         bottom: false,
         child: GetBuilder<ProductDetailController>(
@@ -121,7 +122,7 @@ class ProductDetailView extends GetView<ProductDetailController> {
                         const SizedBox(height: 20,),
 
                         YouMayAlsoLikeSection(
-                          products: controller.recommendedProducts,
+                          products: controller.rrealtime_userendedProducts,
                         ),
 
                         const SizedBox(height: 30),

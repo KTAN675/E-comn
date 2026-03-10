@@ -18,22 +18,16 @@ class InspirationCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 260,
-        height: 110,
+        width: 190,
+        height: 100,
         padding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 14,
         ),
         decoration: BoxDecoration(
-          color: const Color(0xFFF3F3F3), // lighter grey
+          color: const Color(0xFFF3F3F3),
           borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 18,
-              offset: const Offset(0, 10),
-            ),
-          ],
+          boxShadow: const [], // ✅ shadow off
         ),
         child: Row(
           children: [
@@ -58,7 +52,7 @@ class InspirationCard extends StatelessWidget {
 
                   const Spacer(),
 
-                  /// Time Chip (Subtle)
+                  /// Time Chip
                   Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 10,
@@ -86,13 +80,13 @@ class InspirationCard extends StatelessWidget {
 
             const SizedBox(width: 12),
 
-            /// RIGHT IMAGE (Floating Feel)
+            /// RIGHT IMAGE
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: Image.asset(
                 item.image,
-                width: 95,
-                height: 95,
+                width: 80,
+                height: 80,
                 fit: BoxFit.cover,
               ),
             ),

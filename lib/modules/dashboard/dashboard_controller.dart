@@ -1,11 +1,10 @@
 import 'dart:ui';
 
-import 'package:e_comm/modules/dashboard/widgets/categories_section.dart';
-import 'package:e_comm/modules/dashboard/widgets/vendor_section.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:realtime_user/modules/dashboard/widgets/categories_section.dart';
+import 'package:realtime_user/modules/dashboard/widgets/vendor_section.dart';
 import 'package:get/get.dart';
 import '../../constant/app_colors.dart';
+import '../../constant/app_colors.dart' as Colors;
 import '../../data/models/product/inspriation_model.dart';
 import '../../data/models/product/product_model.dart';
 import '../../routes/app_routes.dart';
@@ -16,13 +15,7 @@ class DashboardController extends GetxController {
 
   final ThemeController theme = Get.find<ThemeController>();
 
-// Drawer Key
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  /// Open Drawer
-  void openDrawer() {
-    scaffoldKey.currentState?.openDrawer();
-  }
 
   // =============================
   // UI SELECTION STATES
@@ -97,8 +90,7 @@ class DashboardController extends GetxController {
       title: "Chicken breast frozen",
       image: "assets/images/products/chicken_breast.png",
       weight: "450–500gr /pack",
-      price: 22.40,
-      oldPrice: 32.00,
+      price: 22.40, oldPrice: 32.00,
       discount: 30,
     ),
     ProductModel(
@@ -206,6 +198,8 @@ class DashboardController extends GetxController {
   List<ProductModel> get todaysSpecials =>
       isGrocery ? groceryTodaysSpecials : medicineTodaysSpecials;
 
+
+
   // ==========================================================
   // TAB PRODUCTS
   // ==========================================================
@@ -303,19 +297,28 @@ class DashboardController extends GetxController {
 // ==========================================================
 
   List<CategoryModel> groceryCategories = [
-    CategoryModel(title: "Vegetable", image: 'assets/images/icons/vegetable.png'),
-    CategoryModel(title: "Fruit", image: 'assets/images/icons/fruits.png'),
-    CategoryModel(title: "Meat", image: 'assets/images/icons/meat.png'),
-    CategoryModel(title: "Seafood", image: 'assets/images/icons/seafood.png'),
-    CategoryModel(title: "Protein", image: 'assets/images/icons/protine.png'),
+    CategoryModel(title: "Fruits", image: "assets/images/product_category/fruits.png"),
+    CategoryModel(title: "Veggies", image: "assets/images/product_category/veggie.png"),
+    CategoryModel(title: "Chicken, Meat & Fish", image: "assets/images/product_category/non_veg.png"),
+    CategoryModel(title: "Masala, Oil & Dry Fruits", image: "assets/images/product_category/masala oil.png"),
+    CategoryModel(title: "Dairy", image: "assets/images/product_category/dairy.png"),
+    CategoryModel(title: "Beverages", image: "assets/images/product_category/beverages.png"),
+    CategoryModel(title: "Snacks", image: "assets/images/product_category/snacks.png"),
+    CategoryModel(title: "Breakfast", image: "assets/images/product_category/breakfast.png"),
+    CategoryModel(title: "Tea & Coffee", image: "assets/images/product_category/tea_and_coffe.png"),
   ];
 
   List<CategoryModel> medicineCategories = [
-    CategoryModel(title: "Cold", image: 'assets/images/icons/medical/cold.png'),
-    CategoryModel(title: "Fever", image: 'assets/images/icons/medical/fever.png'),
-    CategoryModel(title: "Infection", image: 'assets/images/icons/medical/infection.png'),
-    CategoryModel(title: "Diet", image: 'assets/images/icons/medical/diet.png'),
-    CategoryModel(title: "Pregnancy", image: 'assets/images/icons/medical/pregnancy.png'),
+    CategoryModel(title: "Cold", image: "assets/images/icons/medical/cold.png"),
+    CategoryModel(title: "Fever", image: "assets/images/icons/medical/fever.png"),
+    CategoryModel(title: "Infection", image: "assets/images/icons/medical/infection.png"),
+    CategoryModel(title: "Pregnancy", image: "assets/images/icons/medical/pregnancy.png"),
+    CategoryModel(title: "Diet", image: "assets/images/icons/medical/diet.png"),
+    CategoryModel(title: "Heart", image: "assets/images/icons/medical/heart.png"),
+    CategoryModel(title: "Diabetes", image: "assets/images/icons/medical/diabetes.png"),
+    CategoryModel(title: "Physics", image: "assets/images/icons/medical/physics.png"),
+    CategoryModel(title: "Tooth Pain", image: "assets/images/icons/medical/tooth.png"),
+   // CategoryModel(title: "Physics", image: "assets/images/icons/medical/physics.png"),
   ];
 
   List<CategoryModel> get currentCategories =>
@@ -371,5 +374,5 @@ class DashboardController extends GetxController {
 // ==========================================================
 
   Color get flashSectionBg =>
-      isGrocery ? const Color(0xFFFFE7D6) : const Color(0xFFD9F5F7);
+      isGrocery ?  Colors.AppColors.primaryOrange : const Color(0xFFD9F5F7);
 }

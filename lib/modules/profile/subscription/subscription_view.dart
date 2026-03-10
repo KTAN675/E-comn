@@ -1,10 +1,11 @@
-import 'package:e_comm/modules/profile/subscription/subscription_controller.dart';
-import 'package:e_comm/modules/profile/subscription/widgets/benefits_section.dart';
-import 'package:e_comm/modules/profile/subscription/widgets/subscribe_button.dart';
-import 'package:e_comm/modules/profile/subscription/widgets/subscription_banner.dart';
-import 'package:e_comm/modules/profile/subscription/widgets/subscription_plan_tile.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:realtime_user/modules/profile/subscription/subscription_controller.dart';
+import 'package:realtime_user/modules/profile/subscription/widgets/benefits_section.dart';
+import 'package:realtime_user/modules/profile/subscription/widgets/subscribe_button.dart';
+import 'package:realtime_user/modules/profile/subscription/widgets/subscription_banner.dart';
+import 'package:realtime_user/modules/profile/subscription/widgets/subscription_plan_tile.dart';
 
 import '../../../constant/app_colors.dart';
 

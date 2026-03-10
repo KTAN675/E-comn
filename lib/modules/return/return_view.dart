@@ -1,8 +1,9 @@
-import 'package:e_comm/modules/return/widgets/return_additional_details.dart';
-import 'package:e_comm/modules/return/widgets/return_image_upload.dart';
-import 'package:e_comm/modules/return/widgets/return_reason_dropdown.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:realtime_user/modules/return/widgets/return_additional_details.dart';
+import 'package:realtime_user/modules/return/widgets/return_image_upload.dart';
+import 'package:realtime_user/modules/return/widgets/return_reason_dropdown.dart';
 import '../../constant/app_colors.dart';
 import '../../utils/app_primary_button.dart';
 import 'return_controller.dart';

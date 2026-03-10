@@ -1,5 +1,5 @@
-import 'package:e_comm/modules/exchange/widgets/exchange_additional_details.dart';
-import 'package:e_comm/modules/exchange/widgets/exchange_reason_dropdown.dart';
+import 'package:realtime_user/modules/exchange/widgets/exchange_additional_details.dart';
+import 'package:realtime_user/modules/exchange/widgets/exchange_reason_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constant/app_colors.dart';

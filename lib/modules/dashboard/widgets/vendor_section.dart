@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../constant/app_colors.dart';
 import '../../../constant/app_text_styles.dart';
+import '../../../routes/app_routes.dart';
 
 class VendorModel {
   final String name;
@@ -30,14 +32,12 @@ class VendorsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final accent = AppColors.accent;
     final lightAccent = AppColors.lightAccent;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
         /// 🔹 Header
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -81,7 +81,7 @@ class VendorsSection extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 20),
           color: lightAccent.withValues(alpha: 0.16),
           child: SizedBox(
-            height: 270,
+            height: 240,
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               scrollDirection: Axis.horizontal,
@@ -89,11 +89,7 @@ class VendorsSection extends StatelessWidget {
               separatorBuilder: (_, __) => const SizedBox(width: 20),
               itemBuilder: (context, index) {
                 final vendor = vendors[index];
-
-                return _VendorCard(
-                  vendor: vendor,
-                  onTap: () => onVendorTap(index),
-                );
+                return _VendorCard(vendor: vendor);
               },
             ),
           ),
@@ -103,122 +99,80 @@ class VendorsSection extends StatelessWidget {
   }
 }
 
-class _VendorCard extends StatefulWidget {
+class _VendorCard extends StatelessWidget {
   final VendorModel vendor;
-  final VoidCallback onTap;
 
-  const _VendorCard({
-    required this.vendor,
-    required this.onTap,
-  });
-
-  @override
-  State<_VendorCard> createState() => _VendorCardState();
-}
-
-class _VendorCardState extends State<_VendorCard> {
-  bool showEffect = false;
-
-  void _handleTap() async {
-    setState(() => showEffect = true);
-
-    await Future.delayed(const Duration(milliseconds: 120));
-
-    setState(() => showEffect = false);
-
-    widget.onTap();
-  }
+  const _VendorCard({required this.vendor});
 
   @override
   Widget build(BuildContext context) {
-
     final accent = AppColors.accent;
 
-    return GestureDetector(
-      onTap: _handleTap,
-      child: AnimatedScale(
-        duration: const Duration(milliseconds: 120),
-        scale: showEffect ? 0.97 : 1,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 120),
-          width: 190,
-          decoration: BoxDecoration(
-            color: const Color(0xFFEFEFEF),
-            borderRadius: BorderRadius.circular(26),
-            border: Border.all(
-              color: showEffect
-                  ? accent
-                  : Colors.transparent,
-              width: 3,
-            ),
-            boxShadow: [
-              if (showEffect)
-                BoxShadow(
-                  color: accent.withValues(alpha: 0.35),
-                  blurRadius: 22,
-                  spreadRadius: 1,
-                ),
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.10),
-                blurRadius: 18,
-                offset: const Offset(0, 14),
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 120),
+      width: 155,
+      decoration: BoxDecoration(
+        color: const Color(0xFFEFEFEF),
+        borderRadius: BorderRadius.circular(26),
+        border: Border.all(
+          color: Colors.transparent,
+          width: 3,
+        ),
+        boxShadow: const [], // ✅ shadow removed
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 14),
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(18),
+              child: Image.asset(
+                vendor.image,
+                height: 110,
+                width: double.infinity,
+                fit: BoxFit.contain,
               ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-                vertical: 16, horizontal: 14),
-            child: Column(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(18),
-                  child: Image.asset(
-                    widget.vendor.image,
-                    height: 110,
-                    width: double.infinity,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-                const SizedBox(height: 14),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
+            ),
+            const SizedBox(height: 14),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
                     children: [
-                      Column(
-                        children: [
-                          Text(
-                            widget.vendor.name,
-                            textAlign: TextAlign.center,
-                            style: AppTextStyles.bodyLarge.copyWith(
-                              fontWeight: FontWeight.w600,
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          const SizedBox(height: 6),
-                          Text(
-                            widget.vendor.subtitle,
-                            style: AppTextStyles.bodyGrey.copyWith(
-                              fontSize: 13,
-                            ),
-                          ),
-                        ],
-                      ),
                       Text(
-                        "View Store",
-                        style: AppTextStyles.body.copyWith(
-                          color: accent,
+                        vendor.name,
+                        textAlign: TextAlign.center,
+                        style: AppTextStyles.bodyLarge.copyWith(
                           fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.underline,
                         ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        vendor.subtitle,
+                        style: AppTextStyles.bodyGrey.copyWith(fontSize: 13),
                       ),
                     ],
                   ),
-                ),
-              ],
+
+                  /// ✅ Only this navigates to next page
+                  GestureDetector(
+                    onTap: () => Get.toNamed(AppRoutes.vendorCategories),
+                    child: Text(
+                      "View Store",
+                      style: AppTextStyles.body.copyWith(
+                        color: accent,
+                        fontWeight: FontWeight.w600,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

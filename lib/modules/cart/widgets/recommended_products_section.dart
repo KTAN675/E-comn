@@ -4,11 +4,11 @@ import '../../../constant/app_text_styles.dart';
 import '../../../data/models/product/product_model.dart';
 import '../../products/widgets/product_card_mini.dart';
 
-class CartRecommendationsSection extends StatelessWidget {
+class CartRrealtime_userendationsSection extends StatelessWidget {
   final List<ProductModel> products;
   final Function(ProductModel) onAdd;
 
-  const CartRecommendationsSection({
+  const CartRrealtime_userendationsSection({
     super.key,
     required this.products,
     required this.onAdd,

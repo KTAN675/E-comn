@@ -1,4 +1,4 @@
-import 'package:e_comm/constant/app_colors.dart';
+import 'package:realtime_user/constant/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'product_image_card.dart';
 

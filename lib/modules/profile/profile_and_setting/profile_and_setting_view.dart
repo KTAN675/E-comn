@@ -1,9 +1,10 @@
-import 'package:e_comm/modules/profile/profile_and_setting/widgets/logout_button.dart';
-import 'package:e_comm/modules/profile/profile_and_setting/widgets/menu_item.dart';
-import 'package:e_comm/modules/profile/profile_and_setting/widgets/profile_card.dart';
-import 'package:e_comm/modules/profile/profile_and_setting/widgets/wallet_rewards.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:realtime_user/modules/profile/profile_and_setting/widgets/logout_button.dart';
+import 'package:realtime_user/modules/profile/profile_and_setting/widgets/menu_item.dart';
+import 'package:realtime_user/modules/profile/profile_and_setting/widgets/profile_card.dart';
+import 'package:realtime_user/modules/profile/profile_and_setting/widgets/wallet_rewards.dart';
 import '../../../constant/app_colors.dart';
 import '../../../constant/app_text_styles.dart';
 import '../../../routes/app_routes.dart';
@@ -70,7 +71,8 @@ class ProfileAndSettingView extends GetView<ProfileAndSettingController> {
                 ProfileMenuItem(
                   icon: Icons.map,
                   title: 'Saved Address',
-                  onTap: () {},
+                  onTap: () =>
+                      Get.toNamed(AppRoutes.address),
                 ),
 
                 const SizedBox(height: 16),

@@ -1,7 +1,7 @@
-import 'package:e_comm/routes/app_pages.dart';
-import 'package:e_comm/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:realtime_user/routes/app_pages.dart';
+import 'package:realtime_user/routes/app_routes.dart';
 import 'constant/app_theme.dart';
 import 'modules/theme/theme_controller.dart';
 

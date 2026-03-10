@@ -1,6 +1,7 @@
-import 'package:e_comm/modules/profile/rewards/widgets/reward_success_dialog.dart';
+//import 'package:e_comm/modules/profile/rewards/widgets/reward_success_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:realtime_user/modules/profile/rewards/widgets/reward_success_dialog.dart';
 import '../../../constant/app_colors.dart';
 import '../../../constant/app_text_styles.dart';
 import '../../../utils/app_primary_button.dart';

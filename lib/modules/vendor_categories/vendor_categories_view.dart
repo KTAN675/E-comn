@@ -12,6 +12,15 @@ import 'widgets/category_grid.dart';
 class VendorCategoriesView extends GetView<VendorCategoriesController> {
   const VendorCategoriesView({super.key});
 
+  void _safePop() {
+    Future.microtask(() {
+      final navigator = CategoryNavigator.navigatorKey.currentState;
+      if (navigator != null && navigator.canPop()) {
+        navigator.pop();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ThemeController>(
@@ -20,7 +29,7 @@ class VendorCategoriesView extends GetView<VendorCategoriesController> {
           canPop: false,
           onPopInvokedWithResult: (didPop, result) {
             if (!didPop) {
-              CategoryNavigator.navigatorKey.currentState?.pop();
+              _safePop();
             }
           },
           child: Scaffold(
@@ -31,22 +40,20 @@ class VendorCategoriesView extends GetView<VendorCategoriesController> {
                 builder: (controller) {
                   return Column(
                     children: [
-
                       /// Header
                       CategoryHeader(
-                        onBack: () {
-                          CategoryNavigator.navigatorKey.currentState?.pop();
-                        },
+                        onBack: _safePop,
                       ),
 
-                      /// Search
-                      SearchBarSection(),
+                      /// Search Bar
+                      const SearchBarSection(),
 
                       /// Filter Tabs
                       CategoryFilterTabs(
                         selectedIndex: controller.selectedFilterIndex,
                         onTabChanged: controller.changeFilter,
                         accent: controller.accent,
+                      //  isMedicine: true,
                       ),
 
                       const SizedBox(height: 16),

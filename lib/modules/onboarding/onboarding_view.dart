@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constant/app_colors.dart';
@@ -16,40 +17,62 @@ class OnboardingView extends StatefulWidget {
 class _OnboardingViewState extends State<OnboardingView> {
   final PageController _controller = PageController();
   int _currentPage = 0;
+  Timer? _timer;
 
   final List<_BoardItem> pages = [
     _BoardItem(
       image: AppImages.onboarding1,
-      title: "Shop your daily needs in ease",
+      title: "All Your Daily Essentials in One App",
       desc:
-      "Search for your desired items very easily from app and order instantly",
+      "Order fresh groceries, medicines, fish, and meat from one place. Everything you need delivered quickly and conveniently to your doorstep.",
     ),
     _BoardItem(
       image: AppImages.onboarding2,
-      title: "Shop your daily needs in ease",
+      title: "Freshness You Can Trust",
       desc:
-      "Search for your desired items very easily from app and order instantly",
+      "Get farm-fresh groceries, hygienic meat & fish, and genuine medicines sourced from trusted sellers and delivered with care.",
     ),
     _BoardItem(
       image: AppImages.onboarding3,
-      title: "Shop your daily needs in ease",
+      title: "Quick & Easy Delivery",
       desc:
-      "Search for your desired items very easily from app and order instantly",
+      "Place your order in seconds and enjoy fast doorstep delivery. Save time and shop smarter with our all-in-one shopping app.",
     ),
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_currentPage < pages.length - 1) {
+        _controller.nextPage(
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeInOut,
+        );
+      } else {
+        _timer?.cancel();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
-    final accent =
-        Get.find<ThemeController>().currentAccent;
+    final accent = Get.find<ThemeController>().currentAccent;
 
     return Scaffold(
       backgroundColor: AppColors.white,
       body: Stack(
         children: [
 
-          /// CURVED BACKGROUND (bottom layer)
+          /// CURVED BACKGROUND
           Positioned(
             bottom: 0,
             left: 0,
@@ -71,7 +94,10 @@ class _OnboardingViewState extends State<OnboardingView> {
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: GestureDetector(
-                      onTap: () => Get.offAllNamed(AppRoutes.login),
+                      onTap: () {
+                        _timer?.cancel();
+                        Get.offAllNamed(AppRoutes.login);
+                      },
                       child: Text(
                         "Skip",
                         style: AppTextStyles.bodyLarge.copyWith(
@@ -89,8 +115,9 @@ class _OnboardingViewState extends State<OnboardingView> {
                   child: PageView.builder(
                     controller: _controller,
                     itemCount: pages.length,
-                    onPageChanged: (i) =>
-                        setState(() => _currentPage = i),
+                    onPageChanged: (i) {
+                      setState(() => _currentPage = i);
+                    },
                     itemBuilder: (context, i) {
                       final item = pages[i];
                       return Center(
@@ -103,7 +130,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                   ),
                 ),
 
-                /// TEXT AREA (this visually sits inside curve)
+                /// TEXT AREA
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -117,7 +144,6 @@ class _OnboardingViewState extends State<OnboardingView> {
                           style: AppTextStyles.h1.copyWith(
                             fontSize: 19,
                             fontWeight: FontWeight.w700,
-                            // color: const Color(0xff2B1606),
                           ),
                         ),
                       ),
@@ -130,7 +156,6 @@ class _OnboardingViewState extends State<OnboardingView> {
                           pages[_currentPage].desc,
                           textAlign: TextAlign.center,
                           style: AppTextStyles.body.copyWith(
-
                             color: const Color(0xff24252C),
                           ),
                         ),
@@ -168,6 +193,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                           height: 60,
                           child: ElevatedButton(
                             onPressed: () {
+                              _timer?.cancel();
                               if (_currentPage == pages.length - 1) {
                                 Get.offAllNamed(AppRoutes.login);
                               } else {
@@ -205,7 +231,8 @@ class _OnboardingViewState extends State<OnboardingView> {
             ),
           ),
         ],
-      ),    );
+      ),
+    );
   }
 }
 

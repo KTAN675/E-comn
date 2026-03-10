@@ -3,45 +3,13 @@ import 'package:get/get.dart';
 
 import '../../constant/app_colors.dart';
 import '../../constant/app_text_styles.dart';
-import '../theme/theme_controller.dart';
 
 class DrawerControllerX extends GetxController {
 
-  final ThemeController theme = Get.find<ThemeController>();
-
   String userName = "Sam";
   String userRole = "Store Manager";
-  String profileImage = "https://i.pravatar.cc/150?img=3";
-
-  int selectedTabIndex = 0;
-
-  @override
-  void onInit() {
-    super.onInit();
-
-    /// Listen to ThemeController updates
-    theme.addListener(() {
-      update();
-    });
-
-    loadDrawer();
-  }
-
-  void loadDrawer() {
-    update();
-  }
-
-  void changeTab(int index) {
-    selectedTabIndex = index;
-    update();
-  }
-
-  /// Theme getter
-  bool get isGrocery => theme.isGrocery;
-
-  // =============================
-  // NAVIGATION
-  // =============================
+  String profileImage =
+      "https://i.pravatar.cc/150?img=3";
 
   void goToOrders() {
     Get.back();
@@ -49,8 +17,8 @@ class DrawerControllerX extends GetxController {
   }
 
   void askQuestion() {
-    // Get.back();
-    // Get.toNamed('/ask-question');
+    Get.back();
+    Get.toNamed('/ask-question');
   }
 
   void openTerms() {
@@ -63,19 +31,15 @@ class DrawerControllerX extends GetxController {
     Get.toNamed('/help_and_faqs');
   }
 
-  void openPrivacy() {
-    // Get.back();
-    // Get.toNamed('/privacy');
+  void privacyPolicy() {
+    Get.back();
+    Get.toNamed('/privacyPolicy');
   }
 
   void openReturnPolicy() {
-    // Get.back();
-    // Get.toNamed('/return-policy');
+    Get.back();
+    Get.toNamed('/return-policy');
   }
-
-  // =============================
-  // LOGOUT DIALOG
-  // =============================
 
   void logout() {
     Get.dialog(
@@ -83,8 +47,10 @@ class DrawerControllerX extends GetxController {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
+
         child: Padding(
           padding: const EdgeInsets.all(20),
+
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -152,6 +118,7 @@ class DrawerControllerX extends GetxController {
                         Get.back();
                         Get.offAllNamed('/login');
                       },
+
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryOrange,
                         padding: const EdgeInsets.symmetric(vertical: 14),
@@ -160,6 +127,7 @@ class DrawerControllerX extends GetxController {
                         ),
                         elevation: 0,
                       ),
+
                       child: Text(
                         "Log out",
                         style: AppTextStyles.button,

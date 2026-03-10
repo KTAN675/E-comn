@@ -1,4 +1,4 @@
-import 'package:e_comm/modules/cart/widgets/order_success_dialog.dart';
+import 'package:realtime_user/modules/cart/widgets/order_success_dialog.dart';
 import 'package:get/get.dart';
 import '../../data/models/address/address_model.dart';
 import '../../data/models/cart/cart_item_model.dart';
@@ -127,8 +127,8 @@ class CartController extends GetxController {
     update();
   }
 
-  /// RECOMMENDED PRODUCTS
-  List<ProductModel> recommendedProducts = [
+  /// Rrealtime_userENDED PRODUCTS
+  List<ProductModel> rrealtime_userendedProducts = [
 
     ProductModel(
       title: "Strawberry",

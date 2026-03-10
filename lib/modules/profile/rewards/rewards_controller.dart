@@ -1,5 +1,6 @@
-import 'package:e_comm/modules/profile/rewards/reward_details.dart';
+//import 'package:e_comm/modules/profile/rewards/reward_details.dart';
 import 'package:get/get.dart';
+import 'package:realtime_user/modules/profile/rewards/reward_details.dart';
 
 class RewardsController extends GetxController {
 
