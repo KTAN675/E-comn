@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../../constant/app_colors.dart';
 import '../../../../constant/app_text_styles.dart';
 import '../../../../routes/app_routes.dart';
+import '../../../theme/theme_controller.dart';
 import '../profile_and_setting_controller.dart';
 
 class WalletRewardsRow extends StatelessWidget {
@@ -15,141 +16,145 @@ class WalletRewardsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        children: [
-          /// =======================
-          /// Wallet Money Card
-          /// =======================
-          Expanded(
-            child: GestureDetector(
-              onTap: () {
-                Get.toNamed(AppRoutes.wallet);
-              },
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 6,
-                      offset: Offset(0, 3),
+    return GetBuilder<ThemeController>(
+      builder: (theme) {
+
+        final Color accent = theme.currentAccent; // ✅ Dynamic accent
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            children: [
+
+              /// =======================
+              /// Wallet Money Card
+              /// =======================
+              Expanded(
+                child: GestureDetector(
+                  onTap: () => Get.toNamed(AppRoutes.wallet),
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 6,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'assets/images/wallet/Wallet.png',
-                      width: 28,
-                      height: 28,
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Icon(
-                          Icons.account_balance_wallet_outlined,
-                          size: 28,
-                          color: Colors.orange,
-                        );
-                      },
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Wallet Money',
-                            style: AppTextStyles.caption.copyWith(
-                              color: Colors.grey[700],
-                            ),
-                            overflow: TextOverflow.ellipsis,
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          'assets/images/wallet/Wallet.png',
+                          width: 28,
+                          height: 28,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Icon(
+                              Icons.account_balance_wallet_outlined,
+                              size: 28,
+                              color: accent, // ✅ Dynamic
+                            );
+                          },
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Wallet Money',
+                                style: AppTextStyles.caption.copyWith(
+                                  color: Colors.grey[700],
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                '₹${ctrl.walletBalance}',
+                                style: AppTextStyles.h3.copyWith(
+                                  color: accent, // ✅ Dynamic
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            '₹${ctrl.walletBalance}',
-                            style: AppTextStyles.h3.copyWith(
-                              color: AppColors.primaryOrange,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
 
-          const SizedBox(width: 12),
+              const SizedBox(width: 12),
 
-          /// =======================
-          /// Rewards Card
-          /// =======================
-          Expanded(
-            child: GestureDetector(
-              onTap: () {
-                Get.toNamed(AppRoutes.rewards);
-              },
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 6,
-                      offset: Offset(0, 3),
+              /// =======================
+              /// Rewards Card
+              /// =======================
+              Expanded(
+                child: GestureDetector(
+                  onTap: () => Get.toNamed(AppRoutes.rewards),
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 6,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'assets/images/wallet/Yellow Five Pointed Star.png',
-                      width: 28,
-                      height: 28,
-                      errorBuilder: (context, error, stackTrace) {
-                        return const Icon(
-                          Icons.star,
-                          size: 28,
-                          color: Colors.orange,
-                        );
-                      },
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Rewards',
-                            style: AppTextStyles.caption.copyWith(
-                              color: Colors.grey[700],
-                            ),
-                            overflow: TextOverflow.ellipsis,
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          'assets/images/wallet/Yellow Five Pointed Star.png',
+                          width: 28,
+                          height: 28,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Icon(
+                              Icons.star,
+                              size: 28,
+                              color: accent, // ✅ Dynamic
+                            );
+                          },
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Rewards',
+                                style: AppTextStyles.caption.copyWith(
+                                  color: Colors.grey[700],
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                '${ctrl.rewardsCount} new',
+                                style: AppTextStyles.h3.copyWith(
+                                  color: accent, // ✅ Dynamic
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            '${ctrl.rewardsCount} new',
-                            style: AppTextStyles.h3.copyWith(
-                              color: AppColors.primaryOrange,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

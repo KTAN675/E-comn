@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../constant/app_colors.dart';
 import '../../../constant/app_text_styles.dart';
+import '../../theme/theme_controller.dart';
 
 class ProfileAndSettingController extends GetxController {
 
@@ -15,7 +16,7 @@ class ProfileAndSettingController extends GetxController {
 
   void setProfileImage(File image) {
     profileImage = image;
-    update(); // 🔥 UI refresh
+    update();
   }
 
   // =============================
@@ -24,8 +25,7 @@ class ProfileAndSettingController extends GetxController {
 
   final nameController = TextEditingController(text: 'Ghana Sawant');
   final phoneController = TextEditingController(text: '+91 9898989811');
-  final emailController =
-  TextEditingController(text: 'ghanasawant70@gmail.com');
+  final emailController = TextEditingController(text: 'ghanasawant70@gmail.com');
   final dobController = TextEditingController(text: '17/07/1999');
   final flatController = TextEditingController(text: '08/Rustomjee');
   final floorController = TextEditingController(text: '10th floor');
@@ -59,9 +59,8 @@ class ProfileAndSettingController extends GetxController {
   // =============================
 
   void updateProfile() {
-    update(); // 🔥 refresh ProfileWithSubscription
-
-    Get.back(); // 🔥 go back to profile card
+    update();
+    Get.back();
 
     Get.snackbar(
       'Profile Updated',
@@ -79,7 +78,6 @@ class ProfileAndSettingController extends GetxController {
 
   void toggleEnableAll(bool value) {
     enableAll = value;
-
     promosPush = value;
     promosEmail = value;
     promosWhatsapp = value;
@@ -87,35 +85,19 @@ class ProfileAndSettingController extends GetxController {
     ordersEmail = value;
     ordersWhatsapp = value;
     updatesEmail = value;
-
     update();
   }
 
   void toggleNotification(String key, bool value) {
     switch (key) {
-      case 'promosPush':
-        promosPush = value;
-        break;
-      case 'promosEmail':
-        promosEmail = value;
-        break;
-      case 'promosWhatsapp':
-        promosWhatsapp = value;
-        break;
-      case 'ordersPush':
-        ordersPush = value;
-        break;
-      case 'ordersEmail':
-        ordersEmail = value;
-        break;
-      case 'ordersWhatsapp':
-        ordersWhatsapp = value;
-        break;
-      case 'updatesEmail':
-        updatesEmail = value;
-        break;
+      case 'promosPush': promosPush = value; break;
+      case 'promosEmail': promosEmail = value; break;
+      case 'promosWhatsapp': promosWhatsapp = value; break;
+      case 'ordersPush': ordersPush = value; break;
+      case 'ordersEmail': ordersEmail = value; break;
+      case 'ordersWhatsapp': ordersWhatsapp = value; break;
+      case 'updatesEmail': updatesEmail = value; break;
     }
-
     _checkEnableAll();
     update();
   }
@@ -142,15 +124,17 @@ class ProfileAndSettingController extends GetxController {
   }
 
   void logout() {
+
+    // ✅ Get accent dynamically from ThemeController
+    final Color accent = Get.find<ThemeController>().currentAccent;
+
     Get.dialog(
       Dialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-
         child: Padding(
           padding: const EdgeInsets.all(20),
-
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -159,12 +143,12 @@ class ProfileAndSettingController extends GetxController {
               Container(
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
-                  color: AppColors.lightAccent,
+                  color: AppColors.lightAccent, // ✅ Dynamic static (updates via setTheme)
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.logout,
-                  color: AppColors.primaryOrange,
+                  color: accent, // ✅ Dynamic
                   size: 26,
                 ),
               ),
@@ -218,16 +202,14 @@ class ProfileAndSettingController extends GetxController {
                         Get.back();
                         Get.offAllNamed('/login');
                       },
-
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryOrange,
+                        backgroundColor: accent, // ✅ Dynamic
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                         elevation: 0,
                       ),
-
                       child: Text(
                         "Log out",
                         style: AppTextStyles.button,
@@ -242,6 +224,7 @@ class ProfileAndSettingController extends GetxController {
       ),
     );
   }
+
   @override
   void onClose() {
     nameController.dispose();

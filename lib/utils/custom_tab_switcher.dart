@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../constant/app_text_styles.dart';
 
-class CommonTabSwitcher extends StatelessWidget {
+class CommonTabSwitcher extends StatefulWidget {
   final List<String> tabs;
   final int selectedIndex;
   final Function(int) onTabChanged;
@@ -16,18 +16,33 @@ class CommonTabSwitcher extends StatelessWidget {
   });
 
   @override
+  State<CommonTabSwitcher> createState() => _CommonTabSwitcherState();
+}
+
+class _CommonTabSwitcherState extends State<CommonTabSwitcher> {
+  double _previousIndex = 0;
+
+  @override
+  void didUpdateWidget(CommonTabSwitcher oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.selectedIndex != widget.selectedIndex) {
+      _previousIndex = oldWidget.selectedIndex.toDouble();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
 
         /// 🔹 Tabs Row
         Row(
-          children: List.generate(tabs.length, (index) {
-            final isSelected = index == selectedIndex;
+          children: List.generate(widget.tabs.length, (index) {
+            final isSelected = index == widget.selectedIndex;
 
             return Expanded(
               child: GestureDetector(
-                onTap: () => onTabChanged(index),
+                onTap: () => widget.onTabChanged(index),
                 behavior: HitTestBehavior.opaque,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
@@ -38,11 +53,11 @@ class CommonTabSwitcher extends StatelessWidget {
                       fontWeight:
                       isSelected ? FontWeight.w700 : FontWeight.w500,
                       color: isSelected
-                          ? accent
+                          ? widget.accent
                           : Colors.grey.shade500,
                     ),
                     child: Center(
-                      child: Text(tabs[index]),
+                      child: Text(widget.tabs[index]),
                     ),
                   ),
                 ),
@@ -54,28 +69,28 @@ class CommonTabSwitcher extends StatelessWidget {
         /// 🔹 Animated Indicator
         LayoutBuilder(
           builder: (context, constraints) {
-            final tabWidth = constraints.maxWidth / tabs.length;
+            final tabWidth = constraints.maxWidth / widget.tabs.length;
 
             return SizedBox(
               height: 12,
               width: double.infinity,
               child: TweenAnimationBuilder<double>(
                 tween: Tween(
-                  begin: 0,
-                  end: selectedIndex.toDouble(),
+                  begin: _previousIndex,
+                  end: widget.selectedIndex.toDouble(),
                 ),
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeInOut,
                 builder: (context, animatedIndex, _) {
                   return CustomPaint(
                     painter: _WavePainter(
-                      tabs: tabs,
+                      tabs: widget.tabs,
                       animatedIndex: animatedIndex,
                       tabWidth: tabWidth,
                       textStyle: AppTextStyles.body.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
-                      accent: accent,
+                      accent: widget.accent,
                     ),
                   );
                 },
@@ -103,6 +118,18 @@ class _WavePainter extends CustomPainter {
     required this.accent,
   });
 
+  double _measureTextWidth(int index) {
+    final tp = TextPainter(
+      text: TextSpan(
+        text: tabs[index],
+        style: textStyle,
+      ),
+      maxLines: 1,
+      textDirection: TextDirection.ltr,
+    )..layout();
+    return tp.width;
+  }
+
   @override
   void paint(Canvas canvas, Size size) {
     final baseLinePaint = Paint()
@@ -120,23 +147,17 @@ class _WavePainter extends CustomPainter {
       baseLinePaint,
     );
 
-    // Calculate center position dynamically
-    final centerX =
-        (animatedIndex * tabWidth) + tabWidth / 2;
+    // Animated center X position
+    final centerX = (animatedIndex * tabWidth) + tabWidth / 2;
 
-    final int closestIndex = animatedIndex.round();
+    // ✅ Interpolate text width between two tabs for smooth animation
+    final int fromIndex = animatedIndex.floor().clamp(0, tabs.length - 1);
+    final int toIndex = animatedIndex.ceil().clamp(0, tabs.length - 1);
+    final double t = animatedIndex - fromIndex;
 
-    // Measure text width of target tab
-    final textPainter = TextPainter(
-      text: TextSpan(
-        text: tabs[closestIndex],
-        style: textStyle,
-      ),
-      maxLines: 1,
-      textDirection: TextDirection.ltr,
-    )..layout();
-
-    final textWidth = textPainter.width;
+    final fromWidth = _measureTextWidth(fromIndex);
+    final toWidth = _measureTextWidth(toIndex);
+    final textWidth = fromWidth + (toWidth - fromWidth) * t;
 
     final underlineLeft = centerX - textWidth / 2;
     final underlineTop = size.height - 3;
@@ -177,6 +198,7 @@ class _WavePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _WavePainter oldDelegate) {
     return oldDelegate.animatedIndex != animatedIndex ||
-        oldDelegate.accent != accent;
+        oldDelegate.accent != accent ||
+        oldDelegate.tabs != tabs;
   }
 }

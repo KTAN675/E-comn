@@ -28,6 +28,14 @@ class ProductDetailController extends GetxController {
     update();
   }
 
+  @override
+  void onInit() {
+    super.onInit();
+    theme.addListener(() {
+      update();
+    });
+  }
+
   /// =============================
   /// QUANTITY
   /// =============================
@@ -74,18 +82,21 @@ class ProductDetailController extends GetxController {
 
   final List<ProductModel> groceryBundleProducts = [
     ProductModel(
+      id: "bundle_g_1", // ✅
       title: "Cake Mix",
       image: "assets/images/products/cake.png",
       weight: "",
       price: 0,
     ),
     ProductModel(
+      id: "bundle_g_2", // ✅
       title: "Cookies",
       image: "assets/images/products/cookies.png",
       weight: "",
       price: 0,
     ),
     ProductModel(
+      id: "bundle_g_3", // ✅
       title: "Cream",
       image: "assets/images/products/cream.png",
       weight: "",
@@ -95,18 +106,21 @@ class ProductDetailController extends GetxController {
 
   final List<ProductModel> medicineBundleProducts = [
     ProductModel(
+      id: "bundle_m_1", // ✅
       title: "Vitamin C",
       image: "assets/images/medicine/flu_relief.png",
       weight: "1 bottle",
       price: 120,
     ),
     ProductModel(
+      id: "bundle_m_2", // ✅
       title: "Cough Syrup",
       image: "assets/images/medicine/cold_relief.png",
       weight: "100ml",
       price: 85,
     ),
     ProductModel(
+      id: "bundle_m_3", // ✅
       title: "Thermometer",
       image: "assets/images/medicine/cough_dx.png",
       weight: "1 unit",
@@ -204,6 +218,7 @@ class ProductDetailController extends GetxController {
 
   final List<ProductModel> groceryRrealtime_userendedProducts = [
     ProductModel(
+      id: "rec_g_1", // ✅
       title: "Dragon Fruit",
       image: "assets/images/products/dragon.png",
       weight: "500-800g / Pack",
@@ -212,6 +227,7 @@ class ProductDetailController extends GetxController {
       discount: 15,
     ),
     ProductModel(
+      id: "rec_g_2", // ✅
       title: "Banana",
       image: "assets/images/products/banana.png",
       weight: "500-800g / Pack",
@@ -220,6 +236,7 @@ class ProductDetailController extends GetxController {
       discount: 15,
     ),
     ProductModel(
+      id: "rec_g_3", // ✅
       title: "Kiwi",
       image: "assets/images/products/kiwi.png",
       weight: "500-800g / Pack",
@@ -228,6 +245,7 @@ class ProductDetailController extends GetxController {
       discount: 15,
     ),
     ProductModel(
+      id: "rec_g_4", // ✅
       title: "Grapes",
       image: "assets/images/products/grapes.png",
       weight: "500-800g / Pack",
@@ -239,18 +257,21 @@ class ProductDetailController extends GetxController {
 
   final List<ProductModel> medicineRrealtime_userendedProducts = [
     ProductModel(
+      id: "rec_m_1", // ✅
       title: "Paracetamol",
       image: "assets/images/medicine/paracetamol.png",
       weight: "10 tablets",
       price: 40,
     ),
     ProductModel(
+      id: "rec_m_2", // ✅
       title: "Pain Relief Spray",
       image: "assets/images/medicine/pain_spray.png",
       weight: "50ml",
       price: 160,
     ),
     ProductModel(
+      id: "rec_m_3", // ✅
       title: "Multivitamin Tablets",
       image: "assets/images/medicine/multivitamin.png",
       weight: "30 tablets",

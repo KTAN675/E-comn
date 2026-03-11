@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:realtime_user/modules/profile/profile_and_setting/widgets/logout_button.dart';
@@ -8,6 +7,7 @@ import 'package:realtime_user/modules/profile/profile_and_setting/widgets/wallet
 import '../../../constant/app_colors.dart';
 import '../../../constant/app_text_styles.dart';
 import '../../../routes/app_routes.dart';
+import '../../theme/theme_controller.dart';
 import 'profile_and_setting_controller.dart';
 
 class ProfileAndSettingView extends GetView<ProfileAndSettingController> {
@@ -15,79 +15,79 @@ class ProfileAndSettingView extends GetView<ProfileAndSettingController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.black),
-          onPressed: () => Get.back(),
-        ),
-        centerTitle: true,
-        title: Text('Profile', style: AppTextStyles.h2),
-      ),
-      body: GetBuilder<ProfileAndSettingController>(
-        builder: (ctrl) {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 8),
+    return GetBuilder<ThemeController>(
+      builder: (theme) {
 
-                /// 🔹 Profile Card
-                ProfileWithSubscription(key: key),
+        final Color accent = theme.currentAccent; // ✅ Dynamic accent
 
-                const SizedBox(height: 12),
-
-                /// 🔹 Subscription Banner
-             //   const SubscriptionBanner(),
-
-                const SizedBox(height: 12),
-
-                /// 🔹 Wallet & Rewards
-                WalletRewardsRow(ctrl: ctrl),
-
-                const SizedBox(height: 8),
-
-                /// 🔹 Menu Itemsss
-                ProfileMenuItem(
-                  icon: Icons.shopping_bag_outlined,
-                  title: 'Past Orders',
-                  onTap: () =>
-                      Get.toNamed(AppRoutes.orders),
-                ),
-                ProfileMenuItem(
-                  icon: Icons.notifications_none_outlined,
-                  title: 'Notification',
-                  onTap: () =>
-                      Get.toNamed(AppRoutes.notificationSettings),
-                ),
-                ProfileMenuItem(
-                  icon: Icons.help_outline,
-                  title: 'Help & Support',
-                  onTap: () =>
-                      Get.toNamed(AppRoutes.help_and_faqs),
-                ),
-                ProfileMenuItem(
-                  icon: Icons.map,
-                  title: 'Saved Address',
-                  onTap: () =>
-                      Get.toNamed(AppRoutes.address),
-                ),
-
-                const SizedBox(height: 16),
-
-                /// 🔹 Logout
-                LogoutButton(
-                  onTap: ctrl.logout,
-                ),
-
-                const SizedBox(height: 32),
-              ],
+        return Scaffold(
+          backgroundColor: AppColors.white,
+          appBar: AppBar(
+            backgroundColor: AppColors.white,
+            elevation: 0,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back, color: AppColors.black),
+              onPressed: () => Get.back(),
             ),
-          );
-        },
-      ),
+            centerTitle: true,
+            title: Text('Profile', style: AppTextStyles.h2),
+          ),
+          body: GetBuilder<ProfileAndSettingController>(
+            builder: (ctrl) {
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 8),
+
+                    /// 🔹 Profile Card
+                    ProfileWithSubscription(key: key),
+
+                    const SizedBox(height: 12),
+
+                    const SizedBox(height: 12),
+
+                    /// 🔹 Wallet & Rewards
+                    WalletRewardsRow(ctrl: ctrl),
+
+                    const SizedBox(height: 8),
+
+                    /// 🔹 Menu Items
+                    ProfileMenuItem(
+                      icon: Icons.shopping_bag_outlined,
+                      title: 'Past Orders',
+                      onTap: () => Get.toNamed(AppRoutes.orders),
+                    ),
+                    ProfileMenuItem(
+                      icon: Icons.notifications_none_outlined,
+                      title: 'Notification',
+                      onTap: () => Get.toNamed(AppRoutes.notificationSettings),
+                    ),
+                    ProfileMenuItem(
+                      icon: Icons.help_outline,
+                      title: 'Help & Support',
+                      onTap: () => Get.toNamed(AppRoutes.help_and_faqs),
+                    ),
+                    ProfileMenuItem(
+                      icon: Icons.map,
+                      title: 'Saved Address',
+                      onTap: () => Get.toNamed(AppRoutes.address),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    /// 🔹 Logout
+                    LogoutButton(
+                      onTap: ctrl.logout,
+                    ),
+
+                    const SizedBox(height: 32),
+                  ],
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

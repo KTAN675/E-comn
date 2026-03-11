@@ -16,6 +16,6 @@ class MainShellBinding extends Bindings {
     Get.lazyPut<CategoryController>(() => CategoryController());
     Get.lazyPut<CartController>(() => CartController());
     Get.lazyPut<OrdersController>(() => OrdersController());
-    Get.lazyPut<WishlistController>(() => WishlistController());
+    Get.put<WishlistController>(WishlistController(), permanent: true);
   }
 }

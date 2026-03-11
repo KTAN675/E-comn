@@ -1,5 +1,7 @@
-import 'package:realtime_user/constant/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+//import '../../../modules/theme/theme_controller.dart';
+import '../../../theme/theme_controller.dart';
 import 'product_image_card.dart';
 
 class ProductImageCarousel extends StatefulWidget {
@@ -25,51 +27,57 @@ class _ProductImageCarouselState extends State<ProductImageCarousel> {
   @override
   Widget build(BuildContext context) {
 
-    return Column(
-      children: [
+    return GetBuilder<ThemeController>(
+      builder: (theme) {
 
-        /// CAROUSEL
-        SizedBox(
-          height: 260,
-          child: PageView.builder(
-            controller: _controller,
-            itemCount: widget.images.length,
-            onPageChanged: (index) {
-              setState(() {
-                currentIndex = index;
-              });
-            },
-            itemBuilder: (_, index) {
+        final Color accent = theme.currentAccent; // ✅ Dynamic accent
 
-              return ProductImageCard(
-                image: widget.images[index],
-              );
-            },
-          ),
-        ),
+        return Column(
+          children: [
 
-        const SizedBox(height: 12),
-
-        /// DOT INDICATOR
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-            widget.images.length,
-                (index) => AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              margin: const EdgeInsets.symmetric(horizontal: 4),
-              width: currentIndex == index ? 8 : 6,
-              height: currentIndex == index ? 8 : 6,
-              decoration: BoxDecoration(
-                color: currentIndex == index
-                    ? AppColors.primaryOrange
-                    : Colors.grey.shade400,
-                shape: BoxShape.circle,
+            /// CAROUSEL
+            SizedBox(
+              height: 260,
+              child: PageView.builder(
+                controller: _controller,
+                itemCount: widget.images.length,
+                onPageChanged: (index) {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
+                itemBuilder: (_, index) {
+                  return ProductImageCard(
+                    image: widget.images[index],
+                  );
+                },
               ),
             ),
-          ),
-        ),
-      ],
+
+            const SizedBox(height: 12),
+
+            /// DOT INDICATOR
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                widget.images.length,
+                    (index) => AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  width: currentIndex == index ? 8 : 6,
+                  height: currentIndex == index ? 8 : 6,
+                  decoration: BoxDecoration(
+                    color: currentIndex == index
+                        ? accent // ✅ Dynamic
+                        : Colors.grey.shade400,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

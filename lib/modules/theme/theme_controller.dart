@@ -25,9 +25,11 @@ class ThemeController extends GetxController {
     if (isGrocery) {
       currentTheme = AppThemeMode.medicine;
       AppColors.setMedicineTheme();
+      currentAccent = AppColors.secondaryCyan; // ✅ ADD THIS
     } else {
       currentTheme = AppThemeMode.grocery;
       AppColors.setGroceryTheme();
+      currentAccent = AppColors.primaryOrange; // ✅ ADD THIS
     }
 
     update();

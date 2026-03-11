@@ -104,6 +104,7 @@ class ProductListingController extends GetxController {
 
   List<ProductModel> groceryProducts = [
     ProductModel(
+      id: "list_g_1", // ✅
       title: "Strawberry",
       image: "assets/images/products/strawberry.png",
       weight: "150–200g /pack",
@@ -112,6 +113,7 @@ class ProductListingController extends GetxController {
       discount: 10,
     ),
     ProductModel(
+      id: "list_g_2", // ✅
       title: "Banana",
       image: "assets/images/products/banana.png",
       weight: "100g /pack",
@@ -120,6 +122,7 @@ class ProductListingController extends GetxController {
       discount: 12,
     ),
     ProductModel(
+      id: "list_g_3", // ✅
       title: "Dragon Fruit",
       image: "assets/images/products/dragon.png",
       weight: "150–200g /pack",
@@ -131,6 +134,7 @@ class ProductListingController extends GetxController {
 
   List<ProductModel> medicineProducts = [
     ProductModel(
+      id: "list_m_1", // ✅
       title: "ColdRelief Plus",
       image: "assets/images/medicine/cold_relief.png",
       weight: "1 /pack",
@@ -139,6 +143,7 @@ class ProductListingController extends GetxController {
       discount: 10,
     ),
     ProductModel(
+      id: "list_m_2", // ✅
       title: "ColdEa Capsules",
       image: "assets/images/medicine/cold_capsule.png",
       weight: "2 /pack",
@@ -147,6 +152,7 @@ class ProductListingController extends GetxController {
       discount: 5,
     ),
     ProductModel(
+      id: "list_m_3", // ✅
       title: "FluRelief Max",
       image: "assets/images/medicine/flu_relief.png",
       weight: "3 /pack",
@@ -155,6 +161,7 @@ class ProductListingController extends GetxController {
       discount: 30,
     ),
     ProductModel(
+      id: "list_m_4", // ✅
       title: "CoughCare DX",
       image: "assets/images/medicine/cough_dx.png",
       weight: "1 /pack",

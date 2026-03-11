@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:realtime_user/modules/profile/Help%20&%20FAQs/widgets/contact_us_dialog.dart';
 import 'package:realtime_user/modules/profile/Help%20&%20FAQs/widgets/faq_item.dart';
 import 'package:realtime_user/modules/profile/Help%20&%20FAQs/widgets/topic_card.dart';
-
 import '../../../constant/app_colors.dart';
 import '../../../utils/app_primary_button.dart';
 import '../../theme/theme_controller.dart';
@@ -15,17 +14,17 @@ class HelpFaqsView extends GetView<HelpFaqsController> {
   @override
   Widget build(BuildContext context) {
 
-    final themeController = Get.find<ThemeController>();
-
     return GetBuilder<ThemeController>(
       builder: (theme) {
+
+        final Color accent = theme.currentAccent; // ✅ Dynamic accent
 
         return Scaffold(
           backgroundColor: Colors.grey.shade100,
 
           /// APP BAR
           appBar: AppBar(
-            backgroundColor: theme.currentAccent,
+            backgroundColor: accent, // ✅ Dynamic
             elevation: 0,
             leading: GestureDetector(
               onTap: () => Get.back(),
@@ -63,14 +62,14 @@ class HelpFaqsView extends GetView<HelpFaqsController> {
                       children: [
                         Icon(
                           Icons.wechat_outlined,
-                          color: theme.currentAccent,
+                          color: accent, // ✅ Dynamic
                           size: 16,
                         ),
                         const SizedBox(width: 6),
                         Text(
                           "Contact Us",
                           style: TextStyle(
-                            color: theme.currentAccent,
+                            color: accent, // ✅ Dynamic
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                           ),
@@ -110,15 +109,9 @@ class HelpFaqsView extends GetView<HelpFaqsController> {
                   physics: const NeverScrollableScrollPhysics(),
                   children: const [
                     TopicCard(title: "Account", icon: Icons.person),
-                    TopicCard(
-                        title: "Return & Exchange",
-                        icon: Icons.local_shipping),
-                    TopicCard(
-                        title: "Payments",
-                        icon: Icons.currency_rupee),
-                    TopicCard(
-                        title: "Cancellation & Charges",
-                        icon: Icons.event_busy),
+                    TopicCard(title: "Return & Exchange", icon: Icons.local_shipping),
+                    TopicCard(title: "Payments", icon: Icons.currency_rupee),
+                    TopicCard(title: "Cancellation & Charges", icon: Icons.event_busy),
                   ],
                 ),
 
@@ -148,7 +141,6 @@ class HelpFaqsView extends GetView<HelpFaqsController> {
                           question: controller.faqList[index]["question"]!,
                           answer: controller.faqList[index]["answer"]!,
                           isOpen: controller.selectedFaq == index,
-                        //  onTap: () => controller.toggleFaq(index),
                         );
                       },
                     );
@@ -169,18 +161,21 @@ class HelpFaqsView extends GetView<HelpFaqsController> {
                 const SizedBox(height: 10),
 
                 /// TextField
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.grey.shade300),
-                  ),
-                  child: const TextField(
-                    maxLines: 4,
-                    decoration: InputDecoration(
-                      hintText: "Ask here",
-                      border: InputBorder.none,
-                      contentPadding: EdgeInsets.all(14),
+                /// TextField
+                TextField(
+                  maxLines: 4,
+                  decoration: InputDecoration(
+                    hintText: "Ask here",
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding: const EdgeInsets.all(14),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.grey.shade300),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: accent, width: 1.5),
                     ),
                   ),
                 ),
@@ -202,21 +197,21 @@ class HelpFaqsView extends GetView<HelpFaqsController> {
                 const SizedBox(height: 30),
 
                 /// Contact Section
-                const Center(
+                Center(
                   child: Column(
                     children: [
                       Text(
                         "Contact Us On : 2523624411",
                         style: TextStyle(
-                          color: AppColors.primaryOrange,
+                          color: accent, // ✅ Dynamic
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(height: 6),
+                      const SizedBox(height: 6),
                       Text(
                         "Email At - caindan233@gmail.com",
                         style: TextStyle(
-                          color: AppColors.primaryOrange,
+                          color: accent, // ✅ Dynamic
                           fontWeight: FontWeight.w500,
                         ),
                       ),

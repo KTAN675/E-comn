@@ -63,8 +63,10 @@ class CartController extends GetxController {
   void decreaseQty(int index) {
     if (cartItems[index].quantity > 1) {
       cartItems[index].quantity--;
-      update();
+    } else {
+      cartItems.removeAt(index); // ✅ quantity 1 pe minus karo → auto remove
     }
+    update();
   }
 
   /// MOVE TO WISHLIST
@@ -129,8 +131,8 @@ class CartController extends GetxController {
 
   /// Rrealtime_userENDED PRODUCTS
   List<ProductModel> rrealtime_userendedProducts = [
-
     ProductModel(
+      id: "cart_rec_1", // ✅
       title: "Strawberry",
       subtitle: "Mahabaleshwar",
       image: "assets/images/products/strawberry.png",
@@ -139,8 +141,8 @@ class CartController extends GetxController {
       oldPrice: 50,
       discount: 10,
     ),
-
     ProductModel(
+      id: "cart_rec_2", // ✅
       title: "Banana",
       subtitle: "Fresh & Sweet",
       image: "assets/images/products/banana.png",
@@ -149,8 +151,8 @@ class CartController extends GetxController {
       oldPrice: 32,
       discount: 12,
     ),
-
     ProductModel(
+      id: "cart_rec_3", // ✅
       title: "Dragon Fruit",
       subtitle: "Exotic Fresh",
       image: "assets/images/products/dragon.png",
@@ -158,7 +160,6 @@ class CartController extends GetxController {
       price: 35.40,
       oldPrice: 50,
     ),
-
   ];
 
   List<PaymentMethodModel> paymentMethods = [

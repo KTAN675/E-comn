@@ -73,7 +73,7 @@ class NotificationView extends GetView<NotificationController> {
                       accent: accent,
                     ),
 
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 4),
 
                     /// 🔹 TAB CONTENT
                     Expanded(

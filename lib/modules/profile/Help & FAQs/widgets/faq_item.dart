@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../../constant/app_colors.dart';
+import '../../../theme/theme_controller.dart';
 
 class FaqItem extends StatelessWidget {
   final int index;
   final String question;
   final String answer;
   final bool isOpen;
-//  final VoidCallback onTap;
 
   const FaqItem({
     super.key,
@@ -14,69 +15,74 @@ class FaqItem extends StatelessWidget {
     required this.question,
     required this.answer,
     required this.isOpen,
-  //  required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+    return GetBuilder<ThemeController>(
+      builder: (theme) {
 
-          /// Red Bold Number
-          Text(
-            index < 9 ? "0${index + 1}" : "${index + 1}",
-            style: const TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
-              color: AppColors.primaryOrange,
-            ),
-          ),
+        final Color accent = theme.currentAccent; // ✅ Dynamic accent
 
-          const SizedBox(height: 6),
-
-          /// Question + Plain Icon
-          Row(
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 24),
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Text(
-                  question,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
+
+              /// Red Bold Number
+              Text(
+                index < 9 ? "0${index + 1}" : "${index + 1}",
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: accent, // ✅ Dynamic
+                ),
+              ),
+
+              const SizedBox(height: 6),
+
+              /// Question + Plain Icon
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Text(
+                      question,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  GestureDetector(
+                    child: Icon(
+                      isOpen ? Icons.cancel : Icons.add,
+                      color: accent, // ✅ Dynamic
+                      size: 26,
+                    ),
+                  ),
+                ],
+              ),
+
+              /// Answer
+              if (isOpen) ...[
+                const SizedBox(height: 10),
+                Text(
+                  answer,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey.shade600,
+                    height: 1.6,
                   ),
                 ),
-              ),
-              const SizedBox(width: 8),
-              GestureDetector(
-              //  onTap: onTap,
-                child: Icon(
-                  isOpen ? Icons.cancel : Icons.add,
-                  color: AppColors.primaryOrange,
-                  size: 26,
-                ),
-              ),
+              ],
             ],
           ),
-
-          /// Answer
-          if (isOpen) ...[
-            const SizedBox(height: 10),
-            Text(
-              answer,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey.shade600,
-                height: 1.6,
-              ),
-            ),
-          ],
-        ],
-      ),
+        );
+      },
     );
   }
 }

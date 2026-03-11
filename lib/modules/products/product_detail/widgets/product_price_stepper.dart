@@ -1,6 +1,7 @@
-import 'package:realtime_user/constant/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../../constant/app_text_styles.dart';
+import '../../../theme/theme_controller.dart';
 
 class ProductPriceStepper extends StatelessWidget {
 
@@ -22,50 +23,57 @@ class ProductPriceStepper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        children: [
+    return GetBuilder<ThemeController>(
+      builder: (theme) {
 
-          Text(
-            "\$ ${oldPrice.toStringAsFixed(2)}",
-            style: AppTextStyles.strikePrice,
-          ),
+        final Color accent = theme.currentAccent; // ✅ Dynamic accent
 
-          const SizedBox(width: 10),
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            children: [
 
-          Text(
-            "\$ ${price.toStringAsFixed(2)}",
-            style: AppTextStyles.price.copyWith(color: Colors.green),
-          ),
+              Text(
+                "\$ ${oldPrice.toStringAsFixed(2)}",
+                style: AppTextStyles.strikePrice,
+              ),
 
-          const Spacer(),
+              const SizedBox(width: 10),
 
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey.shade200,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              children: [
+              Text(
+                "\$ ${price.toStringAsFixed(2)}",
+                style: AppTextStyles.price.copyWith(color: Colors.green),
+              ),
 
-                IconButton(
-                  icon: const Icon(Icons.remove),
-                  onPressed: onRemove,
+              const Spacer(),
+
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  borderRadius: BorderRadius.circular(10),
                 ),
+                child: Row(
+                  children: [
 
-                Text(qty.toString()),
+                    IconButton(
+                      icon: const Icon(Icons.remove),
+                      onPressed: onRemove,
+                    ),
 
-                IconButton(
-                  icon: const Icon(Icons.add),
-                  color: AppColors.primaryOrange,
-                  onPressed: onAdd,
+                    Text(qty.toString()),
+
+                    IconButton(
+                      icon: const Icon(Icons.add),
+                      color: accent, // ✅ Dynamic
+                      onPressed: onAdd,
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          )
-        ],
-      ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

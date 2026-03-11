@@ -87,6 +87,7 @@ class DashboardController extends GetxController {
 
   List<ProductModel> groceryFlashProducts = [
     ProductModel(
+      id: "g_flash_1", // ✅
       title: "Chicken breast frozen",
       image: "assets/images/products/chicken_breast.png",
       weight: "450–500gr /pack",
@@ -94,6 +95,7 @@ class DashboardController extends GetxController {
       discount: 30,
     ),
     ProductModel(
+      id: "g_flash_2", // ✅
       title: "Chicken breast frozen",
       image: "assets/images/products/eggs.png",
       weight: "0.9–1kg /pack",
@@ -102,6 +104,7 @@ class DashboardController extends GetxController {
       discount: 35,
     ),
     ProductModel(
+      id: "g_flash_3", // ✅
       title: "Beef meat slice",
       image: "assets/images/products/beef.png",
       weight: "450–500gr /pack",
@@ -113,6 +116,7 @@ class DashboardController extends GetxController {
 
   List<ProductModel> groceryTodaysSpecials = [
     ProductModel(
+      id: "g_special_1", // ✅
       title: "Australia beef tenderloin",
       image: "assets/images/products/chicken_breast.png",
       weight: "450–500gr /pack",
@@ -121,12 +125,14 @@ class DashboardController extends GetxController {
       discount: 20,
     ),
     ProductModel(
+      id: "g_special_2", // ✅
       title: "Omega chicken eggs",
       image: "assets/images/products/eggs.png",
       weight: "0.9–1kg /pack",
       price: 15.00,
     ),
     ProductModel(
+      id: "g_special_3", // ✅
       title: "Cavendish baby banana",
       image: "assets/images/products/beef.png",
       weight: "450–500gr /pack",
@@ -140,6 +146,7 @@ class DashboardController extends GetxController {
 
   List<ProductModel> medicineFlashProducts = [
     ProductModel(
+      id: "m_flash_1", // ✅
       title: "ColdRelief Plus",
       image: "assets/images/medicine/cold_relief.png",
       weight: "1 /pack",
@@ -148,6 +155,7 @@ class DashboardController extends GetxController {
       discount: 10,
     ),
     ProductModel(
+      id: "m_flash_2", // ✅
       title: "ColdRelief Plus",
       image: "assets/images/medicine/cold_relief.png",
       weight: "1 /pack",
@@ -156,6 +164,7 @@ class DashboardController extends GetxController {
       discount: 10,
     ),
     ProductModel(
+      id: "m_flash_3", // ✅
       title: "ColdRelief Plus",
       image: "assets/images/medicine/cold_relief.png",
       weight: "1 /pack",
@@ -167,6 +176,7 @@ class DashboardController extends GetxController {
 
   List<ProductModel> medicineTodaysSpecials = [
     ProductModel(
+      id: "m_special_1", // ✅
       title: "ColdRelief Plus",
       image: "assets/images/medicine/cold_relief.png",
       weight: "1 /pack",
@@ -175,6 +185,7 @@ class DashboardController extends GetxController {
       discount: 10,
     ),
     ProductModel(
+      id: "m_special_2", // ✅
       title: "ColdRelief Plus",
       image: "assets/images/medicine/cold_relief.png",
       weight: "1 /pack",
@@ -183,6 +194,7 @@ class DashboardController extends GetxController {
       discount: 10,
     ),
     ProductModel(
+      id: "m_special_3", // ✅
       title: "ColdRelief Plus",
       image: "assets/images/medicine/cold_relief.png",
       weight: "1 /pack",
@@ -191,6 +203,7 @@ class DashboardController extends GetxController {
       discount: 10,
     ),
   ];
+
 
   List<ProductModel> get flashProducts =>
       isGrocery ? groceryFlashProducts : medicineFlashProducts;
@@ -206,12 +219,14 @@ class DashboardController extends GetxController {
 
   List<ProductModel> todaysChoices = [
     ProductModel(
+      id: "tab_1", // ✅
       title: "MF chicken sausage cheese",
       image: "assets/images/products/sausage.png",
       weight: "200–250gr /pack",
       price: 17.50,
     ),
     ProductModel(
+      id: "tab_2", // ✅
       title: "Strawberry premium all season",
       image: "assets/images/products/strawberry.png",
       weight: "85–90gr /pack",
@@ -220,6 +235,7 @@ class DashboardController extends GetxController {
       discount: 25,
     ),
     ProductModel(
+      id: "tab_3", // ✅
       title: "Red watermelon fresh",
       image: "assets/images/products/watermelon.png",
       weight: "3–3.5kg /pack",
@@ -228,6 +244,7 @@ class DashboardController extends GetxController {
       discount: 10,
     ),
     ProductModel(
+      id: "tab_4", // ✅
       title: "Salmon fish fillet fresh",
       image: "assets/images/products/salmon.png",
       weight: "180–200gr /pack",

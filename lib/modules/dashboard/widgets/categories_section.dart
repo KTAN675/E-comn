@@ -36,14 +36,14 @@ class CategoriesSection extends StatelessWidget {
         children: [
 
           /// Header
-          Text(
-            "Categories",
-            style: AppTextStyles.h2.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          // Text(
+          //   "Categories",
+          //   style: AppTextStyles.h2.copyWith(
+          //     fontWeight: FontWeight.w600,
+          //   ),
+          // ),
 
-          const SizedBox(height: 16),
+          // const SizedBox(height: 16),
 
           /// GRID
           GridView.builder(
@@ -53,8 +53,8 @@ class CategoriesSection extends StatelessWidget {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               crossAxisSpacing: 16,
-              mainAxisSpacing: 18,
-              childAspectRatio: 0.68,
+              mainAxisSpacing: 10,
+              childAspectRatio: 0.75,
             ),
             itemBuilder: (context, index) {
 
@@ -67,8 +67,8 @@ class CategoriesSection extends StatelessWidget {
 
                     /// CATEGORY CARD
                     Container(
-                      height: 100,
-                      width: double.infinity,
+                      height: 70,
+                      width: 70,
                       decoration: BoxDecoration(
                         color: Colors.grey.shade200,
                         borderRadius: BorderRadius.circular(18),
@@ -76,7 +76,7 @@ class CategoriesSection extends StatelessWidget {
                       child: Center(
                         child: Image.asset(
                           category.image,
-                          height: 65,
+                          height: 50,
                           fit: BoxFit.contain,
                         ),
                       ),

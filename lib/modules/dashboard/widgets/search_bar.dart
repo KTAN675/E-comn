@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../constant/app_colors.dart';
+import 'package:get/get.dart';
 import '../../../constant/app_text_styles.dart';
 import '../../../utils/segment_toggle.dart';
+import '../../theme/theme_controller.dart';
 
 class SearchBarSection extends StatelessWidget {
   final VoidCallback? onTap;
@@ -17,66 +18,67 @@ class SearchBarSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accent = AppColors.accent;
+    return GetBuilder<ThemeController>(
+      builder: (theme) {
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Row(
-        children: [
-          /// 🔹 Search Bar
-          Expanded(
-            child: Container(
-              height: 54,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.05),
-                    blurRadius: 12,
-                    offset: const Offset(0, 6),
+        final Color accent = theme.currentAccent; // ✅ Dynamic accent
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Row(
+            children: [
+
+              /// 🔹 Search Bar
+              Expanded(
+                child: Container(
+                  height: 54,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        blurRadius: 12,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: TextField(
-                controller: controller,
-                onTap: onTap,
-                onChanged: onChanged,
-                style: AppTextStyles.bodyLarge,
-                cursorColor: accent,
-                decoration: InputDecoration(
-                  hintText: "What’s your daily needs?",
-                  hintStyle: AppTextStyles.bodyGrey,
-                  border: InputBorder.none,
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 16,
-                  ),
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 16),
-                    child: Icon(
-                      Icons.search,
-                      color: accent,
-                     // showShadow: false,
+                  child: TextField(
+                    controller: controller,
+                    onTap: onTap,
+                    onChanged: onChanged,
+                    style: AppTextStyles.bodyLarge,
+                    cursorColor: accent, // ✅ Dynamic
+                    decoration: InputDecoration(
+                      hintText: "What's your daily needs?",
+                      hintStyle: AppTextStyles.bodyGrey,
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 16,
+                      ),
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: Icon(
+                          Icons.search,
+                          color: accent, // ✅ Dynamic
+                        ),
+                      ),
+                      suffixIconConstraints:
+                      const BoxConstraints(minWidth: 40, minHeight: 40),
                     ),
                   ),
-                  suffixIconConstraints:
-                  const BoxConstraints(minWidth: 40, minHeight: 40),
                 ),
               ),
-            ),
-          ),
 
-          const SizedBox(width:2 ),
+              const SizedBox(width: 2),
 
-          /// 🔹 Theme Toggle
-          const Positioned(
-            top: 16,
-            right: 16,
-            child: ThemeToggle(),
+              /// 🔹 Theme Toggle
+              const ThemeToggle(), // ✅ Removed invalid Positioned wrapper
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

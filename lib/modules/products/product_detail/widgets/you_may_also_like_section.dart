@@ -19,7 +19,8 @@ class YouMayAlsoLikeSection extends StatelessWidget {
 
     return GetBuilder<ThemeController>(
       builder: (theme) {
-        final Color accent = AppColors.accent;
+
+        final Color accent = theme.currentAccent; // ✅ Fixed
 
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -31,12 +32,10 @@ class YouMayAlsoLikeSection extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   Text(
                     "You may also like",
                     style: AppTextStyles.h3,
                   ),
-
                   Text(
                     "View All",
                     style: AppTextStyles.accent(accent),
@@ -58,12 +57,10 @@ class YouMayAlsoLikeSection extends StatelessWidget {
                   childAspectRatio: .63,
                 ),
                 itemBuilder: (_, i) {
-
                   final product = products[i];
-
                   return ProductCardMedium(
                     product: product,
-                    accent: accent,
+                    accent: accent, // ✅ Dynamic
                     discountColor: Colors.red,
                     onAdd: () {},
                   );

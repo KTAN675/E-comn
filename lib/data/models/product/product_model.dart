@@ -1,14 +1,16 @@
 class ProductModel {
+  final String id; // ✅ Add karo
   final String title;
   final String? subtitle;
   final String image;
   final String weight;
   final double price;
   final double? oldPrice;
-  final int? discount; // percentage
+  final int? discount;
   final bool isFavorite;
 
-  ProductModel( {
+  ProductModel({
+    required this.id, // ✅ Add karo
     required this.title,
     this.subtitle,
     required this.image,
